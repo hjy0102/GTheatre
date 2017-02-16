@@ -1,6 +1,6 @@
 <?php
 require "./framework/core/Framework.class.php";
-require "./application/models/dbConnect.class.php";
+//require "./application/models/dbConnect.class.php";
 
 //Framework::run();
 
