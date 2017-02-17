@@ -26,7 +26,8 @@
     ],
 
   "require": {
-      "php": "^5.5.12"
+      "php": "^5.5.12",
+      "ext-mysqli": "*"
   },
   "require-dev": {
     "heroku/heroku-buildpack-php": "*"
