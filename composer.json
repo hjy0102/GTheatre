@@ -1,9 +1,32 @@
 {
-  "require" : {
-    "silex/silex": "^1.3",
-    "monolog/monolog": "^1.4",
-    "twig/twig": "^1.8",
-    "symfony/twig-bridge": "^2"
+  "name": "GTheatre",
+  "version": "1.0",
+  "description": "Movie ticket reservation web application",
+  "authors": [
+        {
+            "name": "Hyojin Yi",
+            "email": "hyojinyi@live.ca",
+            "role": "Developer"
+        },
+        {
+            "name": "David Jeongwoo Park",
+            "email": "jwpark511@gmail.com",
+            "role": "Developer"
+        },
+        {
+          "name": "Sean Lennaerts",
+          "email": "seanlennaerts@me.com",
+          "role": "Developer"
+        },
+        {
+          "name": "Mike Yoon",
+          "email": "mikeyoon@hotmail.ca",
+          "role": "Developer"
+        }
+    ],
+
+  "require": {
+      "php": "^5.5.12"
   },
   "require-dev": {
     "heroku/heroku-buildpack-php": "*"
