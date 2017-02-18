@@ -4,6 +4,7 @@ require "./application/models/dbConnect.class.php";
 
 //Framework::run();
 
-echo"Hello World, from index.php"
+echo"Hello World, from index.php";
+
 ?>
 
