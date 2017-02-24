@@ -100,3 +100,4 @@ INSERT INTO Customers values(8948392921823922, 'jwpark', '304bestcourseever', 'D
 INSERT INTO Customers values(8934712734823923, 'mikeeyoon', 'makecpscgreatagain', 'Mike');
 INSERT INTO Customers values(9000340918239329, 'prettyprincess', 'MakeMikeGreatAgain2', 'Mike');
 
+-- 
