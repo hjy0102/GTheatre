@@ -87,5 +87,9 @@ CREATE TABLE Buys
 
 -- Insert TheatreHall data
 
-INSERT INTO TheatreHalls values( )
+INSERT INTO TheatreHalls values(1, 140);
+INSERT INTO TheatreHalls values(2, 150);
+INSERT INTO TheatreHalls values(3, 200);
+INSERT INTO TheatreHalls values(4, 220);
+INSERT INTO TheatreHalls values(5, 200);
 
