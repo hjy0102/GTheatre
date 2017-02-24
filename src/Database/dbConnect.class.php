@@ -38,7 +38,7 @@ class DBConnection {
 
     }
 
-    public function selectQuery($query) : array {
+    public function selectQuery($query){
         $queryResult = $this-> DBConnection->query($query);
         $queryArr = mysqli_result::fetch_array($queryResult, MYSQLI_ASSOC);
 
@@ -46,7 +46,7 @@ class DBConnection {
 
     }
 
-    public function selectMultipleRowsQuery($q) : array {
+    public function selectMultipleRowsQuery($q){
 
         $queryResult = $this->DBConnection->query($q);
         $queryArr = mysqli_result::fetch_all($queryResult, MYSQLI_ASSOC);
