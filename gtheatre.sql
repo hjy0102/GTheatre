@@ -120,7 +120,3 @@ INSERT INTO Movies values('Cinderella', 2015, 'G', 106,80, 3);
 INSERT INTO Movies values('Frozen', 2013, 'G', 102,121, 3);
 INSERT INTO Movies values('Zootopia', 2016, 'G', 108,60, 2);
 INSERT INTO Movies values('LaLaLand', 2016, 'PG', 128,99, 99);
-
-
-
-

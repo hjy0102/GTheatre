@@ -26,10 +26,21 @@
     ],
 
   "require": {
-      "php": "^5.5.12",
-      "ext-mysqli": "*"
+    "php": ">=5.0.0",
+    "filp/whoops": ">=1.1.2",
+    "patricklouys/http": "~1.4",
+    "nikic/fast-route": ">1.0",
+    "rdlowrey/auryn": ">1.0",
+    "twig/twig": "~1.0"
   },
+
   "require-dev": {
     "heroku/heroku-buildpack-php": "*"
+  },
+
+  "autoload": {
+    "psr-4": {
+      "GTheatre\\": "src/"
+    }
   }
 }
