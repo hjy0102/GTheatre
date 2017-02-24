@@ -93,3 +93,10 @@ INSERT INTO TheatreHalls values(3, 200);
 INSERT INTO TheatreHalls values(4, 220);
 INSERT INTO TheatreHalls values(5, 200);
 
+-- INSERT Customer data
+INSERT INTO Customers values(1672789028338884, 'seanlennaerts', 'password123', 'Sean');
+INSERT INTO Customers values(1234809109292392, 'ginnieisawesome304', '123456789', 'Ginnie');
+INSERT INTO Customers values(8948392921823922, 'jwpark', '304bestcourseever', 'David');
+INSERT INTO Customers values(8934712734823923, 'mikeeyoon', 'makecpscgreatagain', 'Mike');
+INSERT INTO Customers values(9000340918239329, 'prettyprincess', 'MakeMikeGreatAgain2', 'Mike');
+
