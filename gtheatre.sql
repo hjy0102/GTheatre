@@ -113,3 +113,14 @@ INSERT INTO Foods values('Pretzels', 14);
 INSERT INTO Foods values('Corndogs', 1);
 INSERT INTO Foods values('Poutine', 15);
 INSERT INTO Foods values('Nachos', 5);
+
+-- INSERT Movie data
+INSERT INTO Movies values('Star Wars: The Force Awakens', 2015, 'PG-13', 136,135, 2);
+INSERT INTO Movies values('Cinderella', 2015, 'G', 106,80, 3);
+INSERT INTO Movies values('Frozen', 2013, 'G', 102,121, 3);
+INSERT INTO Movies values('Zootopia', 2016, 'G', 108,60, 2);
+INSERT INTO Movies values('LaLaLand', 2016, 'PG', 128,99, 99);
+
+
+
+
