@@ -100,4 +100,16 @@ INSERT INTO Customers values(8948392921823922, 'jwpark', '304bestcourseever', 'D
 INSERT INTO Customers values(8934712734823923, 'mikeeyoon', 'makecpscgreatagain', 'Mike');
 INSERT INTO Customers values(9000340918239329, 'prettyprincess', 'MakeMikeGreatAgain2', 'Mike');
 
--- 
+-- INSERT Employee data
+INSERT INTO Employees values(871623499, 'TABen', 'password', 'Ben');
+INSERT INTO Employees values(923184183, 'unicorn', 'areReal', NULL);
+INSERT INTO Employees values(384928328, 'employeeOTMonth', 'all12months', 'Ginnie');
+INSERT INTO Employees values(512834832, 'daduck', 'password', 'Donald');
+INSERT INTO Employees values(876499102, 'TomHanks', 'isdabest', 'Tim');
+
+-- INSERT Food data
+INSERT INTO Foods values('Popcorn', 15);
+INSERT INTO Foods values('Pretzels', 14);
+INSERT INTO Foods values('Corndogs', 1);
+INSERT INTO Foods values('Poutine', 15);
+INSERT INTO Foods values('Nachos', 5);
