@@ -52,7 +52,7 @@ CREATE TABLE Customers
      Login      char(20) NOT NULL,
      Password   char(20) NOT NULL,
      FirstName  char(20),
-     PRIMARY KEY (CreditCard)
+     PRIMARY KEY (CreditCard, Login)
   );
 
 CREATE TABLE Employees
@@ -61,7 +61,7 @@ CREATE TABLE Employees
      Login     char(20) NOT NULL,
      Password  char(20) NOT NULL,
      FirstName char(20),
-     PRIMARY KEY (SIN)
+     PRIMARY KEY (SIN, Login)
   );
 
 CREATE TABLE Foods
