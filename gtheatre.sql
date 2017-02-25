@@ -41,9 +41,9 @@ CREATE TABLE Plays
      Title      char(20),
      RYear      int,
      PRIMARY KEY (STime, ETime),
-     FOREIGN KEY (HNumber) REFERENCES TheatreHalls (HNumber),
-     FOREIGN KEY (Title) REFERENCES Movies (Title),
-     FOREIGN KEY (RYear) REFERENCES Movies (RYear)
+     FOREIGN KEY (HNumber) REFERENCES TheatreHalls (HNumber) ON DELETE CASCADE ON UPDATE CASCADE,
+     FOREIGN KEY (Title) REFERENCES Movies (Title) ON DELETE CASCADE ON UPDATE CASCADE,
+     FOREIGN KEY (RYear) REFERENCES Movies (RYear) ON DELETE CASCADE ON UPDATE CASCADE
   );
 
 CREATE TABLE Customers
@@ -77,8 +77,8 @@ CREATE TABLE Buys
      RYear int NOT NULL,
      Qty   int NOT NULL,
      PRIMARY KEY (Title, RYear),
-     FOREIGN KEY (Title) REFERENCES Movie(Title),
-     FOREIGN KEY (RYear) REFERENCES Movie(RYear)
+     FOREIGN KEY (Title) REFERENCES Movie(Title) ON DELETE CASCADE ON UPDATE CASCADE,
+     FOREIGN KEY (RYear) REFERENCES Movie(RYear) ON DELETE CASCADE ON UPDATE CASCADE
   );
 
 --
