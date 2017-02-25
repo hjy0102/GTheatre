@@ -110,7 +110,7 @@ class CustomerPage{
     }
 // update Customer information
 // only information to update is FirstName
-    public function update() {
+    public function updateFirstName() {
         $FirstName   = $this->request->getParameter('customer-FirstName');
         $Login       = $this->request->getParameter('customer-Login');
         $Password    = $this->request->getParameter('customer-Password');
@@ -145,5 +145,13 @@ class CustomerPage{
              throw new MissingEntityException("Unable to find User $username to update");
         }
     }
+
+    public function showCreateNewCustomerForm(){
+        $html = $this->renderer->render($this->templateDir, 'CreateNewCustomerFormPage', $data);
+        $this->response->setContent($html);      
+    }
+
+
+
 
 }
