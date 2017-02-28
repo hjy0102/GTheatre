@@ -145,13 +145,12 @@ class CustomerPage{
              throw new MissingEntityException("Unable to find User $username to update");
         }
     }
-
+// probably need to add a form in the front end called 'CreateNewCustomerFormPage'
+// TODO !!
     public function showCreateNewCustomerForm(){
         $html = $this->renderer->render($this->templateDir, 'CreateNewCustomerFormPage', $data);
         $this->response->setContent($html);      
     }
-
-
 
 
 }
