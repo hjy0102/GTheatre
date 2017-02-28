@@ -24,7 +24,13 @@ class DBConnection {
         // Note: useful for testing; uncomment to see the variable components
         // var_dump($url);
 
-        $this->DBConnection = new mysqli($server, $username, $password, $db);
+
+        // NOTE: to test in the local database comment out the first DBConnection line and 
+        // uncomment the second DBConnection 
+            // this is for remote connection to ClearDB!
+        //$this->DBConnection = new mysqli($server, $username, $password, $db);
+            // this is for localhost testing!
+        $this->DBConnection = new mysqli("localhost", "root","","GTheatre");
 
         // if our connection fails a connect_errno exists 
         if ($this->DBConnection->connect_errno) {
