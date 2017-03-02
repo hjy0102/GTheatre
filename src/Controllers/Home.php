@@ -32,7 +32,7 @@ class Home {
 
     public function show() {
         $info = [
-            'name' => $this->req->getParameter('name', 'stranger'),
+            'Login' => $this->req->getParameter('login'),
         ];
         $html = $this->renderer->render($this->tempDir, 'Home', $info);
 
