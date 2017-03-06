@@ -1,0 +1,22 @@
+#layout-body {
+   background-image: url(/images/stars.jpg);
+   padding: 59px 0;
+   position: absolute;
+   top: 0;
+   bottom: 0;
+   left: 0;
+   right: 0
+}
+
+.btn-table-header {
+   white-space: nowrap;
+}
+
+#logo {
+   margin-bottom: -15px;
+   cursor: pointer;
+}
+
+.pure-menu-link, .pure-menu-link:hover {
+   background-color: #2d3e50 !important;
+}
