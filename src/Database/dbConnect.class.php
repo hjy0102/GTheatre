@@ -1,5 +1,5 @@
 <?php 
-// application/models/dbConnect.class.php
+// src/Database/dbConnect.class.php
 
 namespace Gtheatre\Database; 
 
