@@ -31,7 +31,7 @@ localhost:3000
 1. If you get the error stating that you are missing "...autoload.php" in index.php line 5, make sure you pull the vendor packages in the branch "vendor" [https://github.com/hjy0102/GTheatre/commit/5742fe6af2734fc7a9b05153d94ee84a3e44895b]</br>
 You can also just download it online.
 2. we are using bootstrap as well as font-awesome css and jquery; these files should already be included in the root directories but if for some reason you get an error from these pathways, you can also download these online [http://fontawesome.io] [http://getbootstrap.com] [http://jquery.com]
-3. To run <b> locally </b> make sure you <b>comment out <b>
+3. To run <b> locally </b> make sure you <b>comment out </b>
 ```php
 $this->DBConnection = new mysqli($server, $username, $password, $db);
 ```
