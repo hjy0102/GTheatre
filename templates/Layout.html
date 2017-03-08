@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GTheatre</title>
+    <link rel="stylesheet" href="/css/pure/pure-min.css">
+    <!--[if gt IE 8]><!-->
+        <link rel="stylesheet" href="/css/pure/grids-responsive-min.css">
+    <!--<![endif]-->
+    <link rel="stylesheet" href="/css/font-awesome/font-awesome.css">
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="/css/layouts/main_layout.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+        <link rel="stylesheet" href="/css/layouts/main_layout.css">
+    <!--<![endif]-->
+
+    <link rel="stylesheet" href="/css/pages/layout.css">
+
+    <script src="/js/jquery.min.js"></script>
+</head>
+<body id="layout-body">
+<div class="header" style="height: 59px; margin-top: -59px;">
+    <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
+      <!--<img id="logo" src="/img/logo.png" />-->
+
+        <ul class="pure-menu-list">
+          {% for item in menuItems %}
+             {% if item.text|lower == "menu" or item.text|lower == "orders" %}
+                <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+                  <a href="{{ item.href }}" class="pure-menu-link">{{ item.text }}</a>
+                  <ul class="pure-menu-children">
+                    {% for child in item.children %}
+                       <a href="{{ child.href }}" class="pure-menu-link">{{ child.text }}</a>
+                    {% endfor %}
+                  </ul>
+                </li>
+             {% else %}
+                <li class="pure-menu-item">
+                  <a href="{{ item.href }}" class="pure-menu-link">{{ item.text }}</a>
+                </li>
+             {% endif %}
+          {% endfor %}
+
+          {% if accType == null %}
+            <li class="pure-menu-item">
+              <a href="/login" class="pure-menu-link">Login</a>
+            </li>
+          {% else %}
+            <li class="pure-menu-item">
+              <a href="#" id="signout-link" class="pure-menu-link">Signout</a>
+            </li>
+          {% endif %}
+        </ul>
+    </div>
+</div>
+
+<div style="height: 100%; width: 100%; display: table;">
+  {% block content %}
+  {% endblock %}
+</div>
+
+<div class="footer l-box is-center" style="height: 59px; margin-bottom: -59px;">
+  Project by: Hyojin Yi, David Jeongwoo Park, Sean Lennearts, Mike Yoon | Styling: Pure.css 
+</div>
+
+<script>
+$("#logo").click(function () {
+   window.location.replace("/");
+});
+
+$("#signout-link").click(function () {
+   console.log("sign out now!");
+   $.ajax({
+      url: "/signout",
+      type: "POST",
+      success: function () {
+         window.location.replace("/");
+      }
+   });
+});
+</script>
+</body>
+</html>
+
