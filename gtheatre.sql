@@ -27,11 +27,23 @@ CREATE TABLE Movies
      RYear     int(4) NOT NULL, 
      MRating   char(5), 
      Length    int(4), 
-     TPrice    DEC(4,2) DEFAULT $9.00, 
-     SoldCount int(4), 
-     Qty       int(4), 
+     TPrice    DEC(4,2) DEFAULT 9.00,
+    --  SoldCount int(4), 
+    --  Qty       int(4), 
      PRIMARY KEY (Title, RYear) 
   ); 
+
+CREATE TABLE Associated_Tickets 
+  (
+    Title       char(20) NOT NULL,
+    RYear       int(4) NOT NULL,
+    TicketNo    int NOT NULL UNIQUE AUTO_INCREMENT, 
+    Qty         int NOT NULL,
+    CreditCard  char(16) NOT NULL,
+    Login       char(20) NOT NULL, 
+    TPrice      DEC(4,1) DEFAULT 9.00,
+    PRIMARY KEY (Title, RYear, TicketNo)
+  );
 
 CREATE TABLE Plays
   (
@@ -40,7 +52,8 @@ CREATE TABLE Plays
      HallNumber int,
      Title      char(20),
      RYear      int,
-     PRIMARY KEY (STime, ETime),
+    --  PRIMARY KEY (STime, ETime),
+     PRIMARY KEY (HNumber, Title, RYear),
      FOREIGN KEY (HNumber) REFERENCES TheatreHalls (HNumber) ON DELETE CASCADE ON UPDATE CASCADE,
      FOREIGN KEY (Title) REFERENCES Movies (Title) ON DELETE CASCADE ON UPDATE CASCADE,
      FOREIGN KEY (RYear) REFERENCES Movies (RYear) ON DELETE CASCADE ON UPDATE CASCADE
@@ -52,7 +65,7 @@ CREATE TABLE Customers
      Login      char(20) NOT NULL,
      Password   char(20) NOT NULL,
      FirstName  char(20),
-     PRIMARY KEY (CreditCard, Login)
+     PRIMARY KEY (Login)
   );
 
 CREATE TABLE Employees
@@ -61,25 +74,38 @@ CREATE TABLE Employees
      Login     char(20) NOT NULL,
      Password  char(20) NOT NULL,
      FirstName char(20),
-     PRIMARY KEY (SIN, Login)
+     PRIMARY KEY (Login)
   );
 
 CREATE TABLE Foods
   (
-     FType  int,
+     FType  char(16) NOT NULL,
      FPrice int NOT NULL,
      PRIMARY KEY (FType)
   );
 
-CREATE TABLE Buys
-  (
-     Title char(20) NOT NULL,
-     RYear int NOT NULL,
-     Qty   int NOT NULL,
-     PRIMARY KEY (Title, RYear),
-     FOREIGN KEY (Title) REFERENCES Movie(Title) ON DELETE CASCADE ON UPDATE CASCADE,
-     FOREIGN KEY (RYear) REFERENCES Movie(RYear) ON DELETE CASCADE ON UPDATE CASCADE
-  );
+-- CREATE TABLE Buys
+--   (
+--      Title char(20) NOT NULL,
+--      RYear int NOT NULL,
+--      Qty   int NOT NULL,
+--      PRIMARY KEY (Title, RYear),
+--      FOREIGN KEY (Title) REFERENCES Movie(Title) ON DELETE CASCADE ON UPDATE CASCADE,
+--      FOREIGN KEY (RYear) REFERENCES Movie(RYear) ON DELETE CASCADE ON UPDATE CASCADE
+--   );
+
+  CREATE TABLE Bundle
+    (
+      FType char(16) NOT NULL,
+      Title char(16) NOT NULL,
+      RYear int(4) NOT NULL,
+      TicketNo int NOT NULL,
+      Primary Key (FType, Title, RYear, TicketNo),
+      FOREIGN KEY (FType) REFERENCES Foods(FType) ON DELETE SET NULL ON UPDATE CASCADE,
+      FOREIGN KEY (Title) REFERENCES Movies(Title) ON DELETE CASCADE ON UPDATE CASCADE,
+      FOREIGN KEY (RYear) REFERENCES Movies(RYear) ON DELETE CASCADE ON UPDATE CASCADE,
+      FOREIGN KEY (TicketNo) REFERENCES Associated_Tickets(TicketNo) ON DELETE CASCADE ON UPDATE CASCADE
+    );
 
 --
 -- Adding in data
@@ -102,7 +128,7 @@ INSERT INTO Customers values(9000340918239329, 'prettyprincess', 'MakeMikeGreatA
 
 -- INSERT Employee data
 INSERT INTO Employees values(871623499, 'TABen', 'password', 'Ben');
-INSERT INTO Employees values(923184183, 'unicorn', 'areReal', NULL);
+INSERT INTO Employees values(923184183, 'unicorns', 'areReal', NULL);
 INSERT INTO Employees values(384928328, 'employeeOTMonth', 'all12months', 'Ginnie');
 INSERT INTO Employees values(512834832, 'daduck', 'password', 'Donald');
 INSERT INTO Employees values(876499102, 'TomHanks', 'isdabest', 'Tim');
@@ -115,8 +141,10 @@ INSERT INTO Foods values('Poutine', 15);
 INSERT INTO Foods values('Nachos', 5);
 
 -- INSERT Movie data
-INSERT INTO Movies values('Star Wars: The Force Awakens', 2015, 'PG-13', 136,135, 2);
-INSERT INTO Movies values('Cinderella', 2015, 'G', 106,80, 3);
-INSERT INTO Movies values('Frozen', 2013, 'G', 102,121, 3);
-INSERT INTO Movies values('Zootopia', 2016, 'G', 108,60, 2);
-INSERT INTO Movies values('LaLaLand', 2016, 'PG', 128,99, 99);
+INSERT INTO Movies values('Star Wars: The Force Awakens', 2015, 'PG-13', 136);
+INSERT INTO Movies values('Cinderella', 2015, 'G', 106);
+INSERT INTO Movies values('Frozen', 2013, 'G', 102);
+INSERT INTO Movies values('Zootopia', 2016, 'G', 108);
+INSERT INTO Movies values('LaLaLand', 2016, 'PG', 128);
+
+-- TODO : add Bundle data
