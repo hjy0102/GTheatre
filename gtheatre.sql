@@ -47,7 +47,7 @@ CREATE TABLE Associated_Tickets
 
 CREATE TABLE Plays
   (
-     STime      times NOT NULL,
+     STime      time NOT NULL,
      ETime      time NOT NULL,
      HallNumber int,
      Title      char(20),
@@ -112,7 +112,6 @@ CREATE TABLE Foods
 --
 
 -- Insert TheatreHall data
-
 INSERT INTO TheatreHalls values(1, 140);
 INSERT INTO TheatreHalls values(2, 150);
 INSERT INTO TheatreHalls values(3, 200);
@@ -147,4 +146,10 @@ INSERT INTO Movies values('Frozen', 2013, 'G', 102);
 INSERT INTO Movies values('Zootopia', 2016, 'G', 108);
 INSERT INTO Movies values('LaLaLand', 2016, 'PG', 128);
 
--- TODO : add Bundle data
+-- INSERT Bundle data
+INSERT INTO Bundle values('Popcorn', 'Star Wars: The Force Awakens', 2015, 1);
+INSERT INTO Bundle values('Pretzels', 'Cinderella', 2015, 2);
+INSERT INTO Bundle values('Corndogs', 'Frozen', 2013, 3);
+INSERT INTO Bundle values('Poutine', 'Zootopia', 2016, 4);
+INSERT INTO Bundle values('Nachos', 'LaLaLand', 2016, 5);
+
