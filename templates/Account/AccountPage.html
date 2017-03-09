@@ -29,7 +29,10 @@
 
               <div class="pure-u-1 pure-u-md-10-24">
                 <label for="account-type">Account type</label>
-                <input id="account-type" class="pure-u-20-24" name="account-type" type="text" value="{{ accType }}" disabled>
+                 <select id="account-type" class="pure-u-20-24" >
+                  <option>Customer</option>
+                  <option>Employee</option>
+                </select>
               </div>
 
               <!-- one row -->
@@ -38,15 +41,6 @@
               </div>
 
 
-              <!-- other row -->
-
-              <div class="pure-u-1 pure-u-md-1-24">
-              </div>
-
-              <div class="pure-u-1 pure-u-md-10-24">
-                <label for="account-address">Address</label>
-                <input id="account-address" class="pure-u-20-24" name="account-address" type="text" placeholder="Address" value="{{ address }}">
-              </div>
 
 
               <!-- row -->
@@ -73,9 +67,6 @@
     </div>
     <hr>
 
-    {% if accType|lower == "admin" %}
-    <a href="/account/chef/all" style="float: right;">Click here to manage chef accounts.</a>
-    {% endif %}
   </div>
   <div class="pure-u-6-24">
   </div>

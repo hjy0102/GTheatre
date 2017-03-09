@@ -11,7 +11,7 @@ class PHPSession implements SessionWrapper {
 
     public function getValue($key) {
         // TO DELETE LATER !!!
-        echo 'GetValue of PHPSESSION';
+        // echo 'GetValue of PHPSESSION';
 
         if (isset($_SESSION[$key])) {
             return $_SESSION[$key];
