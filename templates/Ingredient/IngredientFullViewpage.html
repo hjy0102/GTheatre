@@ -1,0 +1,264 @@
+{% extends "Ingredient/Ingredientpage.html" %}
+
+{% block view %}
+
+<div class="pure-g">
+  <div class="pure-u-1-2" style="height: 100%; display: table-cell;">
+    <div id="first-panel">
+
+      <div class="content">
+        <h2 class="content-head is-center">Ingredients in use</h2>
+        <hr>
+
+        <div class="pure-g">
+          <div class="pure-u-1 pure-u-md-2-24">
+          </div>
+          
+          <div class="pure-u-1 pure-u-md-20-24">
+          <table class="pure-table" style="width: 65%; margin: 2em auto;">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th style="width: 20%;">Actions</th>
+              </tr>
+            </thead>
+
+            <tbody style="background-color: white;">
+              <tr>
+                <th>-</th>
+                <th>-</th>
+                <th><button id="create-btn">Create</button></th>
+              </tr>
+              {% for ingredient in ingredients %}
+              <tr>
+                <th>{{ ingredient.name }}</th>
+                <th>{{ ingredient.type }}</th>
+                <th class="btn-table-header">
+                  <button class="edit-btn" data-name="{{ ingredient.name }}" data-type="{{ ingredient.type }}" style="margin: 5px;">Edit</button>
+                  <button class="delete-btn" data-name="{{ ingredient.name }}" data-type="{{ ingredient.type }}" style="margin: 5px;">Delete</button>
+                </th>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          </div>
+
+          <div class="pure-u-1 pure-u-md-2-24">
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pure-u-1-2">
+    <div id="second-panel-create" style="display: none;">
+      <div class="content">
+
+        <h2 class="content-head is-center">Create Ingredient</h2>
+        <hr>
+
+        <form class="pure-form pure-form-stacked">
+          <fieldset>
+            <div class="pure-g">
+              
+              <div class="pure-u-1 pure-u-md-6-24">
+              </div>
+
+              <div class="pure-u-1 pure-u-md-12-24">
+
+                <label for="create-ingred-name">Ingredient Name <b style="color: red;">*</b></label>
+                <input id="create-ingred-name" class="pure-u-1-1" name="create-ingred-name" type="text" placeholder="Ingredient Name">
+
+                <label for="create-ingred-type">Ingredient Type <b style="color: red;">*</b></label>
+                <select id="create-ingred-type" class="pure-u-1-1" name="create-ingred-type" type="text" style="margin-bottom: 1em;" required>
+                  <option value="" disabled selected hidden>Select a Type</option>
+                  <option value="Meat">Meat</option>
+                  <option value="Vegetable">Vegetable</option>
+                  <option value="Grain">Grain</option>
+                  <option value="Dairy">Dairy</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+
+              <div class="pure-u-1 pure-u-md-6-24">
+              </div>
+
+            </div>
+
+            <div class="pure-g" style="margin-top: 15px;">
+              <div class="pure-u-1 pure-u-md-13-24">
+              </div>          
+
+              <div class="pure-u-1 pure-u-md-2-24">
+                <button id="create-ingred-btn" class="pure-button pure-button-primary" type="button">Create</button>
+              </div>
+
+              <div class="pure-u-1 pure-u-md-9-24">
+              </div>
+
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+
+    <div id="second-panel-update" style="display: none;">
+      <div class="content">
+
+        <h2 class="content-head is-center">Update Ingredient</h2>
+        <hr>
+
+        <form class="pure-form pure-form-stacked">
+          <fieldset>
+            <div class="pure-g">
+              
+              <div class="pure-u-1 pure-u-md-6-24">
+              </div>
+
+              <div class="pure-u-1 pure-u-md-12-24">
+                <label for="current-ingred-name">Current Ingredient Name</label>
+                <input id="current-ingred-name" class="pure-u-1-1" name="current-ingred-name" type="text" disabled>
+                <label for="current-ingred-type">Current Ingredient Type</label>
+                <input id="current-ingred-type" class="pure-u-1-1" name="current-ingred-type" type="text" disabled>
+                <label for="new-ingred-name">New Ingredient Name <b style="color: red;">*</b></label>
+                <input id="new-ingred-name" class="pure-u-1-1" name="new-ingred-name" type="text" placeholder="New Ingredient Name">
+                <label for="new-ingred-type">New Ingredient Type <b style="color: red;">*</b></label>
+                <select id="new-ingred-type" class="pure-u-1-1" name="new-ingred-type" type="text" style="margin-bottom: 1em;" required>
+                  <option value="" disabled selected hidden>Select a Type</option>
+                  <option value="Meat">Meat</option>
+                  <option value="Vegetable">Vegetable</option>
+                  <option value="Grain">Grain</option>
+                  <option value="Dairy">Dairy</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+
+              <div class="pure-u-1 pure-u-md-6-24">
+              </div>
+            </div>
+
+            <div class="pure-g" style="margin-top: 15px;">
+              <div class="pure-u-1 pure-u-md-13-24">
+              </div>          
+
+              <div class="pure-u-1 pure-u-md-2-24">
+                <button id="update-ingred-btn" class="pure-button pure-button-primary" type="button">Update</button>
+              </div>
+
+              <div class="pure-u-1 pure-u-md-9-24">
+              </div>
+
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+
+$("#create-btn").click(function () {
+   $("#second-panel-update").hide();
+   $("#second-panel-create").show();
+});
+
+$(".edit-btn").click(function () {
+   $("#new-ingred-name").val("");
+   $("#new-ingred-type").val("");
+   $("#second-panel-create").hide();
+   $("#second-panel-update").show();
+
+   var ingredName = $(this).data("name");
+   var ingredType = $(this).data("type");
+   $("#current-ingred-name").val(ingredName);
+   $("#current-ingred-type").val(ingredType);
+});
+
+$(".delete-btn").click(function () {
+   if (!confirm("Are you sure you want to delete this Ingredient?")) {
+      return;
+   }
+
+   $.ajax({
+      url: "/ingredient/delete",
+      type: "POST",
+      data: {
+         "ingredient-name": $(this).data("name")
+      },
+      success: function (data) {
+         console.log(data);
+         window.location.replace("/ingredients");
+         alert("Ingredient deletion succeeded.");
+      },
+      error: function (data) {
+         console.log(data);
+         alert("Ingredient deletion failed. Try again.");
+      }
+   });
+});
+
+
+$("#create-ingred-btn").click(function () {
+
+   if ($("#create-ingred-name").val().trim() === '' ||
+       $("#create-ingred-type").val().trim() === '') {
+      alert("Ingredient name or type is missing. Try again.");
+      return;
+   }
+
+   $.ajax({
+      url: "/ingredient/create",
+      type: "POST",
+      data: {
+         "ingredient-name": $("#create-ingred-name").val(),
+         "ingredient-type": $("#create-ingred-type").val()
+      },
+      success: function (data) {
+         console.log(data);
+         window.location.replace("/ingredients");
+         alert("Ingredient creation succeeded.");
+      },
+      error: function (data) {
+         console.log(data);
+         alert("Ingredient creation failed. Try again.");
+      }
+   });
+});
+
+$("#update-ingred-btn").click(function () {
+
+   if ($("#new-ingred-name").val().trim() === '' ||
+       $("#new-ingred-type").val().trim() === '') {
+      alert("New ingredient name or type is missing. Try again.");
+      return;
+   }
+
+   $.ajax({
+      url: "/ingredient/update",
+      type: "POST",
+      data: {
+         "ingredient-name": $("#current-ingred-name").val(),
+         "new-ingredient-name": $("#new-ingred-name").val(),
+         "new-ingredient-type": $("#new-ingred-type").val()
+      },
+      success: function (data) {
+         console.log(data);
+         window.location.replace("/ingredients");
+         alert("Ingredient creation succeeded.");
+      },
+      error: function (data) {
+         console.log(data);
+         alert("Ingredient creation failed. Try again.");
+      }
+   });
+});
+
+</script>
+
+
+{% endblock %}

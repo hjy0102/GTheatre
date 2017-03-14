@@ -1,0 +1,43 @@
+.menu-item {
+   width: 100%;
+   background-color: white;
+   margin: 15px 0;
+}
+
+.menu-item-info {
+   border: 2px solid #93a1a1;
+}
+
+.menu-item-title {
+   text-decoration: underline;
+   font-size: 1.5em;
+}
+
+.menu-item-info-bar {
+   border-top: 2px solid #93a1a1;
+}
+
+.add-to-order-btn, .edit-menu-item-btn, .delete-menu-item-btn {
+   margin-right: 10px;
+}
+
+#prev-page-link {
+   margin: 46px 50px 0 50px;
+   display: none;
+   cursor: pointer;
+   font-size: 2em;
+   white-space: nowrap;
+}
+
+#next-page-link {
+   margin: 46px 50px 0 50px;
+   float: right;
+   cursor: pointer;
+   font-size: 2em;
+   white-space: nowrap;
+}
+
+.menu-item-detail {
+   margin-left: 10px;
+   white-space: nowrap;
+}

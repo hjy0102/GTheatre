@@ -29,10 +29,7 @@
 
               <div class="pure-u-1 pure-u-md-10-24">
                 <label for="account-type">Account type</label>
-                 <select id="account-type" class="pure-u-20-24" >
-                  <option>Customer</option>
-                  <option>Employee</option>
-                </select>
+                <input id="account-type" class="pure-u-20-24" name="account-type" type="text" value="{{ accType }}" disabled>
               </div>
 
               <!-- one row -->
@@ -40,8 +37,46 @@
               <div class="pure-u-1 pure-u-md-1-24">
               </div>
 
+              <div class="pure-u-1 pure-u-md-10-24">
+                <label for="account-phone">Phone</label>
+                <input id="account-phone" class="pure-u-20-24" name="account-phone" type="text" placeholder="Phone" value="{{ phone }}">
+              </div>
 
+           {% if accType|lower == "chef" %}
+              <div class="pure-u-1 pure-u-md-3-24">
+              </div>
 
+              <div class="pure-u-1 pure-u-md-10-24">
+                <label for="chef-employee-id">Employee Id</label>
+                <input id="chef-employee-id" class="pure-u-20-24" name="chef-employee-id" type="text" value="{{ employeeId }}" disabled>
+              </div>
+           {% else %}
+              <div class="pure-u-1 pure-u-md-13-24">
+              </div>
+           {% endif %}
+
+              <!-- other row -->
+
+              <div class="pure-u-1 pure-u-md-1-24">
+              </div>
+
+              <div class="pure-u-1 pure-u-md-10-24">
+                <label for="account-address">Address</label>
+                <input id="account-address" class="pure-u-20-24" name="account-address" type="text" placeholder="Address" value="{{ address }}">
+              </div>
+
+           {% if accType|lower  == "chef" %}
+              <div class="pure-u-1 pure-u-md-3-24">
+              </div>
+
+              <div class="pure-u-1 pure-u-md-10-24">
+                <label for="chef-ss-num">Social security number</label>
+                <input id="chef-ss-num" class="pure-u-20-24" name="chef-ss-num" type="text" value="{{ ssNum }}" disabled>
+              </div>
+           {% else %}
+              <div class="pure-u-1 pure-u-md-13-24">
+              </div>
+           {% endif %}
 
               <!-- row -->
             </div>
@@ -67,6 +102,9 @@
     </div>
     <hr>
 
+    {% if accType|lower == "admin" %}
+    <a href="/account/chef/all" style="float: right;">Click here to manage chef accounts.</a>
+    {% endif %}
   </div>
   <div class="pure-u-6-24">
   </div>
@@ -82,8 +120,9 @@ $("#save-btn").click(function () {
       url: "/account/update",
       type: "POST",
       data: {
-         "account-name": $("#account-name").val()
-
+         "account-name": $("#account-name").val(),
+         "account-phone": $("#account-phone").val(),
+         "account-address": $("#account-address").val()
       },
       success: function (data) {
          alert("Account information successfully saved.");

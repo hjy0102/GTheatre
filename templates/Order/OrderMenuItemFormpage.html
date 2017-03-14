@@ -1,0 +1,183 @@
+{% extends "Layout.html" %}
+{% block content %}
+
+<style>
+select:invalid {
+   color: gray;
+}
+
+</style>
+
+<div class="pure-g">
+  <div class="pure-u-6-24">
+  </div>
+  <div class="pure-u-12-24" style="padding-bottom: 25px;">
+
+    <div id="first-panel">
+      <div class="content">
+        <h2 class="content-head is-center">Edit Quantity of Menu item in Order</h2>
+        <hr>
+
+        <form class="pure-form pure-form-stacked">
+          <fieldset>
+
+            <div class="pure-g">
+
+              <div class="pure-u-1 pure-u-md-1-24">
+              </div>
+
+              <div class="pure-u-1 pure-u-md-10-24">
+                <label for="menu-item-name">Name</label>
+                <input id="menu-item-name" class="pure-u-20-24" name="menu-item-name" type="text" value="{{ name }}" disabled>
+              </div>
+
+              <div class="pure-u-1 pure-u-md-3-24">
+              </div>
+
+              <div class="pure-u-1 pure-u-md-10-24">
+                <label for="menu-item-category">Category</label>
+                <input id="menu-item-category" class="pure-u-20-24" name="menu-item-category" type="text" value="{{ category }}" disabled>
+              </div>
+
+              <!-- one row -->
+
+              <div class="pure-u-1 pure-u-md-1-24">
+              </div>
+
+              <div class="pure-u-1 pure-u-md-10-24">
+                <label for="menu-item-price">Price</label>
+                <input id="menu-item-price" class="pure-u-20-24" name="menu-item-price" type="text" placeholder="Menu Item Price" value="{{ price }}" disabled>
+              </div>
+
+              <div class="pure-u-1 pure-u-md-3-24">
+              </div>
+
+              <div class="pure-u-1 pure-u-md-10-24">
+                <label for="menu-item-quantity-left">Quantity</label>
+                <input id="menu-item-quantity-left" class="pure-u-20-24" name="menu-item-quantity-left" type="text" value="{{ qtyLeft }}" disabled>
+              </div>
+
+
+              <!-- other row -->
+
+              <div class="pure-u-1 pure-u-md-1-24">
+              </div>
+
+              <div class="pure-u-1 pure-u-md-23-24">
+                <label for="menu-item-description">Description</label>
+                <textarea id="menu-item-description" class="pure-u-22-24" name="menu-item-description"  rows="4" disabled>{{ description }}</textarea>
+              </div>
+
+              <!-- one row -->
+
+              <div class="pure-u-1 pure-u-md-1-24">
+              </div>
+
+              <div class="pure-u-1 pure-u-md-10-24">
+                <label for="menu-item-old-qty">Current Quantity in Order</label>
+                <input id="menu-item-old-qty" class="pure-u-20-24" name="menu-item-old-qty" type="text" value="{{ qtyInOrder }}" disabled>
+              </div>
+
+              <div class="pure-u-1 pure-u-md-3-24">
+              </div>
+
+              <div class="pure-u-1 pure-u-md-10-24">
+                <label for="menu-item-new-qty">New Quantity in Order</label>
+                <input id="menu-item-new-qty" class="pure-u-20-24" name="menu-item-new-qty" type="number" min="0">
+              </div>
+
+              <!-- row -->
+            </div>
+
+            <!-- button row -->
+            <div class="pure-g" style="padding-top: 30px;">
+              <div class="pure-u-1 pure-u-md-18-24">
+              </div>
+
+              <div class="pure-u-1 pure-u-md-2-24">
+                <button id="save-btn" class="pure-button pure-button-primary" type="button" data-id="{{ id }}">Save</button>
+              </div>
+
+              <div class="pure-u-1 pure-u-md-4-24">
+              </div>
+
+            </div>
+
+          </fieldset>
+        </form>
+
+      </div>
+    </div>
+    <hr>
+
+    <a href="/order/current" style="float: left;">Click here to go back.</a>
+  </div>
+  <div class="pure-u-6-24">
+  </div>
+</div>
+
+<script>
+$("#save-btn").click(function () {
+   var newQty = $("#menu-item-new-qty").val();
+   if (newQty.trim() === '') {
+      alert("Required input is missing. Fill out and try again.");
+      return;
+   }
+
+   if (parseInt(newQty) > parseInt($("#menu-item-quantity-left").val())) {
+      alert("Quantity is larger than quantity left. Try again.");
+      return;
+   }
+
+   $.ajax({
+      url: "/order/update/menuItem",
+      type: "POST",
+      data: {
+         "menu-id": $(this).data("id"),
+         "new-quantity": newQty
+      },
+      success: function (data) {
+         console.log(data);
+         window.location.replace("/order/current");
+         alert('Quantity in Order update succeeded.');
+      },
+      error: function (data) {
+         console.log(data);
+         alert('Quantity in Order change failed. Try again.');
+      }
+   });
+});
+
+$("#create-btn").click(function () {
+   if ($("#menu-item-name").val().trim() === '' ||
+       $("#menu-item-category").val().trim() === '' ||
+       $("#menu-item-price").val().trim() === '' ||
+       $("#menu-item-quantity").val().trim() === '') {
+      alert("Required input is missing. Fill out and try again.");
+      return;
+   }
+
+   $.ajax({
+      url: "/menuItem/create",
+      type: "POST",
+      data: {
+         "menu-item-name": $("#menu-item-name").val(),
+         "menu-item-category": $("#menu-item-category").val(),
+         "menu-item-price": $("#menu-item-price").val(),
+         "menu-item-quantity": $("#menu-item-quantity").val(),
+         "menu-item-description": $("#menu-item-description").val()
+      },
+      success: function (data) {
+         console.log(data);
+         window.location.replace("/menuItems");
+         alert('Menu Item creation succeeded.');
+      },
+      error: function (data) {
+         console.log(data);
+         alert('Menu Item creation failed. Try again.');
+      }
+   });
+});
+</script>
+
+{% endblock %}

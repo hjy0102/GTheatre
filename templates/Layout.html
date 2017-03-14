@@ -5,25 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GTheatre</title>
     <link rel="stylesheet" href="/css/pure/pure-min.css">
-    <!--[if gt IE 8]><!-->
-        <link rel="stylesheet" href="/css/pure/grids-responsive-min.css">
-    <!--<![endif]-->
-    <link rel="stylesheet" href="/css/font-awesome/font-awesome.css">
-    <!--[if lte IE 8]>
-        <link rel="stylesheet" href="/css/layouts/main_layout.css">
-    <![endif]-->
-    <!--[if gt IE 8]><!-->
-        <link rel="stylesheet" href="/css/layouts/main_layout.css">
-    <!--<![endif]-->
 
-    <link rel="stylesheet" href="/css/pages/layout.css">
+        <link rel="stylesheet" href="/css/pure/grids-responsive-min.css">
+
+    <link rel="stylesheet" href="/css/font-awesome/font-awesome.css">
+
+        <link rel="stylesheet" href="/css/layouts/marketing.css">
+
+    <link rel="stylesheet" href="/css/pages/Layout.css">
+    <link rel="stylesheet" href="/css/pages/Menupage.css">
+    <link rel="stylesheet" href="/css/pages/Orderpage.css">
 
     <script src="/js/jquery.min.js"></script>
 </head>
 <body id="layout-body">
 <div class="header" style="height: 59px; margin-top: -59px;">
     <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
-      <!--<img id="logo" src="/img/logo.png" />-->
+      <img id="logo" src="/img/logo_.png" width="9%" height="9%" />
 
         <ul class="pure-menu-list">
           {% for item in menuItems %}
@@ -45,7 +43,7 @@
 
           {% if accType == null %}
             <li class="pure-menu-item">
-              <a href="/login" class="pure-menu-link">Login</a>
+              <a href="/login" class="pure-menu-link" >LOGIN</a>
             </li>
           {% else %}
             <li class="pure-menu-item">
@@ -61,8 +59,9 @@
   {% endblock %}
 </div>
 
-<div class="footer l-box is-center" style="height: 59px; margin-bottom: -59px;">
-  Project by: Hyojin Yi, David Jeongwoo Park, Sean Lennearts, Mike Yoon | Styling: Pure.css 
+<div class="footer l-box is-center" style="height: 90px; margin-bottom: -40px;">
+  UBC CPSC 304 Relational Databases Project 2017</br>
+  Project by: Hyojin Yi, David Jeongwoo Park, Mike Yoon, Sean Lennearts
 </div>
 
 <script>

@@ -1,5 +1,5 @@
 #layout-body {
-   background-image: url(/images/stars.jpg);
+   background-image: url(/img/stars.png);
    padding: 59px 0;
    position: absolute;
    top: 0;
@@ -18,5 +18,5 @@
 }
 
 .pure-menu-link, .pure-menu-link:hover {
-   background-color: #2d3e50 !important;
+   background-color: #9a3bb7 !important;
 }

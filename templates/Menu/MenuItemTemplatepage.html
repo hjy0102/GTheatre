@@ -1,0 +1,44 @@
+<div class="menu-item">
+  <div class="menu-item-info">
+    <div class="is-center" style="padding: 5px;">
+      <span class="menu-item-title">{{ menuItem.name }}</span>
+      {% if menuItem.healthy == 'true' %}
+      <i class="fa fa-leaf" style="color: #859900;" aria-hidden="true"></i>
+      {% endif %}
+    </div>
+
+    <div class="is-center" stlye="padding-bottom: 5px;">
+      <span>{{ menuItem.description }}</span>
+    </div>
+
+    <hr>
+
+    <div class="pure-g" style="padding-bottom: 10px;">
+      <div class="pure-u-10-24">
+        {% if menuItem.price != null %}
+        <span class="menu-item-detail">price: {{ menuItem.price }}</span>
+        {% endif %}
+
+        {% if menuItem.quantity != null %}
+        <span class="menu-item-detail">quantity: {{ menuItem.quantity }}</span>
+        {% endif %}
+
+        {% if action == 'search' and menuItem.category != null %}
+        <span class="menu-item-detail">category: {{ menuItem.category }}</span>
+        {% endif %}
+      </div>
+      <div class="pure-u-14-24">
+        <div style="float: right; text-align: right;">
+          {% if accType|lower == "chef" or accType|lower == "admin" %}
+          <div style="margin: 5px 0; display: inline-block;">
+            <button class="delete-menu-item-btn" data-id="{{ menuItem.menu_id }}">Delete</button>
+            <button class="edit-menu-item-btn" data-id="{{ menuItem.menu_id }}">Edit</button>
+          </div>
+          {% endif %}
+          <button class="add-to-order-btn" data-id="{{ menuItem.menu_id }}" style="margin-top: 5px;">Add to Order</button>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>

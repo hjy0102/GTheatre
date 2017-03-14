@@ -1,0 +1,163 @@
+{% extends "Layout.html" %}
+{% block content %}
+<div class="pure-g">
+
+  <div class="pure-u-6-24">
+    <span id="prev-page-link"><i class="fa fa-chevron-left" aria-hidden="true"></i> Back</span>
+  </div>
+
+  <div class="pure-u-12-24">
+    <h2 class="content-head is-center">FunTime Bistro Menu</h2>
+    <hr>
+  </div>
+
+  <div class="pure-u-6-24">
+    <span id="next-page-link">Next <i class="fa fa-chevron-right" aria-hidden="true"></i></span>
+  </div>
+
+  <div class="pure-u-1-1">
+      <div class="pure-g" id="page-1">
+
+        <div class="pure-u-1-3">
+          <div class="content">
+            <h3 class="content-head is-center">Appetizers</h3>
+            <hr>
+
+            {% for menuItem in appetizers %}
+               {{ include('Menu/MenuItemTemplatepage.html') }}
+            {% endfor %}
+
+          </div>
+        </div>
+
+        <div class="pure-u-1-3">
+          <div class="content">
+            <h3 class="content-head is-center">Entrees</h3>
+            <hr>
+
+            {% for menuItem in entrees %}
+               {{ include('Menu/MenuItemTemplatepage.html') }}
+            {% endfor %}
+
+          </div>
+        </div>
+
+        <div class="pure-u-1-3">
+          <div class="content">
+            <h3 class="content-head is-center">Dessert</h3>
+            <hr>
+
+            {% for menuItem in desserts %}
+               {{ include('Menu/MenuItemTemplatepage.html') }}
+            {% endfor %}
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="pure-g" id="page-2" style="display: none;">
+
+        <div class="pure-u-1-3">
+          <div class="content">
+            <h3 class="content-head is-center">Drinks</h3>
+            <hr>
+
+            {% for menuItem in drinks %}
+               {{ include('Menu/MenuItemTemplatepage.html') }}
+            {% endfor %}
+
+          </div>
+        </div>
+
+        <div class="pure-u-1-3">
+          <div class="content">
+            <h3 class="content-head is-center">Others</h3>
+            <hr>
+
+            {% for menuItem in others %}
+               {{ include('Menu/MenuItemTemplatepage.html') }}
+            {% endfor %}
+
+          </div>
+        </div>
+
+        <div class="pure-u-1-3">
+        </div>
+
+      </div>
+  </div>
+
+</div>
+
+<script>
+
+$("#prev-page-link").click(function () {
+   $("#next-page-link").fadeIn(600);
+   $("#prev-page-link").fadeOut(800);
+
+   $("#page-1").fadeIn(1000);
+   $("#page-2").hide();
+});
+
+$("#next-page-link").click(function () {
+   $("#prev-page-link").fadeIn(600).css("display", "inline-block");
+   $("#next-page-link").fadeOut(800);
+
+   $("#page-1").hide();
+   $("#page-2").fadeIn(1000);
+});
+
+$(".delete-menu-item-btn").click(function () {
+   if (!confirm("Are you sure you want to delete this Menu Item?")) {
+      return;
+   }
+
+   $.ajax({
+      url: "/menuItem/delete",
+      type: "POST",
+      data: {
+         "menu-id": $(this).data("id")
+      },
+      success: function (data) {
+         console.log(data);
+         window.location.replace("/menuItems");
+         alert("Menu Item deletion succeeded.");
+      },
+      error: function (data) {
+         console.log(data);
+         alert("Menu Item deletion failed. Try again.");
+      }
+   });
+});
+
+$(".edit-menu-item-btn").click(function () {
+   var url = "/menuItem/update/";
+   var menuId = $(this).data("id");
+   window.location.replace(url.concat(menuId));
+});
+
+$(".add-to-order-btn").click(function () {
+   var menuId = $(this).data("id");
+
+   $.ajax({
+      url: "/order/addMenuItem",
+      type: "POST",
+      data: {
+         "menu-id": menuId
+      },
+      success: function (data) {
+         console.log(data);
+         window.location.replace("/menuItems");
+         alert("Adding menu item to order succeeded.");
+      },
+      error: function (data) {
+         console.log(data);
+         alert("Adding menu item to order failed. Try again.");
+      }
+   });
+});
+
+</script>
+
+{% endblock %}

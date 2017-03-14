@@ -1,0 +1,200 @@
+{% extends "Layout.html" %}
+{% block content %}
+<div class="pure-g">
+  <div class="pure-u-4-24">
+  </div>
+  <div class="pure-u-16-24">
+    <div class="content">
+      <h2 class="content-head is-center">Current Order</h2>
+      <hr>
+
+      {% if createButton == 'show' %}
+      <div style="text-align: center;">
+        <button id="create-order-btn" style="margin-top: 1em;">Create Order</button>
+      </div>
+      {% else %}
+      <table class="pure-table" style="width: 90%; margin: 2em auto;">
+        <thead>
+          <tr>
+            <th>Menu Item</th>
+            <th>Price</th>
+            <th>Quantity Left</th>
+            <th>Quantity in Order</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody style="background-color: white;">
+          {% for orderMenuItem in orderMenuItems %}
+          <tr>
+            <th>{{ orderMenuItem.name }}</th>
+            <th>{{ orderMenuItem.price }}</th>
+            <th><span id="quantity-left-{{ loop.index }}">{{ orderMenuItem.qtyLeft }}</span></th>
+            <th><span id="quantity-in-order-{{ loop.index }}">{{ orderMenuItem.qtyInOrder }}</span></th>
+            <th class="btn-table-header">
+              <button class="edit-btn" data-id="{{ orderMenuItem.menu_id }}" style="margin: 5px;">Edit</button>
+              <button class="delete-btn" data-id="{{ orderMenuItem.menu_id }}" style="margin: 5px;">Delete</button>
+            </th>
+          </tr>
+          {% endfor %}
+          <tr style="border-top: 1px solid #cbcbcb;">
+            <th>-</th>
+            <th>-</th>
+            <th>-</th>
+            <th>Total Quantity: {{ totalQuantity }}</th>
+            <th>Total Price: ${{ totalPrice|number_format(2, '.') }}</th>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="float: right;">
+        <div style="display: inline-block;">
+          <form class="pure-form">
+            <label for="credit-payment" class="pure-radio" style="display: inline-block; margin: 0.5em;">
+              <input id="credit-payment" type="radio" name="radio" value="credit" />
+              Credit
+            </label>
+            <label for="cash-payment" class="pure-radio" style="display: inline-block; margin: 0.5em;">
+              <input id="cash-payment" type="radio" name="radio" value="cash" />
+              Cash
+            </label>
+          </form>
+        </div>
+        <button id="purchase-btn" class="pure-button pure-button-primary" type="button">Purchase</button>
+      </div>
+
+      {% endif %}
+    </div>
+  </div>
+  <div class="pure-u-6-24">
+  </div>
+</div>
+
+<div class="pure-g">
+  <div class="pure-u-6-24">
+  </div>
+
+  <div class="pure-u-12-24">
+    <div class="content">
+      <div style="text-align: center;">
+        {% if accType|lower == "chef" %}
+        <hr>
+        <a href="/order/current/all" style="float: right;">Click here to Cook Orders</a>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+
+  <div class="pure-u-4-24">
+  </div>
+</div>
+
+
+<script>
+$(".delete-btn").click(function () {
+   if (!confirm("Are you sure you want to remove this Menu item from your Order?")) {
+      return;
+   }
+
+   $.ajax({
+      url: "/order/removeMenuItem",
+      type: "POST",
+      data: {
+         "menu-id": $(this).data("id")
+      },
+      success: function (data) {
+         console.log(data);
+         window.location.replace("/order/current");
+         alert("Menu item removal from Order succeeded.");
+      },
+      error: function (data) {
+         console.log(data);
+         alert("Menu item removal from Order failed. Try again");
+      }
+   });
+});
+
+$(".edit-btn").click(function () {
+   var url = "/order/update/menuItem/";
+   var menuId = $(this).data("id");
+   window.location.replace(url.concat(menuId));
+});
+
+$("#purchase-btn").click(function () {
+   var paymentType = $("input[name=radio]:checked").val();
+
+   if (paymentType == null || paymentType.trim() === '') {
+      alert("Please select a payment type, then try again");
+      return;
+   }
+
+   var containsMinItems = false;
+
+   var orderValues = [];
+   var i = 1;
+   while (i > 0) {
+      var quantityLeft = $("#quantity-left-" + i);
+      var quantityInOrder = $("#quantity-in-order-" + i);
+      if (quantityLeft.length == 1 && quantityInOrder.length == 1) {
+         containsMinItems = true;
+         if (parseInt(quantityInOrder.val()) > parseInt(quantityLeft.text())) {
+            alert("A quantity in order is larger than quantity left. Try again.");
+            return;
+         }
+
+         var orderValue = {
+            "menuId": quantityInOrder.data("id"),
+            "quantityInOrder": quantityInOrder.val()
+         };
+
+         orderValues.push(orderValue);
+         i += 1;
+      }
+      else {
+         i = -1;
+      }
+   }
+
+   if (!containsMinItems) {
+      alert("Need at least one menu item in order to purchase order.");
+      return;
+   }
+
+   $.ajax({
+      url: "/order/purchase",
+      type: "POST",
+      data: {
+         menuItemValues: orderValues,
+         paymentType: paymentType
+      },
+      success: function (data) {
+         console.log(data);
+         window.location.replace("/orders/paid");
+         alert("Purchase succeeded.");
+      },
+      error: function (data) {
+         console.log(data);
+         alert("Purchase failed. Try again.");
+      }
+   });
+});
+
+$("#create-order-btn").click(function () {
+   $.ajax({
+      url: "/order/create",
+      type: "POST",
+      success: function (data) {
+         console.log(data);
+         window.location.replace("/order/current");
+         alert("Order created");
+      },
+      error: function (data) {
+         console.log(data);
+         alert("Order was not created. Try again");
+      }
+   });
+});
+
+</script>
+{% endblock %}
