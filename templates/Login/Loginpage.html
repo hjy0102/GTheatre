@@ -217,7 +217,7 @@
               </div>
 
               <div class="pure-u-1 pure-u-md-10-24">
-                <button id="create-btn" class="pure-button pure-button-primary" style="float: right;" type="button">Create</button>
+                <button id="create_c-btn" class="pure-button pure-button-primary" style="float: right;" type="button">Create</button>
               </div>
 
               <div class="pure-u-1 pure-u-md-2-24">
@@ -244,8 +244,8 @@
               </div>
 
               <div class="pure-u-1 pure-u-md-9-24">
-                <label for="reg-name">First Name <b style="color: red;">*</b></label>
-                <input id="reg-name" class="pure-u-20-24" name="reg-name" type="text" placeholder="Name">
+                <label for="reg-ename">First Name <b style="color: red;">*</b></label>
+                <input id="reg-ename" class="pure-u-20-24" name="reg-ename" type="text" placeholder="Name">
               </div>
 
               <div class="pure-u-1 pure-u-md-12-24">
@@ -257,8 +257,8 @@
               </div>
           
               <div class="pure-u-1 pure-u-md-9-24">
-                <label for="reg-username">Username <b style="color: red;">*</b></label>
-                <input id="reg-username" class="pure-u-20-24" name="reg-username" type="text" placeholder="Username">
+                <label for="reg-eusername">Username <b style="color: red;">*</b></label>
+                <input id="reg-eusername" class="pure-u-20-24" name="reg-eusername" type="text" placeholder="Username">
               </div>
               <div class="pure-u-1 pure-u-md-12-24">
               </div>
@@ -321,8 +321,8 @@
               </div>
 
               <div class="pure-u-1 pure-u-md-9-24">
-                <label for="reg-password">Password <b style="color: red;">*</b></label>
-                <input id="reg-password" class="pure-u-20-24" name="reg-password" type="password" placeholder="Password">
+                <label for="reg-epassword">Password <b style="color: red;">*</b></label>
+                <input id="reg-epassword" class="pure-u-20-24" name="reg-epassword" type="password" placeholder="Password">
               </div>
 
               <div class="pure-u-1 pure-u-md-12-24">
@@ -334,8 +334,8 @@
               </div>
 
               <div class="pure-u-1 pure-u-md-9-24">
-                <label for="reg-confirm-password">Confirm Password <b style="color: red;">*</b></label>
-                <input id="reg-confirm-password" class="pure-u-20-24" type="password" placeholder="Confirm Password">
+                <label for="reg-econfirm-password">Confirm Password <b style="color: red;">*</b></label>
+                <input id="reg-econfirm-password" class="pure-u-20-24" type="password" placeholder="Confirm Password">
               </div>
 
             </div>
@@ -352,7 +352,7 @@
               </div>
 
               <div class="pure-u-1 pure-u-md-10-24">
-                <button id="create-btn" class="pure-button pure-button-primary" style="float: right;" type="button">Create</button>
+                <button id="create_e-btn" class="pure-button pure-button-primary" style="float: right;" type="button">Create</button>
               </div>
 
               <div class="pure-u-1 pure-u-md-2-24">
@@ -427,13 +427,24 @@ $("#login-btn").click(function () {
    });
 });
 
-$("#create-btn").click(function () {
-   if ($("#reg-name").val().trim() === '' ||
-       $("#reg-username").val().trim() === '' ||
-       $("#reg-password").val().trim() === '' ||
-       $("#reg-confirm-password").val().trim() === '') {
-      alert("A required field is missing. Try again.");
+$("#create_c-btn").click(function () {
+
+  if ($("#reg-name").val().trim() === '') {
+      alert("Please fill in your Name and try again.");
       return;
+   }
+   if ($("#reg-username").val().trim() === '') {
+      alert("Please choose a Username and try again.");
+      return;
+   }
+   if ($("#reg-password").val().trim() === ''){
+     alert("Please enter a Password and try again.");
+   }
+   if ($("#reg-confirm-password").val().trim() === ''){
+     alert("Please re-enter your Password and try again.");
+   }
+   if ($("#reg-creditCard").val().trim() === ''){
+     alert("Please enter a CreditCard for purchases and try again.");
    }
 
    if ($("#reg-password").val() !== $("#reg-confirm-password").val()) {
@@ -447,7 +458,54 @@ $("#create-btn").click(function () {
       data: {
          "reg-name": $("#reg-name").val(),
          "reg-username": $("#reg-username").val(),
+         "reg-creditCard": $("#reg-creditCard").val(),
          "reg-password": $("#reg-password").val()
+      },
+      success: function (data) {
+         console.log(data);
+         window.location.replace("/login");
+         alert("Account creation succeeded. You may now log in.");
+      },
+      error: function (data) {
+         console.log(data);
+         alert("Account creation failed. Try again.");
+      }
+   });
+
+});
+
+$("#create_e-btn").click(function () {
+  if ($("#reg-ename").val().trim() === '') {
+      alert("Please fill in your Name and try again.");
+      return;
+   }
+   if ($("#reg-eusername").val().trim() === '') {
+      alert("Please choose a Username and try again.");
+      return;
+   }
+   if ($("#reg-epassword").val().trim() === ''){
+     alert("Please enter a Password and try again.");
+   }
+   if ($("#reg-econfirm-password").val().trim() === ''){
+     alert("Please re-enter your Password and try again.");
+   }
+   if ($("#reg-sin").val().trim() === ''){
+     alert("Please enter a CreditCard for purchases and try again.");
+   }
+
+   if ($("#reg-epassword").val() !== $("#reg-econfirm-password").val()) {
+      alert("Passwords differ. Try again.");
+      return;
+   }
+
+   $.ajax({
+      url: "/account/customer/create",
+      type: "POST",
+      data: {
+         "reg-name": $("#reg-ename").val(),
+         "reg-username": $("#reg-eusername").val(),
+         "reg-sin": $("#reg-sin").val(),
+         "reg-password": $("#reg-epassword").val()
       },
       success: function (data) {
          console.log(data);
