@@ -3,7 +3,7 @@
 
 namespace Gtheatre\Database; 
 
-class DBConnection {
+class DBConnection extends DatabaseProvider {
 
     private $DBConnection;
 
@@ -28,9 +28,9 @@ class DBConnection {
         // NOTE: to test in the local database comment out the first DBConnection line and 
         // uncomment the second DBConnection 
             // this is for remote connection to ClearDB!
-        //$this->DBConnection = new mysqli($server, $username, $password, $db);
+        $this->DBConnection = new mysqli($server, $username, $password, $db);
             // this is for localhost testing!
-        $this->DBConnection = new mysqli("localhost", "root","","GTheatre");
+        //$this->DBConnection = new mysqli("localhost", "root","","GTheatre");
 
         // if our connection fails a connect_errno exists 
         if ($this->DBConnection->connect_errno) {
