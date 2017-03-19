@@ -177,8 +177,8 @@ INSERT INTO Bundle values('Poutine', 'Zootopia', 2016, 4);
 INSERT INTO Bundle values('Nachos', 'LaLaLand', 2016, 5);
 
 -- INSERT Plays data
-INSERT INTO Plays values(17:00:00, 19:00:00, 1, "Star Wars: The Force Awakens", 2015);
-INSERT INTO Plays values(11:00:00, 13:00:00, 2, "Star Wars: The Force Awakens", 2015);
-INSERT INTO Plays values(9:00:00, 10:30:00, 3, "Cinderella", 2015);
-INSERT INTO Plays values(15:00:00, 16:30:00, 4, "Frozen", 2013);
-INSERT INTO Plays values(15:30:00, 17:00:00, 5, "Zootopia", 2016);
+INSERT INTO Plays values(TIME 17:00:00, TIME 19:00:00, 1, "Star Wars: The Force Awakens", 2015);
+INSERT INTO Plays values(TIME 11:00:00, TIME 13:00:00, 2, "Star Wars: The Force Awakens", 2015);
+INSERT INTO Plays values(TIME 9:00:00, TIME 10:30:00, 3, "Cinderella", 2015);
+INSERT INTO Plays values(TIME 15:00:00, TIME 16:30:00, 4, "Frozen", 2013);
+INSERT INTO Plays values(TIME 15:30:00, TIME 17:00:00, 5, "Zootopia", 2016);
