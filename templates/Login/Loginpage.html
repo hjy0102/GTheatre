@@ -371,6 +371,8 @@
 </div>
 
 <script>
+  $customer = 'customer';
+  $employee = 'employee';
 
 // $("#register-link").click(function () {
 //    $("#second-panel").fadeIn(600);
@@ -453,13 +455,14 @@ $("#create_c-btn").click(function () {
    }
 
    $.ajax({
-      url: "/account/customer/create",
+      url: "/account/customer/createCustomerAccount",
       type: "POST",
       data: {
          "reg-name": $("#reg-name").val(),
          "reg-username": $("#reg-username").val(),
          "reg-creditCard": $("#reg-creditCard").val(),
-         "reg-password": $("#reg-password").val()
+         "reg-password": $("#reg-password").val(),
+         "reg-acc-type": $customer
       },
       success: function (data) {
          console.log(data);
@@ -490,7 +493,7 @@ $("#create_e-btn").click(function () {
      alert("Please re-enter your Password and try again.");
    }
    if ($("#reg-sin").val().trim() === ''){
-     alert("Please enter a CreditCard for purchases and try again.");
+     alert("Please enter a SIN to register as an employee and try again.");
    }
 
    if ($("#reg-epassword").val() !== $("#reg-econfirm-password").val()) {
@@ -499,13 +502,14 @@ $("#create_e-btn").click(function () {
    }
 
    $.ajax({
-      url: "/account/customer/create",
+      url: "/account/employee/createEmployeeAccount",
       type: "POST",
       data: {
          "reg-name": $("#reg-ename").val(),
          "reg-username": $("#reg-eusername").val(),
          "reg-sin": $("#reg-sin").val(),
-         "reg-password": $("#reg-epassword").val()
+         "reg-password": $("#reg-epassword").val(),
+         "reg-acc-type": $employee
       },
       success: function (data) {
          console.log(data);
