@@ -59,22 +59,33 @@ CREATE TABLE Plays
      FOREIGN KEY (RYear) REFERENCES Movies (RYear) ON DELETE CASCADE ON UPDATE CASCADE
   );
 
+CREATE TABLE Users (
+  Login char(20) NOT NULL,
+  Password char(20) NOT NULL
+  PRIMARY KEY (Login)
+)
 CREATE TABLE Customers
   (
      CreditCard char(16) NOT NULL,
-     Login      char(20) NOT NULL,
-     Password   char(20) NOT NULL,
+     Customer_Login      char(20) NOT NULL,
+     Customer_Password   char(20) NOT NULL,
      FirstName  char(20),
-     PRIMARY KEY (Login)
+     PRIMARY KEY (Customer_Login),
+     FOREIGN KEY (Customer_Login) REFERENCES Users(Login) ON DELETE CASCADE ON UPDATE CASCADE,
+     FOREIGN KEY (Customer_Password) REFERENCES Users(Password) ON DELETE CASCADE ON UPDATE CASCADE
   );
 
 CREATE TABLE Employees
   (
      SIN       int NOT NULL,
-     Login     char(20) NOT NULL,
-     Password  char(20) NOT NULL,
+     Employee_Login     char(20) NOT NULL,
+     Employee_Password  char(20) NOT NULL,
      FirstName char(20),
-     PRIMARY KEY (Login)
+     UNIQUE (SIN),
+     PRIMARY KEY (Employee_Login),
+     FOREIGN KEY (Employee_Login) REFERENCES Users(Login) ON DELETE CASCADE ON UPDATE CASCADE,
+     FOREIGN KEY (Employee_Password) REFERENCES Users(Password) ON DELETE CASCADE ON UPDATE CASCADE
+
   );
 
 CREATE TABLE Foods
@@ -111,12 +122,24 @@ CREATE TABLE Foods
 -- Adding in data
 --
 
--- Insert TheatreHall data
+-- INSERT TheatreHall data
 INSERT INTO TheatreHalls values(1, 140);
 INSERT INTO TheatreHalls values(2, 150);
 INSERT INTO TheatreHalls values(3, 200);
 INSERT INTO TheatreHalls values(4, 220);
 INSERT INTO TheatreHalls values(5, 200);
+
+-- INSERT User data
+INSERT INTO Users values('seanlennaerts', 'password123');
+INSERT INTO Users values('ginnieisawesome304', '123456789');
+INSERT INTO Users values('jwpark', '304bestcourseever');
+INSERT INTO Users values('mikeeyoon', 'makecpscgreatagain');
+INSERT INTO Users values('prettyprincess', 'MakeMikeGreatAgain2');
+INSERT INTO Users values('TABen', 'password');
+INSERT INTO Users values('unicorns', 'areReal'),
+INSERT INTO Users values('employeeOTMonth', 'all12months');
+INSERT INTO Users values('daduck', 'password');
+INSERT INTO Users values('TomHanks', 'isdabest');
 
 -- INSERT Customer data
 INSERT INTO Customers values(1672789028338884, 'seanlennaerts', 'password123', 'Sean');
