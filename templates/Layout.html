@@ -21,26 +21,7 @@
 <body id="layout-body">
 <div class="header" style="height: 59px; margin-top: -59px;">
     <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
-      <img id="logo" src="/img/logo_.png" width="9%" height="9%" />
-
-        <!--<ul class="pure-menu-list">
-          {% for item in menuItems %}
-             {% if item.text|lower == "menu" or item.text|lower == "orders" %}
-                <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-                  <a href="{{ item.href }}" class="pure-menu-link">{{ item.text }}</a>
-                  <ul class="pure-menu-children">
-                    {% for child in item.children %}
-                       <a href="{{ child.href }}" class="pure-menu-link">{{ child.text }}</a>
-                    {% endfor %}
-                  </ul>
-                </li>
-             {% else %}
-                <li class="pure-menu-item">
-                  <a href="{{ item.href }}" class="pure-menu-link">{{ item.text }}</a>
-                </li>
-             {% endif %}
-          {% endfor %}
-        </ul>-->
+      <img id="logo" src="/img/logo.png" width="9%" height="9%" />
 
         <ul>
           {% if accType == null %}
