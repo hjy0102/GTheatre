@@ -15,6 +15,10 @@ class ComposerStaticInit7507812e021922e6c1e18047b1a0d97a
         array (
             'Whoops\\' => 7,
         ),
+        'P' => 
+        array (
+            'Psr\\Log\\' => 8,
+        ),
         'H' => 
         array (
             'Http\\' => 5,
@@ -37,6 +41,10 @@ class ComposerStaticInit7507812e021922e6c1e18047b1a0d97a
         'Whoops\\' => 
         array (
             0 => __DIR__ . '/..' . '/filp/whoops/src/Whoops',
+        ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
         ),
         'Http\\' => 
         array (
