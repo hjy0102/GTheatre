@@ -1,6 +1,7 @@
 # GTheatre
 UBC CPSC 304 - movie ticket reservation web application
 
+[Update - Mar 20, 2017 12:22AM] The front-end template will be marketing.css available on our latest commit 146b3b1</br>
 [Update - Feb 17, 2017 10:14PM] We are not hosting our database remotely on ClearDB <br/>
 [Update - Feb 17, 2017 12:38AM] We are now hosted on: https://gtheatre304.herokuapp.com
 
