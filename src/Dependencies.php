@@ -1,11 +1,5 @@
 <?php declare(strict_types = 1);
 
-/**
-* auryn is a recursive dependency injector. Use auryn to bootstrap and wire together S.O.L.I.D., 
-* object-oriented PHP applications. REFER TO:
-* https://github.com/rdlowrey/auryn
-**/ 
-
 $injector = new \Auryn\Injector;
 
 $injector->alias('Http\Request', 'Http\HttpRequest');
@@ -16,15 +10,13 @@ $injector->define('Http\HttpRequest', [
     ':post' => $_POST,
     ':cookies' => $_COOKIE,
     ':files' => $_FILES,
-    ':server' => $_SERVER
+    ':server' => $_SERVER,
 ]);
-
-$injector->alias('Http\Request', 'Http\HttpRequest');
-$injector->share('Http\HttpRequest');
+$injector->alias('Http\Response', 'Http\HttpResponse');
+$injector->share('Http\HttpResponse');
 
 $injector->alias('GTheatre\Template\Renderer', 'GTheatre\Template\TwigRenderer');
-
-$injector->delegate('Twig_Environment', function() use ($injector) {
+$injector->delegate('Twig_Environment', function () use ($injector) {
    $loader = new Twig_Loader_Filesystem(dirname(__DIR__) . '/templates');
    $twig = new Twig_Environment($loader);
    return $twig;
@@ -32,7 +24,12 @@ $injector->delegate('Twig_Environment', function() use ($injector) {
 
 $injector->alias('GTheatre\Template\FrontendRenderer', 'GTheatre\Template\FrontendTwigRenderer');
 
-$injector->alias('GTheatre\Database\DatabaseProvider', 'GTheatre\Database\DBConnection');
-$injector->share('GTheatre\Database\DBConnection');
+$injector->alias('GTheatre\Menu\MenuReader', 'GTheatre\Menu\ArrayMenuReader');
+$injector->share('GTheatre\Menu\ArrayMenuReader');
+
+$injector->alias('GTheatre\Database\DatabaseProvider', 'GTheatre\Database\MySQLDatabaseProvider');
+$injector->share('GTheatre\Database\MySQLDatabaseProvider');
+
+$injector->alias('GTheatre\Session\SessionWrapper', 'GTheatre\Session\PHPSessionWrapper');
 
 return $injector;

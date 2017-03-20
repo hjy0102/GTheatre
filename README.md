@@ -33,10 +33,10 @@ You can also just download it online.
 2. we are using bootstrap as well as font-awesome css and jquery; these files should already be included in the root directories but if for some reason you get an error from these pathways, you can also download these online [http://fontawesome.io] [http://getbootstrap.com] [http://jquery.com]
 3. To run <b> locally </b> make sure you <b>comment out </b>
 ```php
-$this->DBConnection = new mysqli($server, $username, $password, $db);
+$this->dbProvider = new mysqli($server, $username, $password, $db);
 ```
 and <b>uncomment out </b>the following line
 ```php 
-$this->DBConnection = new mysqli("localhost", "root","","GTheatre");
+$this->dbProvider = new mysqli("localhost", "root","","GTheatre");
 ```
 in src/Database/dbConnect.class.php

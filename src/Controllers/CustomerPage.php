@@ -5,7 +5,7 @@ namespace GTheatre\Controllers;
 use Http\Request;
 use Http\Response;
 use GTheatre\Template\FrontendRenderer;
-use GTheatre\Database\DBConnection;
+use GTheatre\Database\MySQLDatabaseProvider;
 use GTheatre\Session\SessionWrapper;
 use GTheatre\Exceptions\MissingEntityException;
 use GTheatre\Exceptions\EntityExistsException;
@@ -19,7 +19,7 @@ class CustomerPage{
     private $request;
     private $response;
     private $renderer;
-    private $dbConnection;
+    private $dbProvider;
     private $session;
 
     private $templateDir = 'Customer';
@@ -28,12 +28,12 @@ class CustomerPage{
         Request $request,
         Response $response,
         FrontendRenderer $renderer,
-        DBConnection $dbConnection,
+        MySQLDatabaseProvider $dbProvider,
         SessionWrapper $session){
             $this->request = $request;
             $this->response = $response;
             $this->renderer = $renderer;
-            $this->dbConnection = $dbConnection;
+            $this->dbProvider = $dbProvider;
             $this->session = $session;
             }
 
@@ -53,7 +53,7 @@ class CustomerPage{
         // database query in SQL
         $userQueryStr = "SELECT CreditCard, Login, Password, FirstName FROM Customers"."WHERE Login = '$Login'";
         // predefined in PHP mysqli API
-        $userResult = $this->dbConnection->selectQuery($userQueryStr);
+        $userResult = $this->dbProvider->selectQuery($userQueryStr);
         
         if (empty($userResult)) {
             // cannot find the user in the db
@@ -92,7 +92,7 @@ class CustomerPage{
         }
 
         $customerQueryStr = "SELECT Password FROM Customers ". "WHERE Login = '$Login' ";
-        $customerQueryPassword = $this->dbConnection->selectQuery($customerQueryStr);
+        $customerQueryPassword = $this->dbProvider->selectQuery($customerQueryStr);
 
         if (is_null($customerQueryPassword )){
             throw new MissingEntityException("Unable to find a customer with that Login.");
@@ -130,12 +130,12 @@ class CustomerPage{
         }
 
         $validateQueryStr = "SELECT * FROM Users"."WHERE Login = '$Login' ";
-        $validateResult = $this->dbConnection->selectQuery($validateQueryStr);
+        $validateResult = $this->dbProvider->selectQuery($validateQueryStr);
 
         if(!empty($validateResult)) {
             $updateQueryStr = "UPDATE Customers "."SET FirstName = '$FirstName'";
 
-            $updated = $this->dbConnection->updateQuery($updateQueryStr);
+            $updated = $this->dbProvider->updateQuery($updateQueryStr);
 
             if (!$updated) {
                 throw new SQLException("Failed to update customer's first name");
