@@ -1,6 +1,4 @@
-<?php declare(strict_types=1);
-
-// src/Controllers/Homepage.php 
+<?php declare(strict_types = 1);
 
 namespace GTheatre\Controllers;
 
@@ -8,36 +6,43 @@ use Http\Request;
 use Http\Response;
 use GTheatre\Template\FrontendRenderer;
 
-class Homepage {
-    private $req;
-    private $resp;
+class Homepage
+{
+    private $request;
+    private $response;
     private $renderer;
 
-    private $tempDir = ''; 
+    private $templateDir = '';
 
-    public function homeContruct (Request $req, Response $resp, FrontendRenderer $renderer) {
-        $this->req = $req;
-        $this->resp = $resp;
-        $this->renderer = $renderer;
-        
-
+    public function __construct(Request $request, Response $response, FrontendRenderer $renderer)
+    {
+       $this->request = $request;
+       $this->response = $response;
+       $this->renderer = $renderer;
     }
 
-// signout of session
+    function debug_to_console( $data ) {
+        $output = $data;
+        if ( is_array( $output ) )
+            $output = implode( ',', $output);
+
+        echo "<script>console.log( 'Debug Objects: " . $output . "' );</script>";
+    }
+
+    public function show()
+    {
+
+       $data = [
+          'name' => $this->request->getParameter('name', 'stranger'),
+       ];
+
+       $html = $this->renderer->render($this->templateDir, 'Homepage', $data);
+       $this->response->setContent($html);
+    }
 
     public function signout(){
-        session_destroy();
+       session_destroy();
     }
 
-// get parametres from request
-
-    public function show() {        
-         $info = [
-        //     'name' => $this->req->getParameter('name', 'stranger')
-         ];
-
-        $html = $this->renderer->render($this->tempDir, 'Homepage', $info);
-        $this->response->setContent($html);
-    }
 
 }

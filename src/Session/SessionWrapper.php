@@ -2,10 +2,10 @@
 
 namespace GTheatre\Session;
 
-
-interface SessionWrapper {
-
+interface SessionWrapper
+{
    public function getValue($key);
-   public function setValue($key, $value);
 
+   public function setValue($key, $value);
 }
+?>
