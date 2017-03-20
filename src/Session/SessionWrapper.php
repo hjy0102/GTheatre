@@ -2,8 +2,6 @@
 
 namespace GTheatre\Session;
 
-// TO DELETE LATER !!!
-echo 'Hello from Session Wrapper';
 
 interface SessionWrapper {
 

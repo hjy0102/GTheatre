@@ -18,8 +18,9 @@ class FrontendTwigRenderer implements FrontendRenderer{
         $accType = $this->session->getValue('accType');
 
         $data = array_merge($data, [
-         'accType' => $accType]);
-        
+        'accType' => $accType]);
+        return $this->renderer->render($dir, $template, $data);
+
         return $this->renderer->render($dir, $template, $data);
     }
 

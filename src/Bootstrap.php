@@ -18,11 +18,17 @@ $response = $injector->make('Http\HttpResponse');
 
 session_start();
 
+// var_dump($injector);
+// var_dump($request);
+// var_dump($response);
+
 /**
 * Register the error handler
 */
 $whoops = new \Whoops\Run;
+var_dump($whoops);
 if ($environment !== 'production') {
+ //   echo $environment;
     $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
     echo '***** ERROR ***** ';
     echo 'Something went wrong in the environment production !!! '; 
@@ -58,10 +64,14 @@ switch ($routeInfo[0]) {
     case \FastRoute\Dispatcher::FOUND:
         $className = $routeInfo[1][0];
         $method = $routeInfo[1][1];
-        $vars = $routeInfo[2];
+        // $vars = $routeInfo[2];
+
+        var_dump($className);
+        var_dump($method);
+        //var_dump($vars);
 
         $class = $injector->make($className);
-        $class->$method($vars);
+        // $class->$method($vars);
         break;
 }
 echo $response->getContent();

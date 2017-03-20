@@ -36,25 +36,27 @@
               </div>
           
               <div class="pure-u-1 pure-u-md-9-24">
-                <label for="login-username">Username <b style="color: red;">*</b></label>
+                <label for="login-username">Username<b style="color: red;">*</b></label>
                 <input id="login-username" class="pure-u-20-24" name="login-username" type="text" placeholder="Username">
               </div>
           
-              <!--<div class="pure-u-1 pure-u-md-12-24">
+              <div class="pure-u-1 pure-u-md-12-24">
                 <label for="login-acc-type">Account Type</label>
                 <select id="login-acc-type" name="login-acc-type" class="pure-u-20-24">
                   <option>Customer</option>
                   <option>Employee</option>
                 </select>
+              </div>
+
+              <!--<div class="pure-u-1 pure-u-md-12-24">
+                <label for="login-acc-type">Account Type</label>
+                <!--<form id="login-acc-type" name="login-acc-type" class="pure-u-20-24">-->
+                <!--<form id="login-type">
+                  <input id="login-acc-type" type="radio" name="login-acc-type" value="Customer" class="pure-u-3-24"> Customer<br>
+                  <input id="login-acc-type" type="radio" name="login-acc-type" value="Employee" class="pure-u-3-24"> Employee<br>
+                </form>
               </div>-->
 
-              <div class="pure-u-1 pure-u-md-12-24">
-                <label for="login-acc-type">Account Type</label>
-                <form id="login-acc-type" name="login-acc-type" class="pure-u-20-24">
-                  <input type="radio" name="login-acc-type" value="Customer" class="pure-u-3-24"> Customer<br>
-                  <input type="radio" name="login-acc-type" value="Employee" class="pure-u-3-24"> Employee<br>
-                </form>
-              </div>
               <!-- one row -->
               
               <div class="pure-u-1 pure-u-md-3-24">
@@ -424,7 +426,7 @@ $("#login-btn").click(function () {
          window.location.replace("/");
       },
       error: function () {
-         alert('Login failed. Try again.');
+         alert('Login failed as a(n) '  + $("#login-acc-type").val() + '. Please try again.');
       }
    });
 });

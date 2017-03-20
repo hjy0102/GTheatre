@@ -23,7 +23,7 @@
     <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
       <img id="logo" src="/img/logo_.png" width="9%" height="9%" />
 
-        <ul class="pure-menu-list">
+        <!--<ul class="pure-menu-list">
           {% for item in menuItems %}
              {% if item.text|lower == "menu" or item.text|lower == "orders" %}
                 <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
@@ -40,7 +40,9 @@
                 </li>
              {% endif %}
           {% endfor %}
+        </ul>-->
 
+        <ul>
           {% if accType == null %}
             <li class="pure-menu-item">
               <a href="/login" class="pure-menu-link" >LOGIN</a>

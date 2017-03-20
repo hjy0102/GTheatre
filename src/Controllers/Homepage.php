@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-// src/Controllers/Home.php 
+// src/Controllers/Homepage.php 
 
 namespace GTheatre\Controllers;
 
@@ -8,7 +8,7 @@ use Http\Request;
 use Http\Response;
 use GTheatre\Template\FrontendRenderer;
 
-class Home {
+class Homepage {
     private $req;
     private $resp;
     private $renderer;
@@ -19,6 +19,7 @@ class Home {
         $this->req = $req;
         $this->resp = $resp;
         $this->renderer = $renderer;
+        
 
     }
 
@@ -30,14 +31,13 @@ class Home {
 
 // get parametres from request
 
-    public function show() {
-        $info = [
-            'name' => $this->req->getParameter('name', 'stranger'),
-        ];
+    public function show() {        
+         $info = [
+        //     'name' => $this->req->getParameter('name', 'stranger')
+         ];
 
         $html = $this->renderer->render($this->tempDir, 'Homepage', $info);
-
-        $this->resp->setContent($html);
+        $this->response->setContent($html);
     }
 
 }
