@@ -1,5 +1,7 @@
+use heroku_d0dc4a6713d6673;
 --  Drop any existing tables. Any errors are ignored.
 --
+DROP TABLE IF EXISTS Users;
 DROP TABLE IF EXISTS TheatreHalls;
 DROP TABLE IF EXISTS Movies;
 DROP TABLE IF EXISTS Tickets;
@@ -7,8 +9,14 @@ DROP TABLE IF EXISTS Plays;
 DROP TABLE IF EXISTS Customers;
 DROP TABLE IF EXISTS Employees;
 DROP TABLE IF EXISTS Foods;
-DROP TABLE IF EXISTS Buys;
+DROP TABLE IF EXISTS Bundles;
 -- may be commented out later after testing
+
+-- TODO:
+-- having problems with creating the Plays table and the Bundle table
+--               probably due to syntax
+-- error with Movie data inserts
+--
 
 --
 -- Add each table 
@@ -53,26 +61,20 @@ CREATE TABLE Plays
      Title      char(20),
      RYear      int,
     --  PRIMARY KEY (STime, ETime),
-     PRIMARY KEY (HNumber, Title, RYear),
-     FOREIGN KEY (HNumber) REFERENCES TheatreHalls (HNumber) ON DELETE CASCADE ON UPDATE CASCADE,
+     PRIMARY KEY (HallNumber, Title, RYear),
+     FOREIGN KEY (HallNumber) REFERENCES TheatreHalls (HNumber) ON DELETE CASCADE ON UPDATE CASCADE,
      FOREIGN KEY (Title) REFERENCES Movies (Title) ON DELETE CASCADE ON UPDATE CASCADE,
      FOREIGN KEY (RYear) REFERENCES Movies (RYear) ON DELETE CASCADE ON UPDATE CASCADE
   );
 
-CREATE TABLE Users (
-  Login char(20) NOT NULL,
-  Password char(20) NOT NULL
-  PRIMARY KEY (Login)
-)
+
 CREATE TABLE Customers
   (
      CreditCard char(16) NOT NULL,
      Customer_Login      char(20) NOT NULL,
      Customer_Password   char(20) NOT NULL,
      FirstName  char(20),
-     PRIMARY KEY (Customer_Login),
-     FOREIGN KEY (Customer_Login) REFERENCES Users(Login) ON DELETE CASCADE ON UPDATE CASCADE,
-     FOREIGN KEY (Customer_Password) REFERENCES Users(Password) ON DELETE CASCADE ON UPDATE CASCADE
+     PRIMARY KEY (Customer_Login)
   );
 
 CREATE TABLE Employees
@@ -82,9 +84,7 @@ CREATE TABLE Employees
      Employee_Password  char(20) NOT NULL,
      FirstName char(20),
      UNIQUE (SIN),
-     PRIMARY KEY (Employee_Login),
-     FOREIGN KEY (Employee_Login) REFERENCES Users(Login) ON DELETE CASCADE ON UPDATE CASCADE,
-     FOREIGN KEY (Employee_Password) REFERENCES Users(Password) ON DELETE CASCADE ON UPDATE CASCADE
+     PRIMARY KEY (Employee_Login)
 
   );
 
@@ -129,17 +129,6 @@ INSERT INTO TheatreHalls values(3, 200);
 INSERT INTO TheatreHalls values(4, 220);
 INSERT INTO TheatreHalls values(5, 200);
 
--- INSERT User data
-INSERT INTO Users values('seanlennaerts', 'password123');
-INSERT INTO Users values('ginnieisawesome304', '123456789');
-INSERT INTO Users values('jwpark', '304bestcourseever');
-INSERT INTO Users values('mikeeyoon', 'makecpscgreatagain');
-INSERT INTO Users values('prettyprincess', 'MakeMikeGreatAgain2');
-INSERT INTO Users values('TABen', 'password');
-INSERT INTO Users values('unicorns', 'areReal'),
-INSERT INTO Users values('employeeOTMonth', 'all12months');
-INSERT INTO Users values('daduck', 'password');
-INSERT INTO Users values('TomHanks', 'isdabest');
 
 -- INSERT Customer data
 INSERT INTO Customers values(1672789028338884, 'seanlennaerts', 'password123', 'Sean');
@@ -177,8 +166,8 @@ INSERT INTO Bundle values('Poutine', 'Zootopia', 2016, 4);
 INSERT INTO Bundle values('Nachos', 'LaLaLand', 2016, 5);
 
 -- INSERT Plays data
-INSERT INTO Plays values(TIME 17:00:00, TIME 19:00:00, 1, "Star Wars: The Force Awakens", 2015);
-INSERT INTO Plays values(TIME 11:00:00, TIME 13:00:00, 2, "Star Wars: The Force Awakens", 2015);
-INSERT INTO Plays values(TIME 9:00:00, TIME 10:30:00, 3, "Cinderella", 2015);
-INSERT INTO Plays values(TIME 15:00:00, TIME 16:30:00, 4, "Frozen", 2013);
-INSERT INTO Plays values(TIME 15:30:00, TIME 17:00:00, 5, "Zootopia", 2016);
+INSERT INTO Plays values( 17:00:00, 19:00:00, 1, "Star Wars: The Force Awakens", 2015);
+INSERT INTO Plays values(11:00:00,  13:00:00, 2, "Star Wars: The Force Awakens", 2015);
+INSERT INTO Plays values( 9:00:00,  10:30:00, 3, "Cinderella", 2015);
+INSERT INTO Plays values( 15:00:00,  16:30:00, 4, "Frozen", 2013);
+INSERT INTO Plays values( 15:30:00,  17:00:00, 5, "Zootopia", 2016);
