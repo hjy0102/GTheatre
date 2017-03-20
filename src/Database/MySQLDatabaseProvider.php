@@ -1,15 +1,14 @@
-<?php 
-// src/Database/dbConnect.class.php
+<?php declare(strict_types = 1);
 
-namespace Gtheatre\Database; 
+namespace GTheatre\Database;
 
-class DBConnection extends DatabaseProvider {
+class MySQLDatabaseProvider implements DatabaseProvider
+{
+   private $dbProvider;
 
-    private $DBConnection;
-
-    public function _dbConstruct(){
-
-        //this is the ClearDB database url that is connected to our Heroku app
+   public function __construct()
+   {
+//this is the ClearDB database url that is connected to our Heroku app
         $CLEARDB_DATABASE_URL = "mysql://b246c25ab72aba:3c0dafda@us-cdbr-iron-east-04.cleardb.net/heroku_d0dc4a6713d6673?reconnect=true";
         
         // parse the url for the various components and 
@@ -25,15 +24,20 @@ class DBConnection extends DatabaseProvider {
         // var_dump($url);
 
 
-        // NOTE: to test in the local database comment out the first DBConnection line and 
-        // uncomment the second DBConnection 
+        // NOTE: to test in the local database comment out the first dbProvider line and 
+        // uncomment the second dbProvider 
             // this is for remote connection to ClearDB!
-        $this->DBConnection = new mysqli($server, $username, $password, $db);
+        $this->dbProvider = new \MySQLi($server, $username, $password, $db);
+
+        // if ($this->dbProvider) {
+        //     var_dump($this->dbProvider);
+        //     echo "YAAAA it works";
+        // }
             // this is for localhost testing!
-        //$this->DBConnection = new mysqli("localhost", "root","","GTheatre");
+        //$this->dbProvider = new mysqli("localhost", "root","","GTheatre");
 
         // if our connection fails a connect_errno exists 
-        if ($this->DBConnection->connect_errno) {
+        if ($this->dbProvider->connect_errno) {
     
             echo "Sorry, this website is experiencing problems.";
             echo "Error: Failed to make a MySQL connection, here is why: \n";
@@ -45,7 +49,7 @@ class DBConnection extends DatabaseProvider {
     }
 
     public function selectQuery($query){
-        $queryResult = $this-> DBConnection->query($query);
+        $queryResult = $this-> dbProvider->query($query);
         $queryArr = mysqli_result::fetch_array($queryResult, MYSQLI_ASSOC);
 
         return $queryArr;
@@ -54,7 +58,7 @@ class DBConnection extends DatabaseProvider {
 
     public function selectMultipleRowsQuery($q){
 
-        $queryResult = $this->DBConnection->query($q);
+        $queryResult = $this->dbProvider->query($q);
         $queryArr = mysqli_result::fetch_all($queryResult, MYSQLI_ASSOC);
 
         return $queryArr;
@@ -62,7 +66,7 @@ class DBConnection extends DatabaseProvider {
 
     public function insertQuery($q) {
 
-        $queryResult = $this->DBConnection->query($q);
+        $queryResult = $this->dbProvider->query($q);
 
         return $queryResult;
 
@@ -76,15 +80,15 @@ class DBConnection extends DatabaseProvider {
 
     public function applyQueries($qArr) {
 
-        $this->DBConnection->autocommit(FALSE);
+        $this->dbProvider->autocommit(FALSE);
         foreach( $qArr as $query) {
-            $queryResult = $this->DBConnection->query($query);
+            $queryResult = $this->dbProvider->query($query);
 
             if (!$queryResult) {
                 return false;
             }
         }
-        $this->DBConnection->commit();
+        $this->dbProvider->commit();
         return true;
     }
 
