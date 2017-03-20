@@ -10,7 +10,7 @@
  */
 body {
     line-height: 1.7em;
-    color: #1a0000;
+    color: #7f8c8d;
     font-size: 13px;
 }
 
@@ -96,7 +96,7 @@ a.pure-button-primary {
     box-shadow: 0 1px 1px rgba(0,0,0, 0.10);
 }
 .home-menu {
-    background: #ffffff;
+    background: #2d3e50;
 }
 .pure-menu.pure-menu-fixed {
     /* Fixed menus normally have a border at the bottom. */
@@ -116,7 +116,7 @@ a.pure-button-primary {
 }
 
 .home-menu a {
-    color: #ffffff;
+    color: #6FBEF3;
 }
 .home-menu li a:hover,
 .home-menu li a:focus {
@@ -132,7 +132,7 @@ a.pure-button-primary {
  */
 
 .splash-container {
-    background: url("/img/Newest_STAR_Background.jpg") no-repeat fixed center;
+    background: url("/img/background.jpg") no-repeat fixed center;
     background-size: cover;
     z-index: -1;
     overflow: hidden;

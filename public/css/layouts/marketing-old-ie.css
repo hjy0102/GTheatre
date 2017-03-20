@@ -135,7 +135,7 @@ a.pure-button-primary {
  */
 
 .splash-container {
-    background: url("/img/Newest_STAR_Background.jpg") no-repeat fixed center;
+    background: url("/img/background.jpg") no-repeat fixed center;
     z-index: 1;
     overflow: hidden;
     /* The following styles are required for the "scroll-over" effect */

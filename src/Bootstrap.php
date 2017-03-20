@@ -12,31 +12,28 @@ $injector = include('Dependencies.php');
 $request = $injector->make('Http\HttpRequest');
 $response = $injector->make('Http\HttpResponse');
 
-/**
-* Start session (for global vars)
-*/
-
-session_start();
-
 // var_dump($injector);
 // var_dump($request);
 // var_dump($response);
 
 /**
+* Start session (for global vars)
+*/
+session_start();
+
+/**
 * Register the error handler
 */
 $whoops = new \Whoops\Run;
-var_dump($whoops);
+//var_dump($whoops);
 if ($environment !== 'production') {
- //   echo $environment;
     $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
-    echo '***** ERROR ***** ';
-    echo 'Something went wrong in the environment production !!! '; 
 } else {
     $whoops->pushHandler(function($e){
-        echo 'Todo: FIX pushHandler error !!! ';
+        echo 'Todo: Friendly error page and send an email to the developer';
     });
 }
+
 $whoops->register();
 
 /**
@@ -64,14 +61,18 @@ switch ($routeInfo[0]) {
     case \FastRoute\Dispatcher::FOUND:
         $className = $routeInfo[1][0];
         $method = $routeInfo[1][1];
-        // $vars = $routeInfo[2];
+        $vars = $routeInfo[2];
 
-        var_dump($className);
-        var_dump($method);
-        //var_dump($vars);
+        // var_export($className);
+        // var_export($method);
+        // var_export($vars);
+
+        // var_dump($className);
+        // var_dump($method);
+        // var_dump($vars);
 
         $class = $injector->make($className);
-        // $class->$method($vars);
+        $class->$method($vars);
         break;
 }
 echo $response->getContent();

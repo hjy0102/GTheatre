@@ -4,6 +4,5 @@ namespace GTheatre\Template;
 
 interface Renderer
 {
-   public function render($dir, $template, $data = []);
-   
+   public function render($dir, $template, $data = []) : string;
 }

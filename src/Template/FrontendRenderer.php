@@ -2,7 +2,7 @@
 
 namespace GTheatre\Template;
 
-interface FrontendRenderer extends Renderer {
-    
+interface FrontendRenderer extends Renderer
+{
+
 }
-?>
