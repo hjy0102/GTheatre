@@ -10,8 +10,8 @@ return [
 // login page
     ['GET', '/login', ['GTheatre\Controllers\Loginpage', 'show']],
     ['POST', '/login', ['GTheatre\Controllers\Loginpage', 'login']],
-    ['POST', '/account/customer/create', ['GTheatre\Controllers\Loginpage', 'createAccount']],
-
+    ['POST', '/account/customer/createCustomerAccount', ['GTheatre\Controllers\Loginpage', 'createCustomerAccount']],
+    ['POST', '/account/employee/createEmployeeAccount', ['GTheatre\Controllers\Loginpage', 'createEmployeeAccount']],
 // menu page
     ['GET', '/menuItems', ['GTheatre\Controllers\Menupage', 'showAllMenuItems']],
     ['GET', '/menuItem/create', ['GTheatre\Controllers\Menupage', 'showCreateMenuItemForm']],
