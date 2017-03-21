@@ -46,19 +46,24 @@ class Loginpage {
         $password = $this->request->getParameter('login-password');
         $accType = $this->request->getParameter('login-acc-type');
         
+
         if (is_null($username) || strlen($username) == 0 ||
             is_null($password) || strlen($password) == 0 ||
             is_null($accType) || strlen($accType) == 0) {
                 throw new InvalidArgumentException('Required form input missing. Either username, password, or accType.');
         }
 
-        $queryStr_customer = "SELECT * FROM Customers " .
-                  "WHERE Customer_Login = '$username' AND " .
-                  "Customer_Password = '$password' ";
 
-        $queryStr_employee = "SELECT * FROM Employees ". 
-                            "WHERE Employee_Login = '$username' AND".
-                            "Employee_Password = '$password'";
+        error_log($username . " : username", 3, "/log/error_log.php.log");
+
+        
+        $queryStr_customer = "SELECT * FROM Customers 
+                            WHERE Customer_Login = '$username' 
+                            AND Customer_Password = '$password' ";
+
+        $queryStr_employee = "SELECT * FROM Employees  
+                            WHERE Employee_Login = '$username' AND
+                            Employee_Password = '$password' ";
       
 
         if ($accType == 'Customer') {
@@ -67,9 +72,11 @@ class Loginpage {
             $result = $this->dbProvider->selectQuery($queryStr_employee);
         }
 
+
         if (empty($result)) {
          throw new InvalidArgumentException('Invalid credentials provided.');
         }
+
         else if ($accType == 'Customer') {
             $this->session->setValue('accType', 'Customer');
             $this->session->setValue('name', $result["FirstName"]);
