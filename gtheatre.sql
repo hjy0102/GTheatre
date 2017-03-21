@@ -1,15 +1,14 @@
 use heroku_d0dc4a6713d6673;
---  Drop any existing tables. Any errors are ignored.
+-- Drop any existing tables. Any errors are ignored.
 --
-DROP TABLE IF EXISTS Users;
-DROP TABLE IF EXISTS TheatreHalls;
-DROP TABLE IF EXISTS Movies;
-DROP TABLE IF EXISTS Tickets;
-DROP TABLE IF EXISTS Plays;
-DROP TABLE IF EXISTS Customers;
-DROP TABLE IF EXISTS Employees;
-DROP TABLE IF EXISTS Foods;
-DROP TABLE IF EXISTS Bundles;
+-- DROP TABLE IF EXISTS TheatreHalls;
+-- DROP TABLE IF EXISTS Movies;
+-- DROP TABLE IF EXISTS Tickets;
+-- DROP TABLE IF EXISTS Plays;
+-- DROP TABLE IF EXISTS Customers;
+-- DROP TABLE IF EXISTS Employees;
+-- DROP TABLE IF EXISTS Foods;
+-- DROP TABLE IF EXISTS Bundles;
 -- may be commented out later after testing
 
 -- TODO:
