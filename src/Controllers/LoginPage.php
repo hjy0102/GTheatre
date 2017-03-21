@@ -84,7 +84,7 @@ class Loginpage {
     }
 
 
-<<<<<<< HEAD
+
 //    public function createAccount()
 //    {
 //       // if want to be really careful. limit character size on inputs..
@@ -119,8 +119,8 @@ class Loginpage {
 //          throw new SQLException("Failed to create User with $name, $username, $password");
 //       }
 //    }
-}
-=======
+// }
+
    public function createCustomerAccount(){
       // if want to be really careful. limit character size on inputs..
       // needs disclaimer about password being saved as plaintext
@@ -192,4 +192,3 @@ class Loginpage {
 
 
 }
->>>>>>> 7ab93faed54573516ae5a2e3b1be41ada559b55f
