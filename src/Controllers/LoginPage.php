@@ -54,7 +54,7 @@ class Loginpage {
         }
 
 
-        error_log($username . " : username", 3, "/log/error_log.php.log");
+        error_log($username . " : username", 3, '/log/error_log.php.log');
 
         
         $queryStr_customer = "SELECT * FROM Customers 
