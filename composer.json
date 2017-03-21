@@ -31,7 +31,8 @@
     "patricklouys/http": "~1.4",
     "nikic/fast-route": ">1.0",
     "rdlowrey/auryn": ">1.0",
-    "twig/twig": "~1.0"
+    "twig/twig": "~1.0",
+    "php-console/php-console": "^3.1"
   },
 
   "require-dev": {

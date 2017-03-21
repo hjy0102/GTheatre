@@ -1,5 +1,7 @@
+use heroku_d0dc4a6713d6673;
 --  Drop any existing tables. Any errors are ignored.
 --
+DROP TABLE IF EXISTS Users;
 DROP TABLE IF EXISTS TheatreHalls;
 DROP TABLE IF EXISTS Movies;
 DROP TABLE IF EXISTS Tickets;
@@ -7,8 +9,14 @@ DROP TABLE IF EXISTS Plays;
 DROP TABLE IF EXISTS Customers;
 DROP TABLE IF EXISTS Employees;
 DROP TABLE IF EXISTS Foods;
-DROP TABLE IF EXISTS Buys;
+DROP TABLE IF EXISTS Bundles;
 -- may be commented out later after testing
+
+-- TODO:
+-- having problems with creating the Plays table and the Bundle table
+--               probably due to syntax
+-- error with Movie data inserts
+--
 
 --
 -- Add each table 
@@ -53,8 +61,8 @@ CREATE TABLE Plays
      Title      char(20),
      RYear      int,
     --  PRIMARY KEY (STime, ETime),
-     PRIMARY KEY (HNumber, Title, RYear),
-     FOREIGN KEY (HNumber) REFERENCES TheatreHalls (HNumber) ON DELETE CASCADE ON UPDATE CASCADE,
+     PRIMARY KEY (HallNumber, Title, RYear),
+     FOREIGN KEY (HallNumber) REFERENCES TheatreHalls (HNumber) ON DELETE CASCADE ON UPDATE CASCADE,
      FOREIGN KEY (Title) REFERENCES Movies (Title) ON DELETE CASCADE ON UPDATE CASCADE,
      FOREIGN KEY (RYear) REFERENCES Movies (RYear) ON DELETE CASCADE ON UPDATE CASCADE
   );
@@ -66,9 +74,7 @@ CREATE TABLE Customers
      Customer_Login      char(20) NOT NULL,
      Customer_Password   char(20) NOT NULL,
      FirstName  char(20),
-     PRIMARY KEY (Customer_Login),
-     FOREIGN KEY (Customer_Login) REFERENCES Users(Login) ON DELETE CASCADE ON UPDATE CASCADE,
-     FOREIGN KEY (Customer_Password) REFERENCES Users(Password) ON DELETE CASCADE ON UPDATE CASCADE
+     PRIMARY KEY (Customer_Login)
   );
 
 CREATE TABLE Employees
@@ -78,9 +84,7 @@ CREATE TABLE Employees
      Employee_Password  char(20) NOT NULL,
      FirstName char(20),
      UNIQUE (SIN),
-     PRIMARY KEY (Employee_Login),
-     FOREIGN KEY (Employee_Login) REFERENCES Users(Login) ON DELETE CASCADE ON UPDATE CASCADE,
-     FOREIGN KEY (Employee_Password) REFERENCES Users(Password) ON DELETE CASCADE ON UPDATE CASCADE
+     PRIMARY KEY (Employee_Login)
 
   );
 

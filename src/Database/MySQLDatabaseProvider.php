@@ -49,7 +49,10 @@ class MySQLDatabaseProvider implements DatabaseProvider
     }
 
     public function selectQuery($query){
-        $queryResult = $this-> dbProvider->query($query);
+        $queryResult = $this->dbProvider->query($query);
+
+        var_dump($queryResult);
+
         $queryArr = mysqli_result::fetch_array($queryResult, MYSQLI_ASSOC);
 
         return $queryArr;

@@ -72,6 +72,13 @@ class ComposerStaticInit7507812e021922e6c1e18047b1a0d97a
                 0 => __DIR__ . '/..' . '/twig/twig/lib',
             ),
         ),
+        'P' => 
+        array (
+            'PhpConsole' => 
+            array (
+                0 => __DIR__ . '/..' . '/php-console/php-console/src',
+            ),
+        ),
     );
 
     public static function getInitializer(ClassLoader $loader)
