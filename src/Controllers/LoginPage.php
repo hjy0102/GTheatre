@@ -52,10 +52,6 @@ class Loginpage {
             is_null($accType) || strlen($accType) == 0) {
                 throw new InvalidArgumentException('Required form input missing. Either username, password, or accType.');
         }
-
-
-        error_log($username . " : username", 3, '/log/error_log.php.log');
-
         
         $queryStr_customer = "SELECT * FROM Customers 
                             WHERE Customer_Login = '$username' 
