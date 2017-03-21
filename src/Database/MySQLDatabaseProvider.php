@@ -38,26 +38,37 @@ class MySQLDatabaseProvider implements DatabaseProvider
 
         // if our connection fails a connect_errno exists 
         if ($this->dbProvider->connect_errno) {
+
+            die("Connection failed: " . $this->dbProvider->connect_error);
     
-            echo "Sorry, this website is experiencing problems.";
-            echo "Error: Failed to make a MySQL connection, here is why: \n";
-            echo "Errno: " . $mysqli->connect_errno . "\n";
-            echo "Error: " . $mysqli->connect_error . "\n";
-            exit;
+            // echo "Sorry, this website is experiencing problems.";
+            // echo "Error: Failed to make a MySQL connection, here is why: \n";
+            // echo "Errno: " . $mysqli->connect_errno . "\n";
+            // echo "Error: " . $mysqli->connect_error . "\n";
+            // exit;
         };
 
     }
 
     public function selectQuery($query){
-        $queryResult = $this->dbProvider->query($query);
+        // $queryResult = $this->dbProvider->query($query);
 
-        var_dump($queryResult);
+        // $queryArr = mysqli_result::fetch_array($queryResult, MYSQLI_ASSOC);
 
-        $queryArr = mysqli_result::fetch_array($queryResult, MYSQLI_ASSOC);
+        // return $queryArr;
 
-        return $queryArr;
-
+        if ($queryResult = $this->dbProvider->query($query)) {
+            /* fetch object array */
+            // while ($row = $queryResult->fetch_row()) {
+            //     printf ("%s (%s)\n", $row[0], $row[1]);
+            // };
+        
+        return $queryResult; 
+        };
     }
+
+
+
 
     public function selectMultipleRowsQuery($q){
 
