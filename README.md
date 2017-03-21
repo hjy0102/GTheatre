@@ -24,6 +24,11 @@ This will update your dependencies.</br>
 cd public
 php -S localhost:3000
 ```
+
+If you already have php 7 installed but it goes back to php 5.6 everytime you close terminal run
+```
+export PATH="$(brew --prefix homebrew/php/php70)/bin:$PATH"
+```
 Change your directory to GTheatre/public and run the -S start command to run locally on port 3000. (Note you can change the port number if you want to if you have something already running on port 3000.)</br>
 
 In the web browser of your choice go to:
