@@ -8,10 +8,17 @@ return [
     ['POST', '/signout', ['GTheatre\Controllers\HomePage', 'signout']],
 
 // login page
+<<<<<<< HEAD
     ['GET', '/login', ['GTheatre\Controllers\LoginPage', 'show']],
     ['POST', '/login', ['GTheatre\Controllers\LoginPage', 'login']],
     ['POST', '/account/customer/create', ['GTheatre\Controllers\LoginPage', 'createAccount']],
 
+=======
+    ['GET', '/login', ['GTheatre\Controllers\Loginpage', 'show']],
+    ['POST', '/login', ['GTheatre\Controllers\Loginpage', 'login']],
+    ['POST', '/account/customer/createCustomerAccount', ['GTheatre\Controllers\Loginpage', 'createCustomerAccount']],
+    ['POST', '/account/employee/createEmployeeAccount', ['GTheatre\Controllers\Loginpage', 'createEmployeeAccount']],
+>>>>>>> 7ab93faed54573516ae5a2e3b1be41ada559b55f
 // menu page
     ['GET', '/menuItems', ['GTheatre\Controllers\Menupage', 'showAllMenuItems']],
     ['GET', '/menuItem/create', ['GTheatre\Controllers\Menupage', 'showCreateMenuItemForm']],
