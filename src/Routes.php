@@ -4,13 +4,13 @@
 return [
 
 // home
-    ['GET', '/', ['GTheatre\Controllers\Homepage', 'show']],
-    ['POST', '/signout', ['GTheatre\Controllers\Homepage', 'signout']],
+    ['GET', '/', ['GTheatre\Controllers\HomePage', 'show']],
+    ['POST', '/signout', ['GTheatre\Controllers\HomePage', 'signout']],
 
 // login page
-    ['GET', '/login', ['GTheatre\Controllers\Loginpage', 'show']],
-    ['POST', '/login', ['GTheatre\Controllers\Loginpage', 'login']],
-    ['POST', '/account/customer/create', ['GTheatre\Controllers\Loginpage', 'createAccount']],
+    ['GET', '/login', ['GTheatre\Controllers\LoginPage', 'show']],
+    ['POST', '/login', ['GTheatre\Controllers\LoginPage', 'login']],
+    ['POST', '/account/customer/create', ['GTheatre\Controllers\LoginPage', 'createAccount']],
 
 // menu page
     ['GET', '/menuItems', ['GTheatre\Controllers\Menupage', 'showAllMenuItems']],

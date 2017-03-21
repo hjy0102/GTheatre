@@ -45,21 +45,21 @@ class Loginpage {
         $username = $this->request->getParameter('login-username');
         $password = $this->request->getParameter('login-password');
         $accType = $this->request->getParameter('login-acc-type');
-        
+
         if (is_null($username) || strlen($username) == 0 ||
             is_null($password) || strlen($password) == 0 ||
             is_null($accType) || strlen($accType) == 0) {
                 throw new InvalidArgumentException('Required form input missing. Either username, password, or accType.');
         }
 
-        $queryStr_customer = "SELECT * FROM Customers " .
-                  "WHERE Customer_Login = '$username' AND " .
-                  "Customer_Password = '$password' ";
+        $queryStr_customer = "SELECT * FROM Customers
+                  WHERE Customer_Login = '$username' AND
+                  Customer_Password = '$password' ";
 
-        $queryStr_employee = "SELECT * FROM Employees ". 
-                            "WHERE Employee_Login = '$username' AND".
-                            "Employee_Password = '$password'";
-      
+        $queryStr_employee = "SELECT * FROM Employees
+                            WHERE Employee_Login = '$username' AND
+                            Employee_Password = '$password'";
+
 
         if ($accType == 'Customer') {
             $result = $this->dbProvider->selectQuery($queryStr_customer);
@@ -82,7 +82,7 @@ class Loginpage {
             $this->session->setValue('sin', $result["SIN"]);
         }
     }
-    
+
 
 //    public function createAccount()
 //    {
@@ -113,7 +113,7 @@ class Loginpage {
 //                           "('$username', '$password', 'customer', '$name', '$phone', '$address', now(), 'F')";
 
 //       $created = $this->dbProvider->insertQuery($registerQueryStr);
-      
+
 //       if (!$created) {
 //          throw new SQLException("Failed to create User with $name, $username, $password");
 //       }
