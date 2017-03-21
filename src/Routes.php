@@ -11,6 +11,8 @@ return [
 
     ['GET', '/login', ['GTheatre\Controllers\Loginpage', 'show']],
     ['POST', '/login', ['GTheatre\Controllers\Loginpage', 'login']],
+    
+    //register
     ['POST', '/account/customer/createCustomerAccount', ['GTheatre\Controllers\Loginpage', 'createCustomerAccount']],
     ['POST', '/account/employee/createEmployeeAccount', ['GTheatre\Controllers\Loginpage', 'createEmployeeAccount']],
 

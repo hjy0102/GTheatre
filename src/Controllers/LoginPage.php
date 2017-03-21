@@ -83,44 +83,6 @@ class Loginpage {
         }
     }
 
-
-
-//    public function createAccount()
-//    {
-//       // if want to be really careful. limit character size on inputs..
-//       // needs disclaimer about password being saved as plaintext
-//       $name = $this->request->getParameter('reg-name');
-//       $username = $this->request->getParameter('reg-username');
-//       $password = $this->request->getParameter('reg-password');
-//       $phone = $this->request->getParameter('reg-phone');
-//       $address = $this->request->getParameter('reg-address');
-
-//       if (is_null($name) || strlen($name) == 0 ||
-//           is_null($username) || strlen($username) == 0 ||
-//           is_null($password) || strlen($password) == 0) {
-//          throw new InvalidArgumentException("required form input missing. Either name, username, or password.");
-//       }
-
-//       $usernameQueryStr = "SELECT * FROM Users WHERE userName = '$username'";
-//       $usernameQueryResult = $this->dbProvider->selectQuery($usernameQueryStr);
-
-//       if (!empty($usernameQueryResult)) {
-//          throw new EntityExistsException("User exists with username $username");
-//       }
-
-//       $registerQueryStr = "INSERT INTO Users " .
-//                           "(userName, password, type, name, phone, address, createDate, u_deleted) " .
-//                           "VALUE " .
-//                           "('$username', '$password', 'customer', '$name', '$phone', '$address', now(), 'F')";
-
-//       $created = $this->dbProvider->insertQuery($registerQueryStr);
-
-//       if (!$created) {
-//          throw new SQLException("Failed to create User with $name, $username, $password");
-//       }
-//    }
-// }
-
    public function createCustomerAccount(){
       // if want to be really careful. limit character size on inputs..
       // needs disclaimer about password being saved as plaintext
