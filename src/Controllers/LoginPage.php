@@ -72,19 +72,33 @@ class Loginpage {
 
         if (empty($result)) {
          throw new InvalidArgumentException('Invalid credentials provided.');
+        } else if ($result) {
+
+            if ($accType == 'Customer') {
+                $this->session->setValue('accType', 'Customer');
+                while ($result_info = $result->fetch_field()) {
+                   $this->session->setValue('result', $result_info);
+                    $this->session->setValue('creditCard', $result_info->CreditCard);
+                    $this->session->setValue('userName', $result_info->Customer_Login);
+                    $this->session->setValue('name', $result_info->FirstName);
+                }
+                // $this->session->setValue('name', $result["FirstName"]);
+                // $this->session->setValue('userName', $result["Customer_Login"]);
+                // $this->session->setValue('creditCard', $result["CreditCard"]);
+            } else if ($accType == 'Employee') {
+                $this->session->setValue('accType', 'Employee');
+                // $this->session->setValue('name', $result["FirstName"]);
+                // $this->session->setValue('userName', $result["Employee_Login"]);
+                // $this->session->setValue('sin', $result["SIN"]);
+                while ($result_info = $result->fetch_field()) {
+                    $this->session->setValue('name', $result_info->FirstName);
+                    $this->session->setValue('userName', $result_info->Employee_Login);
+                    $this->session->setValue('sin', $result_info->SIN);
+                }
+            }
         }
 
-        else if ($accType == 'Customer') {
-            $this->session->setValue('accType', 'Customer');
-            $this->session->setValue('name', $result["FirstName"]);
-            $this->session->setValue('userName', $result["Customer_Login"]);
-            $this->session->setValue('creditCard', $result["CreditCard"]);
-        } else if ($accType == 'Employee') {
-            $this->session->setValue('accType', 'Employee');
-            $this->session->setValue('name', $result["FirstName"]);
-            $this->session->setValue('userName', $result["Employee_Login"]);
-            $this->session->setValue('sin', $result["SIN"]);
-        }
+
     }
 
    public function createCustomerAccount(){

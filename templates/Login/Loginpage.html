@@ -367,7 +367,7 @@ $("#login-btn").click(function () {
 
    $.ajax({
       url: "/login",
-      type: "GET",
+      type: "POST",
       data: {
          "login-username": $("#login-username").val(),
          "login-password": $("#login-password").val(),
@@ -375,6 +375,7 @@ $("#login-btn").click(function () {
       },
       
       success: function () {
+         alert('Congratulations! ' + ' Welcome back, ' + $("#login-username").val() );
          window.location.replace("/");
       },
       error: function () {
