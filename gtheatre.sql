@@ -59,11 +59,7 @@ CREATE TABLE Plays
      FOREIGN KEY (RYear) REFERENCES Movies (RYear) ON DELETE CASCADE ON UPDATE CASCADE
   );
 
-CREATE TABLE Users (
-  Login char(20) NOT NULL,
-  Password char(20) NOT NULL
-  PRIMARY KEY (Login)
-)
+
 CREATE TABLE Customers
   (
      CreditCard char(16) NOT NULL,
@@ -129,17 +125,6 @@ INSERT INTO TheatreHalls values(3, 200);
 INSERT INTO TheatreHalls values(4, 220);
 INSERT INTO TheatreHalls values(5, 200);
 
--- INSERT User data
-INSERT INTO Users values('seanlennaerts', 'password123');
-INSERT INTO Users values('ginnieisawesome304', '123456789');
-INSERT INTO Users values('jwpark', '304bestcourseever');
-INSERT INTO Users values('mikeeyoon', 'makecpscgreatagain');
-INSERT INTO Users values('prettyprincess', 'MakeMikeGreatAgain2');
-INSERT INTO Users values('TABen', 'password');
-INSERT INTO Users values('unicorns', 'areReal'),
-INSERT INTO Users values('employeeOTMonth', 'all12months');
-INSERT INTO Users values('daduck', 'password');
-INSERT INTO Users values('TomHanks', 'isdabest');
 
 -- INSERT Customer data
 INSERT INTO Customers values(1672789028338884, 'seanlennaerts', 'password123', 'Sean');
@@ -175,10 +160,11 @@ INSERT INTO Bundle values('Pretzels', 'Cinderella', 2015, 2);
 INSERT INTO Bundle values('Corndogs', 'Frozen', 2013, 3);
 INSERT INTO Bundle values('Poutine', 'Zootopia', 2016, 4);
 INSERT INTO Bundle values('Nachos', 'LaLaLand', 2016, 5);
-
--- INSERT Plays data
-INSERT INTO Plays values(TIME 17:00:00, TIME 19:00:00, 1, "Star Wars: The Force Awakens", 2015);
-INSERT INTO Plays values(TIME 11:00:00, TIME 13:00:00, 2, "Star Wars: The Force Awakens", 2015);
-INSERT INTO Plays values(TIME 9:00:00, TIME 10:30:00, 3, "Cinderella", 2015);
-INSERT INTO Plays values(TIME 15:00:00, TIME 16:30:00, 4, "Frozen", 2013);
-INSERT INTO Plays values(TIME 15:30:00, TIME 17:00:00, 5, "Zootopia", 2016);
+-- 
+-- -- INSERT Plays data
+-- INSERT INTO Plays values(TIME 17:00:00, TIME 19:00:00, 1, "Star Wars: The Force Awakens", 2015);
+-- INSERT INTO Plays values(TIME 11:00:00, TIME 13:00:00, 2, "Star Wars: The Force Awakens", 2015);
+-- INSERT INTO Plays values(TIME 9:00:00, TIME 10:30:00, 3, "Cinderella", 2015);
+-- INSERT INTO Plays values(TIME 15:00:00, TIME 16:30:00, 4, "Frozen", 2013);
+-- INSERT INTO Plays values(TIME 15:30:00, TIME 17:00:00, 5, "Zootopia", 2016);
+-- 
