@@ -24,4 +24,9 @@ return [
     ['POST', '/account/chef/update', ['GTheatre\Controllers\Accountpage', 'updateChefAccount']],
     ['POST', '/account/chef/delete', ['GTheatre\Controllers\Accountpage', 'deleteChefAccount']],
 
+// browse movies page 
+    ['GET', '/showtimes', ['GTheatre\Controllers\ShowtimesPage', 'show']],
+    ['GET', '/showtimes/populate', ['GTheatre\Controllers\ShowtimesPage', 'populate']],
+
+
 ];
