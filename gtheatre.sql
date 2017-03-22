@@ -12,8 +12,7 @@ use heroku_d0dc4a6713d6673;
 -- may be commented out later after testing
 
 -- TODO:
--- having problems with creating the Plays table and the Bundle table
---               probably due to syntax
+-- having problems with Bundle table
 -- error with Movie data inserts
 --
 
@@ -65,7 +64,6 @@ CREATE TABLE Plays
      FOREIGN KEY (Title) REFERENCES Movies (Title) ON DELETE CASCADE ON UPDATE CASCADE,
      FOREIGN KEY (RYear) REFERENCES Movies (RYear) ON DELETE CASCADE ON UPDATE CASCADE
   );
-
 
 CREATE TABLE Customers
   (
@@ -128,7 +126,6 @@ INSERT INTO TheatreHalls values(3, 200);
 INSERT INTO TheatreHalls values(4, 220);
 INSERT INTO TheatreHalls values(5, 200);
 
-
 -- INSERT Customer data
 INSERT INTO Customers values(1672789028338884, 'seanlennaerts', 'password123', 'Sean');
 INSERT INTO Customers values(1234809109292392, 'ginnieisawesome304', '123456789', 'Ginnie');
@@ -163,11 +160,10 @@ INSERT INTO Bundle values('Pretzels', 'Cinderella', 2015, 2);
 INSERT INTO Bundle values('Corndogs', 'Frozen', 2013, 3);
 INSERT INTO Bundle values('Poutine', 'Zootopia', 2016, 4);
 INSERT INTO Bundle values('Nachos', 'LaLaLand', 2016, 5);
--- 
--- -- INSERT Plays data
--- INSERT INTO Plays values(TIME 17:00:00, TIME 19:00:00, 1, "Star Wars: The Force Awakens", 2015);
--- INSERT INTO Plays values(TIME 11:00:00, TIME 13:00:00, 2, "Star Wars: The Force Awakens", 2015);
--- INSERT INTO Plays values(TIME 9:00:00, TIME 10:30:00, 3, "Cinderella", 2015);
--- INSERT INTO Plays values(TIME 15:00:00, TIME 16:30:00, 4, "Frozen", 2013);
--- INSERT INTO Plays values(TIME 15:30:00, TIME 17:00:00, 5, "Zootopia", 2016);
--- 
+ 
+-- INSERT Plays data
+INSERT INTO Plays values("17:00:00", "19:00:00", 1, "Star Wars: The Force Awakens", 2015);
+INSERT INTO Plays values("11:00:00", "13:00:00", 2, "Star Wars: The Force Awakens", 2015);
+INSERT INTO Plays values("9:00:00", "10:30:00", 3, "Cinderella", 2015);
+INSERT INTO Plays values("15:00:00", "16:30:00", 4, "Frozen", 2013);
+INSERT INTO Plays values("15:30:00", "17:00:00", 5, "Zootopia", 2016);
