@@ -30,5 +30,7 @@ return [
     ['GET', '/showtimes/populate-halls', ['GTheatre\Controllers\ShowtimesPage', 'populateHalls']],
 
 
+// buy tickets page
+	['GET', '/BuyTickets', ['GTheatre\Controllers\BuyTicketsPage', 'show']],
 
 ];
