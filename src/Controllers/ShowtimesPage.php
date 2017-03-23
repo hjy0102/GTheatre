@@ -34,13 +34,24 @@ class ShowtimesPage
       $this->response->setContent($html);
     }
 
-    public function populate() {
-      $queryStr_movies = "SELECT Title FROM Movies ORDER BY Title";
+    public function populateMovies() {
+      $queryStr_movies = "SELECT * FROM movies ORDER BY Title";
       $result = $this->dbProvider->selectQuery($queryStr_movies);
+      $rows = array(); 
       while ($obj = $result->fetch_object()) {
-        // echo("hi");
-        echo(json_encode($obj));
+        $rows[] = $obj;
       }
+      echo(json_encode($rows));
+    }
+
+    public function populateHalls() {
+      $queryStr_movies = "SELECT * FROM theatrehalls ORDER BY HNumber";
+      $result = $this->dbProvider->selectQuery($queryStr_movies);
+      $rows = array(); 
+      while ($obj = $result->fetch_object()) {
+        $rows[] = $obj;
+      }
+      echo(json_encode($rows));
     }
 
 }
