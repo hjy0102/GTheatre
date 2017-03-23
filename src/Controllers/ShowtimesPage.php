@@ -35,7 +35,10 @@ class ShowtimesPage
     }
 
     public function populateMovies() {
-      $queryStr_movies = "SELECT * FROM movies ORDER BY Title";
+      $queryStr_movies = "SELECT m.Title, m.RYear, MRating, Length, TPrice, STime, HNumber 
+                          FROM Movies m, Plays p
+                          WHERE m.Title = p.Title AND m.RYear = p.RYear
+                          ORDER BY m.Title, STime;";
       $result = $this->dbProvider->selectQuery($queryStr_movies);
       $rows = array(); 
       while ($obj = $result->fetch_object()) {
