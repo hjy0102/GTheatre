@@ -1,6 +1,5 @@
 use heroku_d0dc4a6713d6673;
--- Drop any existing tables. Any errors are ignored.
---
+
 -- DROP TABLE IF EXISTS TheatreHalls;
 -- DROP TABLE IF EXISTS Movies;
 -- DROP TABLE IF EXISTS Tickets;
@@ -9,12 +8,8 @@ use heroku_d0dc4a6713d6673;
 -- DROP TABLE IF EXISTS Employees;
 -- DROP TABLE IF EXISTS Foods;
 -- DROP TABLE IF EXISTS Bundles;
+-- DROP TABLE IF EXISTS Associated_Tickets
 -- may be commented out later after testing
-
--- TODO:
--- having problems with Bundle table
--- error with Movie data inserts
---
 
 --
 -- Add each table 
@@ -92,16 +87,6 @@ CREATE TABLE Foods
      PRIMARY KEY (FType)
   );
 
--- CREATE TABLE Buys
---   (
---      Title char(20) NOT NULL,
---      RYear int NOT NULL,
---      Qty   int NOT NULL,
---      PRIMARY KEY (Title, RYear),
---      FOREIGN KEY (Title) REFERENCES Movie(Title) ON DELETE CASCADE ON UPDATE CASCADE,
---      FOREIGN KEY (RYear) REFERENCES Movie(RYear) ON DELETE CASCADE ON UPDATE CASCADE
---   );
-
   CREATE TABLE Bundle
     (
       FType char(16) NOT NULL,
@@ -148,14 +133,14 @@ INSERT INTO Foods values('Poutine', 15);
 INSERT INTO Foods values('Nachos', 5);
 
 -- INSERT Movie data
-INSERT INTO Movies values('Star Wars: The Force Awakens', 2015, 'PG-13', 136);
-INSERT INTO Movies values('Cinderella', 2015, 'G', 106);
-INSERT INTO Movies values('Frozen', 2013, 'G', 102);
-INSERT INTO Movies values('Zootopia', 2016, 'G', 108);
-INSERT INTO Movies values('LaLaLand', 2016, 'PG', 128);
+INSERT INTO Movies values('Star Wars', 2015, 'PG-13', 136, 9);
+INSERT INTO Movies values('Cinderella', 2015, 'G', 106, 9);
+INSERT INTO Movies values('Frozen', 2013, 'G', 102, 9);
+INSERT INTO Movies values('Zootopia', 2016, 'G', 108, 9);
+INSERT INTO Movies values('LaLaLand', 2016, 'PG', 128, 9);
 
 -- INSERT Bundle data
-INSERT INTO Bundle values('Popcorn', 'Star Wars: The Force Awakens', 2015, 1);
+INSERT INTO Bundle values('Popcorn', 'Star Wars', 2015, 1);
 INSERT INTO Bundle values('Pretzels', 'Cinderella', 2015, 2);
 INSERT INTO Bundle values('Corndogs', 'Frozen', 2013, 3);
 INSERT INTO Bundle values('Poutine', 'Zootopia', 2016, 4);
@@ -167,3 +152,10 @@ INSERT INTO Plays values("11:00:00", "13:00:00", 2, "Star Wars: The Force Awaken
 INSERT INTO Plays values("9:00:00", "10:30:00", 3, "Cinderella", 2015);
 INSERT INTO Plays values("15:00:00", "16:30:00", 4, "Frozen", 2013);
 INSERT INTO Plays values("15:30:00", "17:00:00", 5, "Zootopia", 2016);
+
+-- INSERT Tickets data
+INSERT INTO Associated_Tickets values('Zootopia', 2016, 1, 1, 1672789028338884, 'seanlennaerts', 9);
+INSERT INTO Associated_Tickets values('Zootopia', 2016, 2, 1, 1234809109292392, 'ginnieisawesome304', 9);
+INSERT INTO Associated_Tickets values('LaLaLand', 2016, 3, 1, 1672789028338884, 'seanlennaerts', 9);
+INSERT INTO Associated_Tickets values('LaLaLand', 2016, 4, 1, 8948392921823922, 'jwpark', 9);
+INSERT INTO Associated_Tickets values('LaLaLand', 2016, 5, 1, 9000340918239329, 'prettyprincess', 9);
