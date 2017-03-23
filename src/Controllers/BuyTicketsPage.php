@@ -39,7 +39,7 @@ class BuyTicketsPage {
 
    public function display()
    {
-		// TODO: display the purchased ticket to be able to print
+	// TODO: display the purchased ticket to be able to print
    }
    
 }

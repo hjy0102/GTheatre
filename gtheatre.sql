@@ -7,7 +7,7 @@ use heroku_d0dc4a6713d6673;
 -- DROP TABLE IF EXISTS Customers;
 -- DROP TABLE IF EXISTS Employees;
 -- DROP TABLE IF EXISTS Foods;
--- DROP TABLE IF EXISTS Bundles;
+-- DROP TABLE IF EXISTS Bundle;
 -- DROP TABLE IF EXISTS Associated_Tickets
 -- may be commented out later after testing
 
@@ -50,14 +50,13 @@ CREATE TABLE Plays
   (
      STime      time NOT NULL,
      ETime      time NOT NULL,
-     HallNumber int,
-     Title      char(20),
-     RYear      int,
+     HNumber    int(4),
+     Title      char(20) NOT NULL,
+     RYear      int NOT NULL,
     --  PRIMARY KEY (STime, ETime),
-     PRIMARY KEY (HallNumber, Title, RYear),
-     FOREIGN KEY (HallNumber) REFERENCES TheatreHalls (HNumber) ON DELETE CASCADE ON UPDATE CASCADE,
-     FOREIGN KEY (Title) REFERENCES Movies (Title) ON DELETE CASCADE ON UPDATE CASCADE,
-     FOREIGN KEY (RYear) REFERENCES Movies (RYear) ON DELETE CASCADE ON UPDATE CASCADE
+     PRIMARY KEY (HNumber, Title, RYear),
+     FOREIGN KEY (HNumber) REFERENCES TheatreHalls (HNumber) ON DELETE CASCADE ON UPDATE CASCADE,
+     FOREIGN KEY (Title, RYear) REFERENCES Movies (Title, RYear) ON DELETE CASCADE ON UPDATE CASCADE
   );
 
 CREATE TABLE Customers
@@ -77,7 +76,6 @@ CREATE TABLE Employees
      FirstName char(20),
      UNIQUE (SIN),
      PRIMARY KEY (Employee_Login)
-
   );
 
 CREATE TABLE Foods
@@ -87,19 +85,18 @@ CREATE TABLE Foods
      PRIMARY KEY (FType)
   );
 
-  CREATE TABLE Bundle
-    (
-      FType char(16) NOT NULL,
-      Title char(16) NOT NULL,
-      RYear int(4) NOT NULL,
-      TicketNo int NOT NULL,
-      Primary Key (FType, Title, RYear, TicketNo),
-      FOREIGN KEY (FType) REFERENCES Foods(FType) ON DELETE SET NULL ON UPDATE CASCADE,
-      FOREIGN KEY (Title) REFERENCES Movies(Title) ON DELETE CASCADE ON UPDATE CASCADE,
-      FOREIGN KEY (RYear) REFERENCES Movies(RYear) ON DELETE CASCADE ON UPDATE CASCADE,
-      FOREIGN KEY (TicketNo) REFERENCES Associated_Tickets(TicketNo) ON DELETE CASCADE ON UPDATE CASCADE
-    );
-    
+CREATE TABLE Bundle
+  (
+	 FType char(16) NOT NULL,
+	 Title char(20) NOT NULL,
+	 RYear int(4) NOT NULL,
+	 TicketNo int NOT NULL UNIQUE AUTO_INCREMENT,
+	 PRIMARY KEY (FType, Title, RYear, TicketNo),
+	 FOREIGN KEY (FType) REFERENCES Foods (FType),
+     FOREIGN KEY (Title, RYear) REFERENCES Movies (Title, RYear) ON DELETE CASCADE ON UPDATE CASCADE,
+	 FOREIGN KEY (TicketNo) REFERENCES Associated_Tickets (TicketNo) ON DELETE CASCADE ON UPDATE CASCADE
+  );
+
 --
 -- Adding in data
 --
@@ -147,8 +144,8 @@ INSERT INTO Bundle values('Poutine', 'Zootopia', 2016, 4);
 INSERT INTO Bundle values('Nachos', 'LaLaLand', 2016, 5);
  
 -- INSERT Plays data
-INSERT INTO Plays values("17:00:00", "19:00:00", 1, "Star Wars: The Force Awakens", 2015);
-INSERT INTO Plays values("11:00:00", "13:00:00", 2, "Star Wars: The Force Awakens", 2015);
+INSERT INTO Plays values("17:00:00", "19:00:00", 1, "Star Wars", 2015);
+INSERT INTO Plays values("11:00:00", "13:00:00", 2, "Star Wars", 2015);
 INSERT INTO Plays values("9:00:00", "10:30:00", 3, "Cinderella", 2015);
 INSERT INTO Plays values("15:00:00", "16:30:00", 4, "Frozen", 2013);
 INSERT INTO Plays values("15:30:00", "17:00:00", 5, "Zootopia", 2016);

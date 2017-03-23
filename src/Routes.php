@@ -26,7 +26,9 @@ return [
 
 // browse movies page 
     ['GET', '/showtimes', ['GTheatre\Controllers\ShowtimesPage', 'show']],
-    ['GET', '/showtimes/populate', ['GTheatre\Controllers\ShowtimesPage', 'populate']],
+    ['GET', '/showtimes/populate-movies', ['GTheatre\Controllers\ShowtimesPage', 'populateMovies']],
+    ['GET', '/showtimes/populate-halls', ['GTheatre\Controllers\ShowtimesPage', 'populateHalls']],
+
 
 // buy tickets page
 	['GET', '/BuyTickets', ['GTheatre\Controllers\BuyTicketsPage', 'show']],
