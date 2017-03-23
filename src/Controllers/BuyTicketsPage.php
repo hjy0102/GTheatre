@@ -33,7 +33,7 @@ class BuyTicketsPage {
 
    public function show()
    {
-      $html = $this->renderer->render($this->templateDir, 'BuyTicketsPage');
+      $html = $this->renderer->render($this->templateDir, 'BuyTickets');
       $this->response->setContent($html);
    }
 
