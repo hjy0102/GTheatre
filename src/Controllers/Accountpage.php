@@ -37,8 +37,7 @@ class Accountpage
       $this->session = $session;
    }
    
-   public function show()
-   {
+   public function show() {
       $accType = $this->session->getValue('accType');
       $username = $this->session->getValue('userName');
       if (is_null($accType)) {
@@ -46,64 +45,68 @@ class Accountpage
          exit();
       }
 
-      $customerQueryStr = "SELECT * FROM Customers WHERE Customer_Login = '$username' ";
-      $employeeQueryStr = "SELECT * FROM Employees WHERE Employee_Login = '$username' ";
-
       if ($accType == 'Customer') {
-          $userResult = $this->dbProvider->selectQuery($customerQueryStr);
-      } else if ($accType === 'Employee') {
-          $userResult = $this->dbProvider->selectQuery($employeeQueryStr);
-      } else {
-          exit();
+          $cdata = self::customerShow($username);
+          $html = $this->renderer->render($this->templateDir, 'Accountpage', $cdata);
+          $this->response->setContent($html);
+
+      } else if ($accType == 'Employee') {
+          $edata = self::employeeShow($username);
+          $html = $this->renderer->render($this->templateDir, 'Accountpage', $edata);
+          $this->response->setContent($html);
       }
+   }
 
-      if ($userResult->num_rows === 0) {
-         throw new EntityExistsException('Unable to find current user information');
-      } 
+   public function customerShow($u){
+        $queryStr = "SELECT * FROM Customers WHERE Customer_Login = '$u' ";
 
-      if ($accType == 'Customer') {
-        
+        $userResult = $this->dbProvider->selectQuery($queryStr);
+
+        if (!$userResult) {
+            throw new SQLException('Unable to find user with that username');
+        }
+
+        if ($userResult->num_rows === 0) {
+            throw new EntityExistsException('Unable to find current user information');
+        } 
+
         while ($obj = $userResult->fetch_object()) {
             $data = [
-                'accType' => $accType,
-                'name' => $userResult->fetch_object()->FirstName,
-                'creditCard' => $userResult->fetch_object()->CreditCard,
-                'currectPassword' => $userResult->fetch_object()->Customer_Password
-            ];
+                'accType' => 'Customer',
+                'name' => $obj->FirstName,
+                'creditCard' => $obj->CreditCard,
+                'currectPassword' => $obj->Customer_Password
+                ];
         };
 
-      } else if ($accType === 'Employee') {
+        return $data;
 
-          while ($obj = $userResult->fetch_object()) {
+
+   }
+
+   public function employeeShow($u) {
+        $QueryStr = "SELECT * FROM Employees WHERE Employee_Login = '$u' ";
+
+        $userResult = $this->dbProvider->selectQuery($queryStr);
+
+        if (!$userResult) {
+            throw new SQLException('Unable to find user with that username');
+        }
+
+        if ($userResult->num_rows === 0) {
+            throw new EntityExistsException('Unable to find current user information');
+        } 
+
+        while ($obj = $userResult->fetch_object()) {
             $data = [
-                'accType' => $accType,
-                'name' => $userResult->fetch_object()->FirstName,
-                'sinno' => $userResult->fetch_object()->SIN,
-                'currectPassword' => $userResult->fetch_object()->Employee_Password
-            ];
-          }
-      } 
+                'accType' => 'Employee',
+                'name' => $obj->FirstName,
+                'sinno' => $obj->SIN,
+                'currectPassword' => $obj->Employee_Password
+                ];
+        };
 
-      
-      
-
-    //   if (strcasecmp($accType, 'chef') == 0) {
-    //      $chefQueryStr = "SELECT employee_id, ssNum FROM Chef " .
-    //                      "WHERE chef_userName = '$username'";
-    //      $chefResult = $this->dbProvider->selectQuery($chefQueryStr);
-
-    //      if (empty($chefResult)) {
-    //         throw new MissingEntityException('Unable to find current chef information.');
-    //      }
-
-    //      $data = array_merge($data, [
-    //      'employeeId' => $chefResult["employee_id"],
-    //      'ssNum' => $chefResult["ssNum"]
-    //      ]);
-    //   }
-
-      $html = $this->renderer->render($this->templateDir, 'Accountpage', $data);
-      $this->response->setContent($html);
+        return $data;
    }
 
    public function update()
