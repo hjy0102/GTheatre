@@ -1,0 +1,336 @@
+{% extends "Layout.html" %}
+{% block content %}
+
+<style>
+#first-panel {
+   height: 100%;
+   background-color: white;
+}
+#employee-panel {
+   display: none;
+   height: 100%;
+   background-color: white;
+}
+
+#customer-panel {
+   display: none;
+   height: 100%;
+   background-color: white;
+}
+</style>
+
+<div class="pure-g" style="height: 100%; display: table-cell;">
+  <div class="pure-u-1-2" style="height: 100%;">
+
+    <div id="first-panel">
+      <div class="content">
+        <h2 class="content-head is-center">What to buy tickets? Login to see what's playing and reserve your movie tickets!</h2>
+        <hr>
+
+        <form class="pure-form pure-form-stacked">
+          <fieldset>
+
+            <div class="pure-g">
+
+              <div class="pure-u-1 pure-u-md-3-24">
+              </div>
+
+              <div class="pure-u-1 pure-u-md-9-24">
+                <label for="login-username">Username<b style="color: red;">*</b></label>
+                <input id="login-username" class="pure-u-20-24" name="login-username" type="text" placeholder="Username">
+              </div>
+
+              <div class="pure-u-1 pure-u-md-12-24">
+                <label for="login-acc-type">Account Type</label>
+                <select id="login-acc-type" name="login-acc-type" class="pure-u-20-24">
+                  <option>Customer</option>
+                  <option>Employee</option>
+                </select>
+              </div>
+
+              <!--<div class="pure-u-1 pure-u-md-12-24">
+                <label for="login-acc-type">Account Type</label>
+                <!--<form id="login-acc-type" name="login-acc-type" class="pure-u-20-24">-->
+                <!--<form id="login-type">
+                  <input id="login-acc-type" type="radio" name="login-acc-type" value="Customer" class="pure-u-3-24"> Customer<br>
+                  <input id="login-acc-type" type="radio" name="login-acc-type" value="Employee" class="pure-u-3-24"> Employee<br>
+                </form>
+              </div>-->
+
+              <!-- one row -->
+
+              <div class="pure-u-1 pure-u-md-3-24">
+              </div>
+
+              <div class="pure-u-1 pure-u-md-9-24">
+                <label for="login-password">Password <b style="color: red;">*</b></label>
+                <input id="login-password" class="pure-u-20-24" name="login-password" type="password" placeholder="Password">
+              </div>
+
+              <div class="pure-u-1 pure-u-md-12-24">
+                <div style="display: block; margin: 40px 0;">
+                  <!--<a id="register-link" href="#" style="font-size: 0.9em;">Don't have an account? Register here.</a>-->
+                  <a id="customer-link" href="#" style="font-size: 0.9em; color: darkorchid">Don't have an account? Register here as a <b> customer</b></a>
+                <br></br>
+                <a id="employee-link" href="#" style="font-size: 0.9em; color: darkorchid">Don't have an account? Register here as an <b> employee</b></a>
+                </div>
+              </div>
+
+              <!-- row -->
+
+              <div class="pure-u-1 pure-u-md-12-24">
+              </div>
+
+              <div class="pure-u-1 pure-u-md-10-24">
+                <button id="login-btn" class="pure-button pure-button-primary" type="button" style="float: right;">Login</button>
+              </div>
+
+              <div class="pure-u-1 pure-u-md-2-24">
+              </div>
+            </div>
+
+          </fieldset>
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="pure-u-1-2" style="height: 100%;">
+
+    <div id="customer-panel">
+      <div class="content">
+        <h2 class="content-head is-center">Customer Registration</h2>
+        <hr>
+
+        <form class="pure-form pure-form-stacked">
+          <fieldset>
+
+            <div class="pure-g">
+
+              <div class="pure-u-1 pure-u-md-3-24">
+              </div>
+
+              <div class="pure-u-1 pure-u-md-9-24">
+                <label for="reg-name">First Name <b style="color: red;">*</b></label>
+                <input id="reg-name" class="pure-u-20-24" name="reg-name" type="text" placeholder="Name">
+              </div>
+
+              <div class="pure-u-1 pure-u-md-12-24">
+              </div>
+
+              <!-- row -->
+
+              <div class="pure-u-1 pure-u-md-3-24">
+              </div>
+
+              <div class="pure-u-1 pure-u-md-9-24">
+                <label for="reg-username">Username <b style="color: red;">*</b></label>
+                <input id="reg-username" class="pure-u-20-24" name="reg-username" type="text" placeholder="Username">
+              </div>
+
+              <div class="pure-u-1 pure-u-md-12-24">
+              </div>
+
+
+              <!-- row -->
+              <div class="pure-u-1 pure-u-md-3-24">
+              </div>
+
+              <div class="pure-u-1 pure-u-md-9-24">
+                <label for="reg-acc-type">Account Type</label>
+                <form id="reg-acc-type" class"pure-u-20-24" >
+                <input type="radio" name="reg-acc-type" value="customer" checked disabled> Customer </br>
+                <input type="radio" name="reg-acc-type" value="employee" disabled> Employee </br>
+                </form>
+                </div>
+              <div class="pure-u-1 pure-u-md-12-24">
+              </div>
+
+
+              <!-- row -->
+
+              <div class="pure-u-1 pure-u-md-3-24">
+              </div>
+
+              <div class="pure-u-1 pure-u-md-9-24">
+                <label for="reg-creditCard">Credit Card Number <b style="color: red;">*</b></label>
+                <input id="reg-creditCard" class="pure-u-20-24" name="reg-creditCard" type="text" placeholder="Credit Card Number">
+              </div>
+              <div class="pure-u-1 pure-u-md-12-24">
+              </div>
+
+              <!-- one row -->
+
+              <div class="pure-u-1 pure-u-md-3-24">
+              </div>
+
+              <div class="pure-u-1 pure-u-md-9-24">
+                <label for="reg-password">Password <b style="color: red;">*</b></label>
+                <input id="reg-password" class="pure-u-20-24" name="reg-password" type="password" placeholder="Password">
+              </div>
+
+              <div class="pure-u-1 pure-u-md-12-24">
+              </div>
+
+              <!-- other row -->
+
+              <div class="pure-u-1 pure-u-md-3-24">
+              </div>
+
+              <div class="pure-u-1 pure-u-md-9-24">
+                <label for="reg-confirm-password">Confirm Password <b style="color: red;">*</b></label>
+                <input id="reg-confirm-password" class="pure-u-20-24" type="password" placeholder="Confirm Password">
+              </div>
+
+            </div>
+
+            <!-- button row -->
+            <div class="pure-g" style="margin-top: 45px;">
+              <div class="pure-u-1 pure-u-md-3-24">
+              </div>
+
+              <div class="pure-u-1 pure-u-md-9-24">
+                <div style="display: block; margin-bottom: 10px;">
+                  <a id="login_c-link" href="#" style="font-size: 0.9em;">Already have an account? Login here.</a>
+                </div>
+              </div>
+
+              <div class="pure-u-1 pure-u-md-10-24">
+                <button id="create_c-btn" class="pure-button pure-button-primary" style="float: right;" type="button">Create</button>
+              </div>
+
+              <div class="pure-u-1 pure-u-md-2-24">
+              </div>
+            </div>
+
+          </fieldset>
+        </form>
+
+      </div>
+    </div>
+
+    <div id="employee-panel">
+      <div class="content">
+        <h2 class="content-head is-center">Employee Registration</h2>
+        <hr>
+
+        <form class="pure-form pure-form-stacked">
+          <fieldset>
+
+            <div class="pure-g">
+
+              <div class="pure-u-1 pure-u-md-3-24">
+              </div>
+
+              <div class="pure-u-1 pure-u-md-9-24">
+                <label for="reg-ename">First Name <b style="color: red;">*</b></label>
+                <input id="reg-ename" class="pure-u-20-24" name="reg-ename" type="text" placeholder="Name">
+              </div>
+
+              <div class="pure-u-1 pure-u-md-12-24">
+              </div>
+
+              <!-- row -->
+
+              <div class="pure-u-1 pure-u-md-3-24">
+              </div>
+
+              <div class="pure-u-1 pure-u-md-9-24">
+                <label for="reg-eusername">Username <b style="color: red;">*</b></label>
+                <input id="reg-eusername" class="pure-u-20-24" name="reg-eusername" type="text" placeholder="Username">
+              </div>
+              <div class="pure-u-1 pure-u-md-12-24">
+              </div>
+
+
+              <!-- row -->
+              <div class="pure-u-1 pure-u-md-3-24">
+              </div>
+
+              <div class="pure-u-1 pure-u-md-9-24">
+                <label for="reg-acc-type">Account Type</label>
+                <form id="reg-acc-type" class"pure-u-20-24" >
+                <input type="radio" name="reg-acc-type" value="customer"  disabled> Customer </br>
+                <input type="radio" name="reg-acc-type" value="employee" checked disabled> Employee </br>
+                </form>
+                </div>
+
+              <div class="pure-u-1 pure-u-md-12-24">
+              </div>
+
+
+              <!-- row -->
+
+              <div class="pure-u-1 pure-u-md-3-24">
+              </div>
+
+              <div class="pure-u-1 pure-u-md-9-24">
+                <label for="reg-sin">SIN <b style="color: red;">*</b></label>
+                <input id="reg-sin" class="pure-u-20-24" name="reg-sin" type="text" placeholder="SIN Number">
+              </div>
+              <div class="pure-u-1 pure-u-md-12-24">
+              </div>
+
+              <!-- one row -->
+
+
+              <div class="pure-u-1 pure-u-md-3-24">
+              </div>
+
+              <div class="pure-u-1 pure-u-md-9-24">
+                <label for="reg-epassword">Password <b style="color: red;">*</b></label>
+                <input id="reg-epassword" class="pure-u-20-24" name="reg-epassword" type="password" placeholder="Password">
+              </div>
+
+              <div class="pure-u-1 pure-u-md-12-24">
+              </div>
+
+              <!-- other row -->
+
+              <div class="pure-u-1 pure-u-md-3-24">
+              </div>
+
+              <div class="pure-u-1 pure-u-md-9-24">
+                <label for="reg-econfirm-password">Confirm Password <b style="color: red;">*</b></label>
+                <input id="reg-econfirm-password" class="pure-u-20-24" type="password" placeholder="Confirm Password">
+              </div>
+
+            </div>
+
+            <!-- button row -->
+            <div class="pure-g" style="margin-top: 45px;">
+              <div class="pure-u-1 pure-u-md-3-24">
+              </div>
+
+              <div class="pure-u-1 pure-u-md-9-24">
+                <div style="display: block; margin-bottom: 10px;">
+                  <a id="login_e-link" href="#" style="font-size: 0.9em;">Already have an account? Login here.</a>
+                </div>
+              </div>
+
+              <div class="pure-u-1 pure-u-md-10-24">
+                <button id="create_e-btn" class="pure-button pure-button-primary" style="float: right;" type="button">Create</button>
+              </div>
+
+              <div class="pure-u-1 pure-u-md-2-24">
+              </div>
+            </div>
+
+          </fieldset>
+        </form>
+
+      </div>
+    </div>
+
+
+  </div>
+
+</div>
+
+<script>
+
+
+</script>
+
+{% endblock %}

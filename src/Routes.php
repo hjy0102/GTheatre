@@ -24,6 +24,8 @@ return [
     ['GET', '/showtimes/populate-movies', ['GTheatre\Controllers\ShowtimesPage', 'populateMovies']],
     ['GET', '/showtimes/populate-halls', ['GTheatre\Controllers\ShowtimesPage', 'populateHalls']],
 
+    ['GET', '/movieupdate', ['GTheatre\Controllers\MovieUpdate', 'show']],
+
 
 // buy tickets page
 	['GET', '/BuyTickets', ['GTheatre\Controllers\BuyTicketsPage', 'show']],
