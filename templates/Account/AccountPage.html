@@ -1,6 +1,35 @@
 {% extends "Layout.html" %}
 {% block content %}
 
+<style>
+/* Tooltip container */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+ 
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+</style>
+
 <div class="pure-g">
   <div class="pure-u-6-24">
   </div>
@@ -8,6 +37,7 @@
 
     <div id="first-panel">
       <div class="content">
+        <h1 class = "content-head is-center"> Welcome Back, {{ name }} </h1>
         <h2 class="content-head is-center">Update your account information</h2>
         <hr>
 
@@ -15,7 +45,8 @@
           <fieldset>
 
             <div class="pure-g">
-
+          
+          <!--row-->
               <div class="pure-u-1 pure-u-md-1-24">
               </div>
 
@@ -26,57 +57,69 @@
 
               <div class="pure-u-1 pure-u-md-3-24">
               </div>
+              <div class="pure-u-1 pure-u-md-10-24"> </div>
+
+            <!--row-->
+            <div class="pure-u-1 pure-u-md-1-24">
+              </div>
+
+
+              <div class="pure-u-1 pure-u-md-10-24">
+                <label for="account-pwd">Password <b style="color: red;">*</b></label>
+                <input id="account-pwd" class="pure-u-20-24" name="account-pwd" type="text" placeholder="Password" value="{{ currectPassword }}">
+              </div>
+
+              <div class="pure-u-1 pure-u-md-3-24">
+              </div>
+              <div class="pure-u-1 pure-u-md-10-24">
+                <label for="account-pwd">Re-enter your password <b style="color: red;">*</b></label>
+                <input id="account-pwd2" class="pure-u-20-24" name="account-pwd2" type="text" placeholder="Re-enter your password" value="{{ currectPassword }}">
+              </div>
+
+              <!--row-->
+
+              <div class="pure-u-1 pure-u-md-1-24">
+              </div>
 
               <div class="pure-u-1 pure-u-md-10-24">
                 <label for="account-type">Account type</label>
                 <input id="account-type" class="pure-u-20-24" name="account-type" type="text" value="{{ accType }}" disabled>
               </div>
 
+               <div class="pure-u-1 pure-u-md-3-24">
+              </div>
+              <div class="pure-u-1 pure-u-md-10-24"> </div>
+
               <!-- one row -->
 
               <div class="pure-u-1 pure-u-md-1-24">
               </div>
 
+            {% if accType|lower == "customer" %}
               <div class="pure-u-1 pure-u-md-10-24">
-                <label for="account-phone">Phone</label>
-                <input id="account-phone" class="pure-u-20-24" name="account-phone" type="text" placeholder="Phone" value="{{ phone }}">
+                <label for="account-creditCard">Credit Card</label>
+                <input id="account-creditCard" class="pure-u-20-24" name="account-creditCard" type="text" placeholder="Credit Card Number" value="{{ creditCard }}">
               </div>
+            {% endif %}
 
-           {% if accType|lower == "chef" %}
-              <div class="pure-u-1 pure-u-md-3-24">
-              </div>
+           {% if accType|lower == "employee" %}
 
               <div class="pure-u-1 pure-u-md-10-24">
-                <label for="chef-employee-id">Employee Id</label>
-                <input id="chef-employee-id" class="pure-u-20-24" name="chef-employee-id" type="text" value="{{ employeeId }}" disabled>
+                <label for="account-sinno">Employee SIN Number</label>
+                <input id="account-sinno" class="pure-u-20-24" name="account-sinno" type="text" value="{{ sinno }}" disabled>
               </div>
-           {% else %}
-              <div class="pure-u-1 pure-u-md-13-24">
-              </div>
+              
            {% endif %}
+           <div class="pure-u-1 pure-u-md-13-24">
+              </div>
 
               <!-- other row -->
 
               <div class="pure-u-1 pure-u-md-1-24">
               </div>
 
-              <div class="pure-u-1 pure-u-md-10-24">
-                <label for="account-address">Address</label>
-                <input id="account-address" class="pure-u-20-24" name="account-address" type="text" placeholder="Address" value="{{ address }}">
-              </div>
-
-           {% if accType|lower  == "chef" %}
-              <div class="pure-u-1 pure-u-md-3-24">
-              </div>
-
-              <div class="pure-u-1 pure-u-md-10-24">
-                <label for="chef-ss-num">Social security number</label>
-                <input id="chef-ss-num" class="pure-u-20-24" name="chef-ss-num" type="text" value="{{ ssNum }}" disabled>
-              </div>
-           {% else %}
               <div class="pure-u-1 pure-u-md-13-24">
               </div>
-           {% endif %}
 
               <!-- row -->
             </div>
@@ -85,10 +128,20 @@
             <div class="pure-g" style="padding-top: 45px;">
               <div class="pure-u-1 pure-u-md-18-24">
               </div>
-
+            
+            {% if accType|lower == "customer" %}
               <div class="pure-u-1 pure-u-md-2-24">
-                <button id="save-btn" class="pure-button pure-button-primary" type="button">Save</button>
+                <button id="c-save-btn" class="pure-button pure-button-primary" type="button">Save</button>
               </div>
+
+            {% endif %}
+
+            {% if accType|lower == "employee" %}
+              <div class="pure-u-1 pure-u-md-2-24">
+                <button id="e-save-btn" class="pure-button pure-button-primary" type="button">Save</button>
+              </div>
+
+            {% endif %}
 
               <div class="pure-u-1 pure-u-md-4-24">
               </div>
@@ -102,35 +155,76 @@
     </div>
     <hr>
 
-    {% if accType|lower == "admin" %}
-    <a href="/account/chef/all" style="float: right;">Click here to manage chef accounts.</a>
-    {% endif %}
   </div>
   <div class="pure-u-6-24">
   </div>
 </div>
+
+
 <script>
-$("#save-btn").click(function () {
-   if ($("#account-name").val().trim() === '') {
-      alert("Name is missing. Fill out and try again.");
+$("#c-save-btn").click(function () {
+  // check all fields were filled in
+   if ($("#account-name").val().trim() === '' || 
+       $("#account-pwd").val().trim()  === '' ||
+       $("#account-creditCard").val()  === '') {
+      alert("A field was missing. No information was updated. Please fill in all fields and try again.");
       return;
+   }
+  // check to see if both passwords match
+   if ($("#account-pwd").val().trim() != $("#account-pwd2").val().trim()) {
+     alert("The passwords you have entered do not match. Please check them and try again.");
+     return;
    }
 
    $.ajax({
-      url: "/account/update",
+      url: "/account/customer/update",
       type: "POST",
       data: {
          "account-name": $("#account-name").val(),
-         "account-phone": $("#account-phone").val(),
-         "account-address": $("#account-address").val()
+         "account-pwd": $("#account-pwd").val(),
+         "account-creditCard": $("#account-creditCard").val()
       },
       success: function (data) {
-         alert("Account information successfully saved.");
+         alert("Account information successfully saved. Now being redirected to the Homepage");
+         window.location.replace("/");
       },
       error: function (data) {
          alert("Account information failed to save. Try again.");
       }
    });
 });
+
+$("#e-save-btn").click(function () {
+  // check all fields were filled in
+   if ($("#account-name").val().trim() === '' || 
+       $("#account-pwd").val().trim()  === '' ||
+       $("#account-sinno").val()  === '') {
+      alert("A field was missing. No information was updated. Please fill in all fields and try again.");
+      return;
+   }
+  // check to see if both passwords match
+   if ($("#account-pwd").val().trim() != $("#account-pwd2").val().trim()) {
+     alert("The passwords you have entered do not match. Please check them and try again.");
+     return;
+   }
+
+   $.ajax({
+      url: "/account/employee/update",
+      type: "POST",
+      data: {
+         "account-name": $("#account-name").val(),
+         "account-pwd": $("#account-pwd").val(),
+         "account-sinno": $("#account-sinno").val()
+      },
+      success: function (data) {
+         alert("Account information successfully saved. Now being redirected to the Homepage");
+         window.location.replace("/");
+      },
+      error: function (data) {
+         alert("Account information failed to save. Try again.");
+      }
+   });
+});
+
 </script>
 {% endblock %}
