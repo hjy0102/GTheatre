@@ -35,14 +35,19 @@ $(function () {
         selector.empty();
         for (var i = 0; i < data.length; i++) {
             selector.append("<div class='well showcards'>" + JSON.stringify(data[i]) + "</div>");
-        }        
+        }      
     }
 
     function populateHelper(data, selector, key) {
+        //doesn't keep duplicates
+        var temp = [];
         selector.empty();
         selector.append('<option></option>'); //blank option to "deselect"
         for (var i = 0; i < data.length; i++) {
-            selector.append('<option>' + data[i][key] + '</option>');
+            if (!temp.includes(data[i][key])) {
+                selector.append('<option>' + data[i][key] + '</option>');
+                temp.push(data[i][key]);
+            }
         }
         selector.selectpicker("refresh");
     }
