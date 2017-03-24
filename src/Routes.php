@@ -16,7 +16,8 @@ return [
 
 // account page
     ['GET', '/account', ['GTheatre\Controllers\Accountpage', 'show']],
-    ['POST', '/account/update', ['GTheatre\Controllers\Accountpage', 'update']],
+    ['POST', '/account/customer/update', ['GTheatre\Controllers\Accountpage', 'updateCustomer']],
+    ['POST', '/account/employee/update', ['GTheatre\Controllers\Accountpage', 'updateEmployee']],
    
 // browse movies page 
     ['GET', '/showtimes', ['GTheatre\Controllers\ShowtimesPage', 'show']],
