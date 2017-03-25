@@ -12,36 +12,36 @@ use heroku_d0dc4a6713d6673;
 -- may be commented out later after testing
 
 --
--- Add each table 
--- 
+-- Add each table
+--
 
 CREATE TABLE TheatreHalls
-  ( 
-     HNumber  int(4), 
-     Capacity int(4) NOT NULL, 
-     PRIMARY KEY (HNumber) 
-  ); 
+  (
+     HNumber  int(4),
+     Capacity int(4) NOT NULL,
+     PRIMARY KEY (HNumber)
+  );
 
 CREATE TABLE Movies
-  ( 
-     Title     char(20) NOT NULL, 
-     RYear     int(4) NOT NULL, 
-     MRating   char(5), 
-     Length    int(4), 
+  (
+     Title     char(20) NOT NULL,
+     RYear     int(4) NOT NULL,
+     MRating   char(5),
+     Length    int(4),
      TPrice    DEC(4,2) DEFAULT 9.00,
-    --  SoldCount int(4), 
-    --  Qty       int(4), 
-     PRIMARY KEY (Title, RYear) 
-  ); 
+    --  SoldCount int(4),
+    --  Qty       int(4),
+     PRIMARY KEY (Title, RYear)
+  );
 
-CREATE TABLE Associated_Tickets 
+CREATE TABLE Associated_Tickets
   (
     Title       char(20) NOT NULL,
     RYear       int(4) NOT NULL,
-    TicketNo    int NOT NULL UNIQUE AUTO_INCREMENT, 
+    TicketNo    int NOT NULL UNIQUE AUTO_INCREMENT,
     Qty         int NOT NULL,
     CreditCard  char(16) NOT NULL,
-    Login       char(20) NOT NULL, 
+    Login       char(20) NOT NULL,
     TPrice      DEC(4,1) DEFAULT 9.00,
     PRIMARY KEY (Title, RYear, TicketNo)
   );
@@ -70,11 +70,11 @@ CREATE TABLE Customers
 
 CREATE TABLE Employees
   (
-     SIN       int NOT NULL,
+     SSN       int NOT NULL,
      Employee_Login     char(20) NOT NULL,
      Employee_Password  char(20) NOT NULL,
      FirstName char(20),
-     UNIQUE (SIN),
+     UNIQUE (SSN),
      PRIMARY KEY (Employee_Login)
   );
 
@@ -117,7 +117,7 @@ INSERT INTO Customers values(9000340918239329, 'prettyprincess', 'MakeMikeGreatA
 
 -- INSERT Employee data
 INSERT INTO Employees values(871623499, 'TABen', 'password', 'Ben');
-INSERT INTO Employees values(923184183, 'unicorns', 'areReal', NULL);
+INSERT INTO Employees values(923184183, 'unicorns', 'areReal', 'unicorn');
 INSERT INTO Employees values(384928328, 'employeeOTMonth', 'all12months', 'Ginnie');
 INSERT INTO Employees values(512834832, 'daduck', 'password', 'Donald');
 INSERT INTO Employees values(876499102, 'TomHanks', 'isdabest', 'Tim');
@@ -142,7 +142,7 @@ INSERT INTO Bundle values('Pretzels', 'Cinderella', 2015, 2);
 INSERT INTO Bundle values('Corndogs', 'Frozen', 2013, 3);
 INSERT INTO Bundle values('Poutine', 'Zootopia', 2016, 4);
 INSERT INTO Bundle values('Nachos', 'LaLaLand', 2016, 5);
- 
+
 -- INSERT Plays data
 INSERT INTO Plays values("17:00:00", "19:00:00", 1, "Star Wars", 2015);
 INSERT INTO Plays values("11:00:00", "13:00:00", 2, "Star Wars", 2015);
