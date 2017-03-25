@@ -143,6 +143,7 @@ class Loginpage {
       if (is_null($name) || strlen($name) == 0 ||
           is_null($username) || strlen($username) == 0 ||
           is_null($password) || strlen($password) == 0) {
+
          throw new InvalidArgumentException("Required form input missing. Either name, username, or password.");
       }
         $usernameQueryStr_e = "SELECT * FROM Employees WHERE Employee_Login = '$username' ";
@@ -154,10 +155,10 @@ class Loginpage {
          throw new EntityExistsException("User exists with username $username");
       }
 
-    $registerQueryStr_e = "INSERT INTO Employees ".
+      $registerQueryStr_e = "INSERT INTO Employees ".
                         "(SIN, Employee_Login, Employee_Password, FirstName) ".
                         " VALUE ".
-                        "('$sinno, $username, $password, $name' ) ";
+                        "('$sinno', '$username', '$password', '$name' ) ";
 
       $created = $this->dbProvider->insertQuery($registerQueryStr_e);
 
