@@ -40,7 +40,7 @@ class ShowtimesPage
                           WHERE m.Title = p.Title AND m.RYear = p.RYear
                           ORDER BY m.Title, STime;";
       $result = $this->dbProvider->selectQuery($queryStr_movies);
-      $rows = array(); 
+      $rows = array();
       while ($obj = $result->fetch_object()) {
         $rows[] = $obj;
       }

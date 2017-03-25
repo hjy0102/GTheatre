@@ -27,5 +27,6 @@ return [
 
 // buy tickets page
 	['GET', '/BuyTickets', ['GTheatre\Controllers\BuyTicketsPage', 'show']],
+	['GET', '/BuyTickets/populate-movies', ['GTheatre\Controllers\BuyTicketsPage', 'populateMovies']],
 
 ];
