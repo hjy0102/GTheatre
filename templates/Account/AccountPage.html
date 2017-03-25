@@ -18,7 +18,7 @@
     text-align: center;
     padding: 5px 0;
     border-radius: 6px;
- 
+
     /* Position the tooltip text - see examples below! */
     position: absolute;
     z-index: 1;
@@ -45,7 +45,7 @@
           <fieldset>
 
             <div class="pure-g">
-          
+
           <!--row-->
               <div class="pure-u-1 pure-u-md-1-24">
               </div>
@@ -108,7 +108,7 @@
                 <label for="account-sinno">Employee SIN Number</label>
                 <input id="account-sinno" class="pure-u-20-24" name="account-sinno" type="text" value="{{ sinno }}" disabled>
               </div>
-              
+
            {% endif %}
            <div class="pure-u-1 pure-u-md-13-24">
               </div>
@@ -128,10 +128,15 @@
             <div class="pure-g" style="padding-top: 45px;">
               <div class="pure-u-1 pure-u-md-18-24">
               </div>
-            
+
             {% if accType|lower == "customer" %}
               <div class="pure-u-1 pure-u-md-2-24">
                 <button id="c-save-btn" class="pure-button pure-button-primary" type="button">Save</button>
+              </div>
+              <div class="pure-u-1 pure-u-md-1-24">
+              </div>
+              <div class="pure-u-1 pure-u-md-2-24">
+                <button id="my-tickets-btn" class="pure-button pure-button-primary" type="button">My Tickets</button>
               </div>
 
             {% endif %}
@@ -164,7 +169,7 @@
 <script>
 $("#c-save-btn").click(function () {
   // check all fields were filled in
-   if ($("#account-name").val().trim() === '' || 
+   if ($("#account-name").val().trim() === '' ||
        $("#account-pwd").val().trim()  === '' ||
        $("#account-creditCard").val()  === '') {
       alert("A field was missing. No information was updated. Please fill in all fields and try again.");
@@ -194,9 +199,19 @@ $("#c-save-btn").click(function () {
    });
 });
 
+$("#my-tickets-btn").click(function(){
+  $.ajax({
+    url: "/"
+    type: "GET",
+    data:{
+      ""
+    }
+  })
+})
+
 $("#e-save-btn").click(function () {
   // check all fields were filled in
-   if ($("#account-name").val().trim() === '' || 
+   if ($("#account-name").val().trim() === '' ||
        $("#account-pwd").val().trim()  === '' ||
        $("#account-sinno").val()  === '') {
       alert("A field was missing. No information was updated. Please fill in all fields and try again.");
