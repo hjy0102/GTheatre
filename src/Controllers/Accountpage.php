@@ -85,7 +85,7 @@ class Accountpage
    }
 
    public function employeeShow($u) {
-        $QueryStr = "SELECT * FROM Employees WHERE Employee_Login = '$u' ";
+        $queryStr = "SELECT * FROM Employees WHERE Employee_Login = '$u' ";
 
         $userResult = $this->dbProvider->selectQuery($queryStr);
 
