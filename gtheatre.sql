@@ -70,11 +70,11 @@ CREATE TABLE Customers
 
 CREATE TABLE Employees
   (
-     SSN       int NOT NULL,
+     SIN       int NOT NULL,
      Employee_Login     char(20) NOT NULL,
      Employee_Password  char(20) NOT NULL,
      FirstName char(20),
-     UNIQUE (SSN),
+     UNIQUE (SIN),
      PRIMARY KEY (Employee_Login)
   );
 
