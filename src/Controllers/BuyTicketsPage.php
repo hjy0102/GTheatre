@@ -37,9 +37,16 @@ class BuyTicketsPage {
       $this->response->setContent($html);
    }
 
-   public function display()
-   {
-	// TODO: display the purchased ticket to be able to print
-   }
-   
+   public function populateMovies() {
+      $queryStr_movies = "SELECT m.Title, m.RYear, MRating, Length, TPrice, STime, HNumber 
+                          FROM Movies m, Plays p
+                          WHERE m.Title = p.Title AND m.RYear = p.RYear
+                          ORDER BY m.Title, STime;";
+      $result = $this->dbProvider->selectQuery($queryStr_movies);
+      $rows = array();
+      while ($obj = $result->fetch_object()) {
+        $rows[] = $obj;
+      }
+      echo(json_encode($rows));
+   }   
 }

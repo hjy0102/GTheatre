@@ -52,16 +52,16 @@ class Loginpage {
             is_null($accType) || strlen($accType) == 0) {
                 throw new InvalidArgumentException('Required form input missing. Either username, password, or accType.');
         }
-        
-        $queryStr_customer = "SELECT * FROM Customers 
-                            WHERE Customer_Login = '$username' 
+
+        $queryStr_customer = "SELECT * FROM Customers
+                            WHERE Customer_Login = '$username'
                             AND Customer_Password = '$password' ";
 
 
-        $queryStr_employee = "SELECT * FROM Employees  
+        $queryStr_employee = "SELECT * FROM Employees
                             WHERE Employee_Login = '$username' AND
                             Employee_Password = '$password' ";
-      
+
 
         if ($accType == 'Customer') {
             $result = $this->dbProvider->selectQuery($queryStr_customer);
@@ -69,7 +69,7 @@ class Loginpage {
             $result = $this->dbProvider->selectQuery($queryStr_employee);
         }
 
-        // check to see if the mySQLi contains the Login queried 
+        // check to see if the mySQLi contains the Login queried
         if ($result->num_rows === 0) {
          throw new InvalidArgumentException('Invalid credentials provided.');
         } else if ($result) {
@@ -114,8 +114,8 @@ class Loginpage {
       }
         $usernameQueryStr_c = "SELECT * FROM Customers WHERE Customer_Login = '$username'";
         $usernameQueryResult = $this->dbProvider->selectQuery($usernameQueryStr_c);
-      
-      if (!empty($usernameQueryResult)) {
+
+      if (empty($usernameQueryResult)) {
          throw new EntityExistsException("User exists with username $username");
       }
 
@@ -125,42 +125,43 @@ class Loginpage {
                           "('$credit', '$username', '$password', '$name') ";
 
       $created = $this->dbProvider->insertQuery($registerQueryStr_c);
-      
+
       if (!$created) {
          throw new SQLException("Failed to create User with $name, $username, $password");
       }
    }
-    
+
     public function createEmployeeAccount(){
       // if want to be really careful. limit character size on inputs..
       // needs disclaimer about password being saved as plaintext
-      $name = $this->request->getParameter('reg-ename');
-      $username = $this->request->getParameter('reg-eusername');
-      $password = $this->request->getParameter('reg-epassword');
+      $name = $this->request->getParameter('reg-name');
+      $username = $this->request->getParameter('reg-username');
+      $password = $this->request->getParameter('reg-password');
       $sinno = $this->request->getParameter('reg-sin');
       $accType = $this->request->getParameter('reg-acc-type');
 
       if (is_null($name) || strlen($name) == 0 ||
           is_null($username) || strlen($username) == 0 ||
           is_null($password) || strlen($password) == 0) {
+
          throw new InvalidArgumentException("Required form input missing. Either name, username, or password.");
       }
         $usernameQueryStr_e = "SELECT * FROM Employees WHERE Employee_Login = '$username' ";
 
         $usernameQueryResult = $this->dbProvider->selectQuery($usernameQueryStr_e);
 
-      
-      if (!empty($usernameQueryResult)) {
+
+      if (empty($usernameQueryResult)) {
          throw new EntityExistsException("User exists with username $username");
       }
 
-    $registerQueryStr_e = "INSERT INTO Employees ". 
-                        "(SIN, Employee_Login, Employee_Password, FirstName) ". 
-                        " VALUE ". 
-                        "('$sinno, $username, $password, $name' ) ";
+      $registerQueryStr_e = "INSERT INTO Employees ".
+                        "(SIN, Employee_Login, Employee_Password, FirstName) ".
+                        " VALUE ".
+                        "('$sinno', '$username', '$password', '$name' ) ";
 
       $created = $this->dbProvider->insertQuery($registerQueryStr_e);
-      
+
       if (!$created) {
          throw new SQLException("Failed to create User with $name, $username, $password");
       }

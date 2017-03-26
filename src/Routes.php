@@ -16,14 +16,9 @@ return [
 
 // account page
     ['GET', '/account', ['GTheatre\Controllers\Accountpage', 'show']],
-    ['POST', '/account/update', ['GTheatre\Controllers\Accountpage', 'update']],
-    ['GET', '/account/chef/all', ['GTheatre\Controllers\Accountpage', 'showAllChefAccounts']],
-    ['GET', '/account/chef/create', ['GTheatre\Controllers\Accountpage', 'showCreateChefForm']],
-    ['POST', '/account/chef/create', ['GTheatre\Controllers\Accountpage', 'createChefAccount']],
-    ['GET', '/account/chef/edit/{username}', ['GTheatre\Controllers\Accountpage', 'showEditChefForm']],
-    ['POST', '/account/chef/update', ['GTheatre\Controllers\Accountpage', 'updateChefAccount']],
-    ['POST', '/account/chef/delete', ['GTheatre\Controllers\Accountpage', 'deleteChefAccount']],
-
+    ['POST', '/account/customer/update', ['GTheatre\Controllers\Accountpage', 'updateCustomer']],
+    ['POST', '/account/employee/update', ['GTheatre\Controllers\Accountpage', 'updateEmployee']],
+   
 // browse movies page 
     ['GET', '/showtimes', ['GTheatre\Controllers\ShowtimesPage', 'show']],
     ['GET', '/showtimes/populate-movies', ['GTheatre\Controllers\ShowtimesPage', 'populateMovies']],
@@ -33,5 +28,6 @@ return [
 
 // buy tickets page
 	['GET', '/BuyTickets', ['GTheatre\Controllers\BuyTicketsPage', 'show']],
+	['GET', '/BuyTickets/populate-movies', ['GTheatre\Controllers\BuyTicketsPage', 'populateMovies']],
 
 ];

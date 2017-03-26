@@ -37,6 +37,9 @@
                 </li>
               {% else %}
                 <li class="pure-menu-item">
+                  <a href="#" id="account-link" class="pure-menu-link"> Hello {{name}}</a>
+                </li>
+                <li class="pure-menu-item">
                   <a href="#" id="movie-dir-link" class="pure-menu-link">Movies</a>
                 </li>
 
@@ -97,6 +100,17 @@
         type: "GET",
         success: function() {
           window.location.replace("/BuyTickets");
+        }
+      });
+    });
+
+    $("#account-link").click(function (){
+      console.log("go to update account information");
+      $.ajax({
+        url: "/account",
+        type: "GET",
+        success: function () {
+          window.location.replace("/account");
         }
       });
     });
