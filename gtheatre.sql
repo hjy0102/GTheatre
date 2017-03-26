@@ -31,7 +31,7 @@ CREATE TABLE Movies
      TPrice    DEC(4,2) DEFAULT 9.00,
     --  SoldCount int(4),
     --  Qty       int(4),
-     PRIMARY KEY (Title, RYear)
+     PRIMARY KEY (Title, RYear) ON DELETE CASCADE ON UPDATE CASCADE
   );
 
 CREATE TABLE Associated_Tickets
@@ -44,6 +44,7 @@ CREATE TABLE Associated_Tickets
     Login       char(20) NOT NULL,
     TPrice      DEC(4,1) DEFAULT 9.00,
     PRIMARY KEY (Title, RYear, TicketNo)
+    FOREIGN KEY (Title, RYear) REFERENCES Movies (Title, RYear)
   );
 
 CREATE TABLE Plays
@@ -55,8 +56,8 @@ CREATE TABLE Plays
      RYear      int NOT NULL,
     --  PRIMARY KEY (STime, ETime),
      PRIMARY KEY (HNumber, Title, RYear),
-     FOREIGN KEY (HNumber) REFERENCES TheatreHalls (HNumber) ON DELETE CASCADE ON UPDATE CASCADE,
-     FOREIGN KEY (Title, RYear) REFERENCES Movies (Title, RYear) ON DELETE CASCADE ON UPDATE CASCADE
+     FOREIGN KEY (HNumber) REFERENCES TheatreHalls (HNumber),
+     FOREIGN KEY (Title, RYear) REFERENCES Movies (Title, RYear)
   );
 
 CREATE TABLE Customers
@@ -93,7 +94,7 @@ CREATE TABLE Bundle
 	 TicketNo int NOT NULL UNIQUE AUTO_INCREMENT,
 	 PRIMARY KEY (FType, Title, RYear, TicketNo),
 	 FOREIGN KEY (FType) REFERENCES Foods (FType),
-     FOREIGN KEY (Title, RYear) REFERENCES Movies (Title, RYear) ON DELETE CASCADE ON UPDATE CASCADE,
+   FOREIGN KEY (Title, RYear) REFERENCES Movies (Title, RYear),
 	 FOREIGN KEY (TicketNo) REFERENCES Associated_Tickets (TicketNo) ON DELETE CASCADE ON UPDATE CASCADE
   );
 
