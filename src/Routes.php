@@ -28,6 +28,7 @@ return [
     ['GET', '/showtimes', ['GTheatre\Controllers\ShowtimesPage', 'show']],
     ['GET', '/showtimes/populate-movies', ['GTheatre\Controllers\ShowtimesPage', 'populateMovies']],
     ['GET', '/showtimes/populate-halls', ['GTheatre\Controllers\ShowtimesPage', 'populateHalls']],
+    ['GET', '/showtimes/populate-movies/filter', ['GTheatre\Controllers\ShowtimesPage', 'filter']],
 
 
 // buy tickets page

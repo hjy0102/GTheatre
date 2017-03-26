@@ -13,6 +13,7 @@
         <!-- Custom styles for this template -->
         <link href="/css/pages/ShowtimesPage.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.4.1/css/bootstrap-slider.min.css">
 
     </head>
 
@@ -46,21 +47,32 @@
                     <div class="filter" id="movie">
                         <label for="select-movie">Movie</label>
                         <select class="selectpicker form-control" data-live-search="true" data-container="body"
-                            data-dropup-auto="false" title="All Movies"
+                            data-dropup-auto="false" title="Search Movies"
 							id="select-movie"></select>
                     </div>
-                    <div class=filter>
-                        <label for="debug-filter">Preview seleciton for debugging</label>
-                        <div class=well id="debug-filter">
-                            ...
-                        </div>    
+                    <div class="filter" id="rating">
+                        <label for="select-rating">Rating</label>
+                        <select class="selectpicker form-control" data-container="body"
+                            data-dropup-auto="false" title="All Ratings" multiple
+							id="select-rating"></select>
+                    </div>
+                    <div class="filter" id="year">
+                        <div>
+                            <label>Release Year</label>
+                        </div>
+                        <div class="slider">
+                            <input id="select-year" type="text" class="span2" value="" 
+                                data-slider-step="1"/>
+                        </div>
+                    </div>
+
+                    <div class = "filter" style="color:black;">
+                        <div class=well id="debug-filter"></div>    
                     </div>
                 </div>
                 <div class="col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3 main">
                     <div class="narrow-list" id="showcards">
-                        <div class="well showcard">
-                            Movies go here
-                        </div>
+                        <div class="well showcard"></div>
                     </div>
                 </div>
             </div>
@@ -130,5 +142,6 @@
         <script src="/js/ShowtimesPage.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.4.1/bootstrap-slider.min.js"></script>
     </body>
 </html>

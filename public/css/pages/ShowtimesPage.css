@@ -131,3 +131,8 @@ body {
 .narrow-list {
     padding: 0px 100px 0px 100px;
 }
+.slider {
+  width: 100% !important;
+  padding-left: 10px;
+  padding-right: 10px;
+}

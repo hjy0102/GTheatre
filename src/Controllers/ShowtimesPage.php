@@ -35,26 +35,60 @@ class ShowtimesPage
     }
 
     public function populateMovies() {
-      $queryStr_movies = "SELECT m.Title, m.RYear, MRating, Length, TPrice, STime, HNumber 
-                          FROM Movies m, Plays p
-                          WHERE m.Title = p.Title AND m.RYear = p.RYear
-                          ORDER BY m.Title, STime;";
-      $result = $this->dbProvider->selectQuery($queryStr_movies);
+      $query = "SELECT m.Title, m.RYear, MRating, Length, TPrice, STime, HNumber 
+                FROM Movies m, Plays p
+                WHERE m.Title = p.Title AND m.RYear = p.RYear
+                ORDER BY m.Title, STime;";
+      $result = $this->dbProvider->selectQuery($query);
       $rows = array(); 
       while ($obj = $result->fetch_object()) {
         $rows[] = $obj;
       }
-      echo(json_encode($rows));
+      echo(json_encode($rows, JSON_NUMERIC_CHECK));
     }
 
     public function populateHalls() {
-      $queryStr_movies = "SELECT * FROM theatrehalls ORDER BY HNumber";
-      $result = $this->dbProvider->selectQuery($queryStr_movies);
+      $query = "SELECT * FROM theatrehalls ORDER BY HNumber";
+      $result = $this->dbProvider->selectQuery($query);
       $rows = array(); 
       while ($obj = $result->fetch_object()) {
         $rows[] = $obj;
       }
-      echo(json_encode($rows));
+      echo(json_encode($rows, JSON_NUMERIC_CHECK));
+    }
+
+    public function filter() {
+      $movie = $this->request->getParameter("movie");
+      $rating = $this->request->getParameter("rating");
+      $year = $this->request->getParameter("year");
+
+      $query = "SELECT m.Title, m.RYear, MRating, Length, TPrice, STime, HNumber FROM Movies m, Plays p WHERE m.Title = p.Title AND m.RYear = p.RYear";
+      
+      if ($movie != "") {
+        $query = $query . " AND m.Title = '$movie'";
+      }
+
+      if (count($rating) > 0) {
+        $query = $query . " AND (";
+        for ($i = 0; $i < count($rating) - 1; $i++) {
+          $query = $query . "m.MRating = '$rating[$i]' OR ";
+        }
+        $last = count($rating) - 1;
+        $query = $query . "m.MRating = '$rating[$last]')";
+      }
+
+      if (count($year) > 0) {
+        $query = $query . " AND m.RYear >= $year[0] AND m.RYear <= $year[1]";
+      }
+
+      $query = $query . " ORDER BY m.Title, STime;";
+      // echo($query); //debug to see 
+      $result = $this->dbProvider->selectQuery($query);
+
+      while ($obj = $result->fetch_object()) {
+        $rows[] = $obj;
+      }
+      echo(json_encode($rows, JSON_NUMERIC_CHECK));
     }
 
 }

@@ -1,15 +1,25 @@
 $(function () {
 
+    var buildQuery = {
+        "movie": "",
+        "rating": [],
+        "year": []
+    };
+
+    var filtersUsed = {
+        "movie": false,
+        "rating": false,
+        "year": false
+    };
+
     $(document).ready(function() {
+        $("#select-year").slider({});
         $.ajax({
             url: "/showtimes/populate-movies",
             type: "GET",
 
             success: function (data) {
-                console.log(data);
-                var selector = $("#select-movie");
-                populateHelper(JSON.parse(data), selector, "Title");
-                populateMovies(JSON.parse(data));
+                populate(JSON.parse(data));
             },
             error: function() {
                 alert("Something failed");
@@ -30,6 +40,65 @@ $(function () {
         });
     });
 
+    function populate(data) {
+        console.log(data);
+        if (!filtersUsed.movie) {
+            populateHelper(data, $("#select-movie"), "Title", false);
+            filtersUsed.movie = true;
+        }
+        if (!filtersUsed.rating) {
+            populateHelper(data, $("#select-rating"), "MRating", true);
+        }
+        if (!filtersUsed.year) {
+            populateYear(data);
+        }
+        populateMovies(data);
+    }
+
+    function query() {
+        console.log(buildQuery);
+        $.ajax({
+            url: "/showtimes/populate-movies/filter",
+            type: "GET",
+            data: buildQuery,
+            success: function(data) {
+                // console.log(data);
+                populate(JSON.parse(data));
+                updateDebugFilter();
+            },
+            error: function() {
+                var selector = $("#showcards");
+                selector.empty();
+                selector.append("<div class='alert alert-danger' role='alert'>Uh oh! No results :(</div>");
+            }
+        });
+    }
+
+    /**
+     * Populate the filters here
+     */
+
+    function populateYear(data) {
+        var selector = $("#select-year");
+        var min = data[0]["RYear"];
+        var max = data[0]["RYear"];
+        for (var i = 0; i < data.length; i++) {
+            var year = data[i]["RYear"];
+            if (year < min) {
+                min = year;
+            }
+            if (year > max) {
+                max = year;
+            }
+        }
+        selector.slider({
+            "min": min,
+            "max": max,
+            "value": [min, max]
+        });
+        selector.slider("refresh");
+    }
+
     function populateMovies(data) {
         var selector = $("#showcards");
         selector.empty();
@@ -38,11 +107,13 @@ $(function () {
         }      
     }
 
-    function populateHelper(data, selector, key) {
+    function populateHelper(data, selector, key, multiple) {
         //doesn't keep duplicates
         var temp = [];
         selector.empty();
-        selector.append('<option></option>'); //blank option to "deselect"
+        if (!multiple) {
+            selector.append('<option></option>'); //blank option to "deselect"
+        }
         for (var i = 0; i < data.length; i++) {
             if (!temp.includes(data[i][key])) {
                 selector.append('<option>' + data[i][key] + '</option>');
@@ -60,6 +131,32 @@ $(function () {
         }
         selector.selectpicker("refresh");
     }
+
+    /**
+     * Handle the filters here
+     */
+    $(document).on("change", "#select-movie", function() { 
+        buildQuery.movie = $(this).val();
+        buildQuery.rating = [];
+        buildQuery.year = [];
+        filtersUsed.rating = false;
+        filtersUsed.year = false;
+        // filtersUsed.movie = true;
+        $("#debug-filter").append("<p>!!! Movie filter reset other filters</p>");
+        query();
+    });
+
+    $(document).on("change", "#select-rating", function() {
+        buildQuery.rating = $(this).val();
+        filtersUsed.rating = true;
+        query();
+    });
+
+    $("#select-year").on("slideStop", function (slideEvt) {
+        buildQuery.year = slideEvt.value;
+        filtersUsed.year = true;
+        query();
+    });
     
     var numStartTimes = 1;
     $("#addstarttime").click(function() {
@@ -81,5 +178,9 @@ $(function () {
         $("#addMovieForm").validator("update"); //tell bootstrap form validator that inputs have changed
     });
 
+    function updateDebugFilter() {
+        var selector = $("#debug-filter");
+        selector.append("<p>" + JSON.stringify(buildQuery) + "</p>");
+    }
     
 });
