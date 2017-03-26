@@ -8,7 +8,7 @@
 		h1 { font-family: monospace; }
 		h2 { font-family: monospace; font-size: 20px; }
 		div { text-align: center; }
-		#first-panel {
+		.first-panel {
 			border: 4px solid white;
 			background-color: white;
 			height: 800px;
@@ -22,7 +22,7 @@
 <html>
 <body>
 	<p></p>
-	<div id="first-panel">
+	<div class="first-panel">
 		<h1>Movie Details</h2>
 		<div id="showcards">
 			<div class="well showcard"></div>
@@ -30,23 +30,24 @@
 		
 		<div>
 			<h1>Ticket Quantity</h2>
-			<select name="QtyDropDown">
-				<option>1 Seat</option>
-				<option>2 Seats</option>
-				<option>3 Seats</option>
-				<option>4 Seats</option>
-				<option>5 Seats</option>
+			<select id="QtyDropDown">
+				<option>1 seat</option>
+				<option>2 seats</option>
+				<option>3 seats</option>
+				<option>4 seats</option>
+				<option>5 seats</option>
 			</select>
 		</div>
 	
 		<p></p>	
 		<h1>Food Bundling Options</h1>
-			<h2>Popcorn  <input type="text" size="10" placeholder="quantity" id="PopcornQty"></h2>
-			<h2>Pretzels <input type="text" size="10" placeholder="quantity" id="PretzelsQty"></h2>
-			<h2>Corndogs <input type="text" size="10" placeholder="quantity" id="CorndogsQty"></h2>
-			<h2>Poutine  <input type="text" size="10" placeholder="quantity" id="PoutineQty"></h2>
-			<h2>Nachos   <input type="text" size="10" placeholder="quantity" id="NachosQty"></h2>
-			
+			<label id="Popcorn">Popcorn </label><input type="text" size="10" placeholder="quantity" id="PopcornQty"></br>
+			<label id="Pretzels">Pretzels </label><input type="text" size="10" placeholder="quantity" id="PretzelsQty"></br>
+			<label id="Corndogs">Corndogs </label><input type="text" size="10" placeholder="quantity" id="CorndogsQty"></br>
+			<label id="Poutine">Poutine </label><input type="text" size="10" placeholder="quantity" id="PoutineQty"></br>
+			<label id="Nachos">Nachos </label><input type="text" size="10" placeholder="quantity" id="NachosQty">
+		
+		<p></p>
 		<div>
 			<button id="btnSubmit">Submit</button></div>
 		</div>
@@ -91,7 +92,14 @@
 		});
 		
 		$("#btnSubmit").click(function() {
-			alert("You have successfully purchased a ticket");
+			var dropDown = $("#QtyDropDown").val();
+			var popcornQty = $("#PopcornQty").val();
+			var pretzelsQty = $("#PretzelsQty").val();
+			var corndogsQty = $("#CorndogsQty").val();
+			var poutineQty = $("#PoutineQty").val();
+			var nachosQty = $("#NachosQty").val();
+			
+			alert("You have successfully purchased " + dropDown);
 		
 			$.ajax({
 				url: "/BuyTickets",
