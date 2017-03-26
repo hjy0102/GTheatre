@@ -5,8 +5,6 @@
 	<meta charset="utf-8">
 	<title>Purchase Tickets</title>
 	<style type="text/css">
-		h1 { font-family: monospace; }
-		h2 { font-family: monospace; font-size: 20px; }
 		div { text-align: center; }
 		.first-panel {
 			border: 4px solid white;
@@ -16,20 +14,31 @@
 			margin: auto;
 			padding: 20px;
 		}
+		.second-panel {
+			border: 2px solid blue;
+			width: 500px;
+			margin: auto;
+			padding: 10px;
+			text-align: left;
+		}
 	</style>
 </head>
 
 <html>
 <body>
-	<p></p>
 	<div class="first-panel">
-		<h1>Movie Details</h2>
-		<div id="showcards">
-			<div class="well showcard"></div>
+		<p></p>
+		<div class="second-panel">
+			<h2>Movie Details</h2>
+			<label>Title:</label> {{title}}</br>
+			<label>Hall Number:</label> Hall {{hnumber}}</br>
+			<label>Start Time:</label> {{stime}}</br>
+			<label>Ticket Price:</label> ${{tprice}}		
 		</div>
 		
-		<div>
-			<h1>Ticket Quantity</h2>
+		<p></p>
+		<div class="second-panel">
+			<h2>Quantity and Food Options</h2>
 			<select id="QtyDropDown">
 				<option>1 seat</option>
 				<option>2 seats</option>
@@ -37,15 +46,14 @@
 				<option>4 seats</option>
 				<option>5 seats</option>
 			</select>
-		</div>
 	
-		<p></p>	
-		<h1>Food Bundling Options</h1>
-			<label id="Popcorn">Popcorn </label><input type="text" size="10" placeholder="quantity" id="PopcornQty"></br>
-			<label id="Pretzels">Pretzels </label><input type="text" size="10" placeholder="quantity" id="PretzelsQty"></br>
-			<label id="Corndogs">Corndogs </label><input type="text" size="10" placeholder="quantity" id="CorndogsQty"></br>
-			<label id="Poutine">Poutine </label><input type="text" size="10" placeholder="quantity" id="PoutineQty"></br>
-			<label id="Nachos">Nachos </label><input type="text" size="10" placeholder="quantity" id="NachosQty">
+			<p></p>
+			<input type="radio" name="Food" id="Popcorn" value="Popcorn">Popcorn<br>
+			<input type="radio" name="Food" id="Pretzels" value="Pretzels">Pretzels<br>
+			<input type="radio" name="Food" id="Corndogs" value="Corndogs">Corndogs<br>
+			<input type="radio" name="Food" id="Poutine" value="Poutine">Poutine<br>
+			<input type="radio" name="Food" id="Nachos" value="Nachos">Nachos<br>
+		</div>
 		
 		<p></p>
 		<div>
@@ -54,50 +62,13 @@
 	</div>
 	
 	<script>
-		$(document).ready(function() {	
-			$.ajax({
-				url: "/BuyTickets/populate-movies",
-				type: "GET",
-
-				success: function (data) {
-					console.log(data);
-					var selector = $("#select-movie");
-					populateHelper(JSON.parse(data), selector, "Title");
-					populateMovies(JSON.parse(data));
-				},
-				error: function() {
-					alert("Something failed");
-				}
-			});
-		
-			function populateMovies(data) {
-				var selector = $("#showcards");
-				selector.empty();
-				for (var i = 0; i < data.length; i++) {
-					selector.append("<div class='well showcards'>" + JSON.stringify(data[i]) + "</div>");
-				}      
-			}
-
-			function populateHelper(data, selector, key) {
-				var temp = [];
-				selector.empty();
-				selector.append('<option></option>'); //blank option to "deselect"
-				for (var i = 0; i < data.length; i++) {
-					if (!temp.includes(data[i][key])) {
-						selector.append('<option>' + data[i][key] + '</option>');
-						temp.push(data[i][key]);
-					}
-				}
-			}    
-		});
-		
 		$("#btnSubmit").click(function() {
-			var dropDown = $("#QtyDropDown").val();
-			var popcornQty = $("#PopcornQty").val();
-			var pretzelsQty = $("#PretzelsQty").val();
-			var corndogsQty = $("#CorndogsQty").val();
-			var poutineQty = $("#PoutineQty").val();
-			var nachosQty = $("#NachosQty").val();
+			var dropDown = $("#QtyDropDown").val();			
+			var popcorn = $("#Popcorn").val();
+			var pretzels = $("#Pretzels").val();
+			var corndogs = $("#Corndogs").val();
+			var poutine = $("#Poutine").val();
+			var nachos = $("#Nachos").val();
 			
 			alert("You have successfully purchased " + dropDown);
 		
