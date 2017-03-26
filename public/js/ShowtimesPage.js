@@ -100,11 +100,37 @@ $(function () {
     }
 
     function populateMovies(data) {
+        var titlesExist = [];
         var selector = $("#showcards");
         selector.empty();
         for (var i = 0; i < data.length; i++) {
-            selector.append("<div class='well showcards'>" + JSON.stringify(data[i]) + "</div>");
+            var temp = data[i].Title + data[i].RYear;
+            var id = temp.replace(/\s/g, '');
+            if (!titlesExist.includes(id)) {
+                selector.append("<div class='well showcards'>" + 
+                                        "<h1>" + data[i].Title + "</h1>" + 
+                                        "<p>Release year: " + data[i].RYear + "</p>" +
+                                        "<p>Rated: " + data[i].MRating + "</p>" +
+                                        "<p>Runtime: " + data[i].Length + "</p>" +
+                                        "<label>Showtimes</label>" +
+                                        "<div id='" + id + "'>" +
+                                        "<a class='btn btn-primary time-buttons' href='" + formatURI(data[i]) +  "' role='button'>" + removeSeconds(data[i].STime) + "</a>" +
+                                        "</div>" +
+                                        "</div>");
+                titlesExist.push(id);
+            } else {
+                $("#" + id).append("<a class='btn btn-primary time-buttons' href='" + formatURI(data[i]) +  "' role='button'>" + removeSeconds(data[i].STime) + "</a>");
+            }
         }      
+    }
+
+    function removeSeconds(time) {
+        var temp = time.split(":");
+        return temp[0] + ":" + temp[1];
+    }
+
+    function formatURI(data) {
+        return "/BuyTickets?Title=" + data.Title + "&HNumber=" + data.HNumber + "&STime=" + data.STime + "&TPrice=" + data.TPrice;
     }
 
     function populateHelper(data, selector, key, multiple) {
