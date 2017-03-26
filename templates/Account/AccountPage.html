@@ -240,7 +240,7 @@ $("#e-save-btn").click(function () {
 
 $("#my-tickets-btn").click(function() {
   $.ajax({
-    url: "/customer/mytickets",
+    url: "/mytickets",
     type: "GET",
     data: {
       "account-name": $("#account-name").val(),

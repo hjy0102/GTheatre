@@ -38,8 +38,8 @@ class MyTickets
    }
    
    public function show() {
-       $username = $this->session->get('userName');
-       $creditCard = $this->request->getValue('account-creditCard');
+       $username = $this->session->getValue('userName');
+       $creditCard = $this->session->getValue('creditCard');
        
        $data = self::getMovieTickets($username, $creditCard);
        $html = $this->renderer->render($this->templateDir, 'MyTickets', $data);
@@ -48,9 +48,24 @@ class MyTickets
     }
     
     public function getMovieTickets($u, $credit) {
-        
+        $queryStr = "SELECT * FROM Associated_Tickets ". 
+                        " WHERE CreditCard = '$credit'". 
+                        " AND Login = '$u'";
 
+        $ticketArr = $this->dbProvider->selectQuery($queryStr);
+
+        $rows = array(); 
+        
+        while ($obj = $ticketArr->fetch_object()) {
+            $rows[] = $obj;
+        }
+
+        return $rows;
     }
+
+
+
+}
 
 
 ?>

@@ -65,6 +65,7 @@ class MySQLDatabaseProvider implements DatabaseProvider
         
         return $queryResult; 
         };
+
     }
 
 
@@ -73,7 +74,8 @@ class MySQLDatabaseProvider implements DatabaseProvider
     public function selectMultipleRowsQuery($q){
 
         $queryResult = $this->dbProvider->query($q);
-        $queryArr = mysqli_result::fetch_all($queryResult, MYSQLI_ASSOC);
+        
+        $queryArr = mysqli_result::fetch_all($queryResult);
 
         return $queryArr;
     }
