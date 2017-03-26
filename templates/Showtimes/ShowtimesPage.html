@@ -32,7 +32,9 @@
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><button type="button" class="btn btn-primary btn-nav" data-toggle="modal" data-target="#addMovie">Add Movie</button></li>
+                        {% if accType|lower == "employee" %} 
+                            <li><button type="button" class="btn btn-primary btn-nav" data-toggle="modal" data-target="#addMovie">Add Movie</button></li>
+                        {% endif %}
                         {% if accType %}
                             <li><a href="#">Log Out</a></li>
                         {% endif %}
@@ -120,12 +122,6 @@
                             </div>
                             <div id="starttimes"></div>
                             <input class="btn btn-default btn-xs btn-modal" id="addstarttime" type="button" value="Add Showtime">
-                            <div>
-                                <label for="debugSql">Preview selection for debugging</label>
-                                <div class="well" id="debugSql">
-                                    ...
-                                </div>
-                            </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                                 <button type="submit" class="btn btn-primary">Insert</button>

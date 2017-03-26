@@ -13,7 +13,6 @@ $(function () {
     };
 
     $(document).ready(function() {
-        $("#select-year").slider({});
         $.ajax({
             url: "/showtimes/populate-movies",
             type: "GET",
