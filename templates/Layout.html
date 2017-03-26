@@ -44,10 +44,6 @@
                 </li>
 
                 <li class="pure-menu-item">
-                  <a href="#" id="buy-link" class="pure-menu-link">Buy Tickets</a>
-                </li>
-
-                <li class="pure-menu-item">
                   <a href="#" id="signout-link" class="pure-menu-link">SIGN OFF</a>
                 </li>
                 
@@ -89,17 +85,6 @@
         type: "GET",
         success: function () {
           window.location.replace("/showtimes");
-        }
-      });
-    });
-
-    $("#buy-link").click(function() {
-      console.log("go buy movie tickets");
-      $.ajax({
-        url: "/BuyTickets",
-        type: "GET",
-        success: function() {
-          window.location.replace("/BuyTickets");
         }
       });
     });
