@@ -18,6 +18,8 @@ return [
     ['GET', '/account', ['GTheatre\Controllers\Accountpage', 'show']],
     ['POST', '/account/customer/update', ['GTheatre\Controllers\Accountpage', 'updateCustomer']],
     ['POST', '/account/employee/update', ['GTheatre\Controllers\Accountpage', 'updateEmployee']],
+    // show tickets
+    ['GET', '/mytickets', ['GTheatre\Controllers\MyTickets', 'show']],
    
 // browse movies page 
     ['GET', '/showtimes', ['GTheatre\Controllers\ShowtimesPage', 'show']],
