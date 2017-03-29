@@ -225,6 +225,17 @@ a.pure-button-primary {
     background: #010810;
 }
 
+.movie-footer{
+    background: #ffffff;
+    width: 100%;
+    height: 6%;
+    margin: auto;
+    position: absolute;
+    top: 400px; left: 0; bottom: 0px; right: 0;
+    text-align: center;
+    padding: 0.6em 1em;
+}
+
 /*
  * -- TABLET (AND UP) MEDIA QUERIES --
  * On tablets and other medium-sized devices, we want to customize some
