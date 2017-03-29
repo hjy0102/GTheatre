@@ -129,7 +129,7 @@ $(function () {
     }
 
     function formatURI(data) {
-        return "/BuyTickets?Title=" + data.Title + "&HNumber=" + data.HNumber + "&STime=" + data.STime + "&TPrice=" + data.TPrice;
+        return "/BuyTickets?Title=" + data.Title +"&RYear=" + data.RYear + "&HNumber=" + data.HNumber + "&STime=" + data.STime + "&TPrice=" + data.TPrice;
     }
 
     function populateHelper(data, selector, key, multiple) {
