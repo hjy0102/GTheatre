@@ -38,22 +38,38 @@ class BuyTicketsPage {
 	  $stime = $this->request->getParameter('STime');
 	  $tprice = $this->request->getParameter('TPrice');
 
-	  $data = [
-		'title' => $title,
-		'hnumber' => $hnumber,
-		'stime' => $stime,
-		'tprice' => $tprice
-	  ];
+    $accType = $this->session->getValue('accType');
+    
+    if ($accType == 'Customer' ) {
+      $creditCard = $this->session->getValue('creditCard');
+      $name = $this->session->getValue('firstName');
+
+      $data = [
+        'name' => $name,
+        'creditCard' =>$creditCard,
+		    'title' => $title,
+		    'hnumber' => $hnumber,
+		    'stime' => $stime,
+		    'tprice' => $tprice
+	    ];
+    } else {
+      $data = [
+		    'title' => $title,
+		    'hnumber' => $hnumber,
+		    'stime' => $stime,
+		    'tprice' => $tprice
+	    ];
+    }
    
       $html = $this->renderer->render($this->templateDir, 'BuyTickets', $data);
       $this->response->setContent($html);
    }
    
-   public function createBundle()
-   {
-	$title = $this->request->getParameter('Title');
-	$ryear = $this->request->getParameter('RYear');
-	$queryStr = "INSERT INTO Bundle values('null', '$title', '$ryear', 'null')";
-	$this->dbProvider->insertQuery($queryStr);
+   public function createBundle() {
+     $title = $this->request->getParameter('Title');
+     $ryear = $this->request->getParameter('RYear');
+
+     $queryStr = "INSERT INTO Bundle values('null', '$title', '$ryear', 'null')";
+     $this->dbProvider->insertQuery($queryStr);
    }
 }

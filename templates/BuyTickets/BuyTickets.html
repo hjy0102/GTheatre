@@ -30,6 +30,7 @@
 		<p></p>
 		<div class="second-panel">
 			<h2>Movie Details</h2>
+			<h4> {{name}} </h4>
 			<label>Title:</label> {{title}}</br>
 			<label>Hall Number:</label> Hall {{hnumber}}</br>
 			<label>Start Time:</label> {{stime}}</br>
@@ -48,35 +49,63 @@
 			</select>
 	
 			<p></p>
-			<input type="radio" name="Food" id="Popcorn" value="Popcorn">Popcorn<br>
-			<input type="radio" name="Food" id="Pretzels" value="Pretzels">Pretzels<br>
-			<input type="radio" name="Food" id="Corndogs" value="Corndogs">Corndogs<br>
-			<input type="radio" name="Food" id="Poutine" value="Poutine">Poutine<br>
-			<input type="radio" name="Food" id="Nachos" value="Nachos">Nachos<br>
+			<h3> Choose a snack to enjoy with your movie </h3>
+
+			<select id="FoodChoice">
+				<fieldset> 
+			<option type="radio" name="food">Popcorn<br>
+			<option type="radio" name="food">Pretzels<br>
+			<option type="radio" name="food">Corndogs<br>
+			<option type="radio" name="food">Poutine<br>
+			<option type="radio" name="food">Nachos<br>
+				</fieldset>
+			</select>
 		</div>
 		
 		<p></p>
+
+		{% if accType|lower == "customer" %}
 		<div>
-			<button id="btnSubmit">Submit</button></div>
+			Hi Customer
+			<button id="btnSubmit" class="pure-button pure-button-primary" type="button">Submit</button></div>
 		</div>
+
+		{% else %}
+		<div>
+			Hi non-customer
+			<button id="LogIn-Submit" class="pure-button pure-button-primary" type="button">Submit</button></div>
+		</div>
+		{% endif %}
 	</div>
-	
+	</body>
+</html>
 	<script>
+
+		 $("#LogIn-Submit").click(function () {
+			 alert("Please login as a customer to purchase tickets. Redirecting to login page");
+      window.location.replace("/login");
+    });
+
+
 		$("#btnSubmit").click(function() {
+
 			var dropDown = $("#QtyDropDown").val();
-			var fType = $("#Food").val();
-			alert("You have successfully purchased " + dropDown);
+			var fType = $("#FoodChoice").val();
 		
 			$.ajax({
 				url: "/BuyTickets/createBundle",
 				type: "POST",
 				
 				success: function () {
+					alert("You have successfully purchased " + dropDown + " and a(n) " + $("#FoodChoice").val());
 					window.location.replace("/account");
+				},
+
+				error: function() {
+					alert("Something went wrong with your purchase.");
 				}
 			});
-		});
+		})
 	</script>
-</body>
-</html>
+
 {% endblock %}
