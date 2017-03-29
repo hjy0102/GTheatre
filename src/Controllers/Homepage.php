@@ -48,15 +48,16 @@ class Homepage
     public function show()
     {
         $accType = $this->session->getValue('accType');
+
+        $top5movies = self::getTop5();
         
         if (is_null($accType)) {
             $data = [
                 'name' => $this->request->getParameter('name', 'stranger'),
+                'movies' => $top5movies
             ];
         }
         else {
-
-            $top5movies = self::getTop5();
 
             $data = [
                 'name' => $this->session->getValue('name'),
