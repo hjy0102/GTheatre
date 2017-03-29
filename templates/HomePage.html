@@ -20,7 +20,7 @@ ul#movie-list li {
         <ul id="movie-list"> 
             <div id="movie-button">
                 {% for movie in movies %}
-                <li class="pure-button-movie pure-u-4-24"> {{movie.Title}} - sold {{movie.Total}}</li>
+                <li id class="pure-button-movie pure-u-4-24"> {{movie.Title}} - sold {{movie.Total}}</li>
             {% endfor %}
             </div>
         </ul>
