@@ -22,6 +22,7 @@
         <div id="movies">
             {% for movie in movies %}
             {{movie.Title}}, ({{movie.RYear}}), Ticket# {{movie.TicketNo}}, Qty: {{movie.Qty}}, START TIME: {{movie.STime}}, END TIME: {{movie.ETime}} in Theatre Hall {{movie.HNumber}}
+            </br>
             {% endfor %}
         </div>
 
