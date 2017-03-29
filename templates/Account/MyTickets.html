@@ -6,6 +6,14 @@
    height: 100%;
    background-color: white;
 }
+#eachMovie {
+	color: black;
+	border: 2px solid blue;
+	width: 800px;
+	margin: auto;
+	padding: 10px;
+	text-align: left;
+}
 </style>
  
 
@@ -21,7 +29,11 @@
 
         <div id="movies">
             {% for movie in movies %}
-            {{movie.Title}}, ({{movie.RYear}}), Ticket# {{movie.TicketNo}}, Qty: {{movie.Qty}}, START TIME: {{movie.STime}}, END TIME: {{movie.ETime}} in Theatre Hall {{movie.HNumber}}
+            <div id="eachMovie"> 
+				{{movie.Title}} ({{movie.RYear}}), Ticket #{{movie.TicketNo}}, Seats for {{movie.Qty}}, </br>
+				START TIME: {{movie.STime}}, END TIME: {{movie.ETime}}, Hall #{{movie.HNumber}}
+			</div>
+			<p></p>
             {% endfor %}
         </div>
 

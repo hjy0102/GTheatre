@@ -23,5 +23,5 @@ return [
     ['GET', '/showtimes/populate-movies/filter', ['GTheatre\Controllers\ShowtimesPage', 'filter']],
 // buy tickets page
 	['GET', '/BuyTickets', ['GTheatre\Controllers\BuyTicketsPage', 'show']],
-	['GET', '/BuyTickets/populate-movies', ['GTheatre\Controllers\BuyTicketsPage', 'populateMovies']],
+	['POST', '/BuyTickets', ['GTheatre\Controllers\BuyTicketsPage', 'createBundle']],
 ];

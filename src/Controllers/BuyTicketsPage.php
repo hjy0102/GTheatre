@@ -48,17 +48,12 @@ class BuyTicketsPage {
       $html = $this->renderer->render($this->templateDir, 'BuyTickets', $data);
       $this->response->setContent($html);
    }
-
-   public function populateMovies() {
-      $queryStr_movies = "SELECT m.Title, m.RYear, MRating, Length, TPrice, STime, HNumber 
-                          FROM Movies m, Plays p
-                          WHERE m.Title = p.Title AND m.RYear = p.RYear
-                          ORDER BY m.Title, STime;";
-      $result = $this->dbProvider->selectQuery($queryStr_movies);
-      $rows = array();
-      while ($obj = $result->fetch_object()) {
-        $rows[] = $obj;
-      }
-      echo(json_encode($rows));
+   
+   public function createBundle()
+   {
+	$title = $this->request->getParameter('Title');
+	$ryear = $this->request->getParameter('RYear');
+	$queryStr = "INSERT INTO Bundle values('null', '$Title', '$ryear', 'null')";
+	$this->dbProvider->insertQuery($queryStr);
    }
 }

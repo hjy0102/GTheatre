@@ -63,18 +63,14 @@
 	
 	<script>
 		$("#btnSubmit").click(function() {
-			var dropDown = $("#QtyDropDown").val();			
-			var popcorn = $("#Popcorn").val();
-			var pretzels = $("#Pretzels").val();
-			var corndogs = $("#Corndogs").val();
-			var poutine = $("#Poutine").val();
-			var nachos = $("#Nachos").val();
-			
+			var dropDown = $("#QtyDropDown").val();
+			var fType = $("#Food").val();
 			alert("You have successfully purchased " + dropDown);
 		
 			$.ajax({
-				url: "/BuyTickets",
-				type: "GET",
+				url: "/BuyTickets/createBundle",
+				type: "POST",
+				
 				success: function () {
 					window.location.replace("/account");
 				}
