@@ -53,7 +53,7 @@ class BuyTicketsPage {
    {
 	$title = $this->request->getParameter('Title');
 	$ryear = $this->request->getParameter('RYear');
-	$queryStr = "INSERT INTO Bundle values('null', '$Title', '$ryear', 'null')";
+	$queryStr = "INSERT INTO Bundle values('null', '$title', '$ryear', 'null')";
 	$this->dbProvider->insertQuery($queryStr);
    }
 }
