@@ -55,14 +55,34 @@ class Homepage
             ];
         }
         else {
+
+            $top5movies = self::getTop5();
+
             $data = [
                 'name' => $this->session->getValue('name'),
-                'userName' => $this->session->getValue('userName')
+                'userName' => $this->session->getValue('userName'),
+                'movies' => $top5movies
             ];
         }
 
        $html = $this->renderer->render($this->templateDir, 'Homepage', $data);
        $this->response->setContent($html);
+    }
+
+    public function getTop5() {
+        $queryStr = "SELECT Title, sum(Qty) as Total FROM associated_tickets 
+                    GROUP BY Title ORDER BY sum(Qty) DESC LIMIT 5";
+
+        $top5 = $this->dbProvider->selectQuery($queryStr);
+
+        $rows = array(); 
+        
+        while ($obj = $top5->fetch_object()) {
+            $rows[] = $obj;
+        }
+
+        return $rows;
+
     }
 
     public function signout(){
