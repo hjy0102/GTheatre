@@ -66,7 +66,7 @@ class Homepage
             ];
         }
 
-       $html = $this->renderer->render($this->templateDir, 'Homepage', $data);
+       $html = $this->renderer->render($this->templateDir, 'HomePage', $data);
        $this->response->setContent($html);
     }
 
