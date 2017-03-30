@@ -30,38 +30,95 @@ class ShowtimesPage
     }
 
     public function show() {
-      $html = $this->renderer->render($this->templateDir, 'ShowtimesPage');
+      $query = self::buildQuery();
+      $rows = self::query($query);
+      $data = [
+        'movies' => self::parseMovies($rows),
+        'ratings' => self::parseRatings($rows),
+        'years' => self::parseYears($rows),
+        'halls' => self::populateHalls()
+      ];
+      // var_dump($data);
+      $html = $this->renderer->render($this->templateDir, 'ShowtimesPage', $data);
       $this->response->setContent($html);
     }
 
-    public function populateMovies() {
-      $query = "SELECT m.Title, m.RYear, MRating, Length, TPrice, STime, HNumber 
-                FROM Movies m, Plays p
-                WHERE m.Title = p.Title AND m.RYear = p.RYear
-                ORDER BY m.Title, STime;";
-      $result = $this->dbProvider->selectQuery($query);
-      $rows = array(); 
-      while ($obj = $result->fetch_object()) {
-        $rows[] = $obj;
+    private function parseRatings($rows) {
+      $ratings = array();
+      foreach($rows as $r) {
+        if(!in_array($r->MRating, $ratings)) {
+          array_push($ratings, $r->MRating);
+        }
       }
-      echo(json_encode($rows, JSON_NUMERIC_CHECK));
+      return $ratings;
     }
 
-    public function populateHalls() {
+    private function parseYears($rows) {
+      $min = $rows[0]->RYear;
+      $max = $rows[0]->RYear;
+      foreach ($rows as $r) {
+        if ($r->RYear < $min) {
+          $min = $r->RYear;
+        }
+        if ($r->RYear > $max) {
+          $max = $r->RYear;
+        }
+      }
+      return ['Min' => $min, 'Max' => $max];
+    }
+
+    private function parseMovies($rows) {
+      $movies = [];
+      $dupes = array();
+      foreach ($rows as $row) {
+          if (!in_array($row->Title, $dupes)) {
+              $row->STime = array(self::removeSeconds($row->STime));
+              array_push($movies, $row);
+              array_push($dupes, $row->Title);
+          } else {
+              foreach ($movies as $movie) {
+                  if ($row->Title == $movie->Title) {
+                      array_push($movie->STime, self::removeSeconds($row->STime));
+                  }
+              }
+          }
+      }
+      return $movies;
+    }
+
+    private function removeSeconds($time) {
+      return explode(":", $time)[0] . ":" . explode(":", $time)[1];
+    }
+
+    private function populateHalls() {
       $query = "SELECT * FROM theatrehalls ORDER BY HNumber";
       $result = $this->dbProvider->selectQuery($query);
       $rows = array(); 
       while ($obj = $result->fetch_object()) {
         $rows[] = $obj;
       }
-      echo(json_encode($rows, JSON_NUMERIC_CHECK));
+      return $rows;
     }
 
+
     public function filter() {
+      $query = self::buildQuery();
+      $rows = self::query($query);
+      $data = [
+        'movies' => self::parseMovies($rows),
+        'ratings' => self::parseRatings($rows),
+        'years' => self::parseYears($rows),
+        'halls' => self::populateHalls()
+      ];
+      echo(json_encode($data, JSON_NUMERIC_CHECK));
+      // $html = $this->renderer->render($this->templateDir, 'ShowtimesPage', $data);
+      // $this->response->setContent($html);
+    }
+
+    private function buildQuery() {
       $movie = $this->request->getParameter("movie");
       $rating = $this->request->getParameter("rating");
       $year = $this->request->getParameter("year");
-
       $query = "SELECT m.Title, m.RYear, MRating, Length, TPrice, STime, HNumber FROM Movies m, Plays p WHERE m.Title = p.Title AND m.RYear = p.RYear";
       
       if ($movie != "") {
@@ -82,13 +139,16 @@ class ShowtimesPage
       }
 
       $query = $query . " ORDER BY m.Title, STime;";
-      // echo($query); //debug to see 
-      $result = $this->dbProvider->selectQuery($query);
 
+      return $query;
+    }
+
+    private function query($query) {
+      $result = $this->dbProvider->selectQuery($query);
       while ($obj = $result->fetch_object()) {
         $rows[] = $obj;
       }
-      echo(json_encode($rows, JSON_NUMERIC_CHECK));
+      return $rows;
     }
 
 }

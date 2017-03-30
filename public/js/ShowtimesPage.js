@@ -12,47 +12,34 @@ $(function () {
         "year": false
     };
 
-    $(document).ready(function() {
-        $.ajax({
-            url: "/showtimes/populate-movies",
-            type: "GET",
+    // $(document).ready(function() {
+    //     $("#select-year").slider({});
 
-            success: function (data) {
-                populate(JSON.parse(data));
-            },
-            error: function() {
-                alert("Something failed");
-            }
-        });
+    //     $.ajax({
+    //         url: "/showtimes/populate-movies",
+    //         type: "GET",
 
-        $.ajax({
-            url: "/showtimes/populate-halls",
-            type: "GET",
+    //         success: function (data) {
+    //             window.location.replace("/showtimes");
+    //         },
+    //         error: function() {
+    //             alert("Something failed");
+    //         }
+    //     });
 
-            success: function (data) {
-                console.log(data);
-                populateHalls(JSON.parse(data));
-            },
-            error: function() {
-                alert("Something failed");
-            }
-        });
-    });
+    //     $.ajax({
+    //         url: "/showtimes/populate-halls",
+    //         type: "GET",
 
-    function populate(data) {
-        console.log(data);
-        if (!filtersUsed.movie) {
-            populateHelper(data, $("#select-movie"), "Title", false);
-            filtersUsed.movie = true;
-        }
-        if (!filtersUsed.rating) {
-            populateHelper(data, $("#select-rating"), "MRating", true);
-        }
-        if (!filtersUsed.year) {
-            populateYear(data);
-        }
-        populateMovies(data);
-    }
+    //         success: function (data) {
+    //             console.log(data);
+    //             populateHalls(JSON.parse(data));
+    //         },
+    //         error: function() {
+    //             alert("Something failed");
+    //         }
+    //     });
+    // });
 
     function query() {
         console.log(buildQuery);
@@ -61,7 +48,7 @@ $(function () {
             type: "GET",
             data: buildQuery,
             success: function(data) {
-                // console.log(data);
+                console.log(JSON.parse(data));
                 populate(JSON.parse(data));
                 updateDebugFilter();
             },
@@ -73,63 +60,69 @@ $(function () {
         });
     }
 
+    function populate(data) {
+        if (!filtersUsed.movie) {
+            populateHelper(data.movies, $("#select-movie"), "Title", false);
+            filtersUsed.movie = true;
+        }
+        if (!filtersUsed.rating) {
+            populateRatings(data.ratings);
+        }
+        if (!filtersUsed.year) {
+            populateYear(data.years);
+        }
+        populateMovies(data.movies);
+    }
+
     /**
      * Populate the filters here
      */
 
     function populateYear(data) {
         var selector = $("#select-year");
-        var min = data[0]["RYear"];
-        var max = data[0]["RYear"];
-        for (var i = 0; i < data.length; i++) {
-            var year = data[i]["RYear"];
-            if (year < min) {
-                min = year;
-            }
-            if (year > max) {
-                max = year;
-            }
-        }
         selector.slider({
-            "min": min,
-            "max": max,
-            "value": [min, max]
+            "min": data.Min,
+            "max": data.Max,
+            "value": [data.Min, data.Max]
         });
         selector.slider("refresh");
     }
 
     function populateMovies(data) {
-        var titlesExist = [];
         var selector = $("#showcards");
         selector.empty();
         for (var i = 0; i < data.length; i++) {
-            var temp = data[i].Title + data[i].RYear;
-            var id = temp.replace(/\s/g, '');
-            if (!titlesExist.includes(id)) {
-                selector.append("<div class='well showcards'>" + 
-                                        "<h1>" + data[i].Title + "</h1>" + 
-                                        "<p>Release year: " + data[i].RYear + "</p>" +
-                                        "<p>Rated: " + data[i].MRating + "</p>" +
-                                        "<p>Runtime: " + data[i].Length + "</p>" +
-                                        "<label>Showtimes</label>" +
-                                        "<div id='" + id + "'>" +
-                                        "<a class='btn btn-primary time-buttons' href='" + formatURI(data[i]) +  "' role='button'>" + removeSeconds(data[i].STime) + "</a>" +
-                                        "</div>" +
-                                        "</div>");
-                titlesExist.push(id);
-            } else {
-                $("#" + id).append("<a class='btn btn-primary time-buttons' href='" + formatURI(data[i]) +  "' role='button'>" + removeSeconds(data[i].STime) + "</a>");
+            var div = "<div class='well showcards'>" + 
+                        "<h1>" + data[i].Title + "</h1>" + 
+                        "<p>Release year: " + data[i].RYear + "</p>" +
+                        "<p>Rated: " + data[i].MRating + "</p>" +
+                        "<p>Runtime: " + data[i].Length + "</p>" +
+                        "<label>Showtimes</label>" +
+                        "<div>";
+                        
+            for (var j = 0; j < data[i].STime.length; j++) {
+                div = div + "<a class='btn btn-primary time-buttons' href='#' role='button'>" + removeSeconds(data[i].STime[j]) + "</a>"
             }
-        }      
-    }
+            div = div + "</div></div>";
+            selector.append(div);
+        }
+    }      
 
     function removeSeconds(time) {
         var temp = time.split(":");
         return temp[0] + ":" + temp[1];
     }
 
-    function formatURI(data) {
-        return "/BuyTickets?Title=" + data.Title + "&HNumber=" + data.HNumber + "&STime=" + data.STime + "&TPrice=" + data.TPrice;
+    // function formatURI(data) {
+    //     return "/BuyTickets?Title=" + data.Title + "&HNumber=" + data.HNumber + "&STime=" + data.STime + "&TPrice=" + data.TPrice;
+    // }
+
+    function populateRatings(data) {
+        var selector = $("#select-rating");
+        selector.empty();
+        for (var i = 0; i < data.length; i++) {
+            selector.append('<options>' + data[i] + '</option>');
+        }
     }
 
     function populateHelper(data, selector, key, multiple) {
@@ -148,14 +141,14 @@ $(function () {
         selector.selectpicker("refresh");
     }
 
-    function populateHalls(data) {
-        var selector = $("#hall");
-        selector.empty();
-        for (var i = 0; i < data.length; i++) {
-            selector.append("<option data-subtext='Capacity " + data[i].Capacity + " seats'>" + data[i].HNumber + "</option>");
-        }
-        selector.selectpicker("refresh");
-    }
+    // function populateHalls(data) {
+    //     var selector = $("#hall");
+    //     selector.empty();
+    //     for (var i = 0; i < data.length; i++) {
+    //         selector.append("<option data-subtext='Capacity " + data[i].Capacity + " seats'>" + data[i].HNumber + "</option>");
+    //     }
+    //     selector.selectpicker("refresh");
+    // }
 
     /**
      * Handle the filters here
@@ -190,6 +183,11 @@ $(function () {
         $("#addMovieForm").validator("update"); //tell bootstrap form validator that inputs have changed
     });
 
+    function updateDebugFilter() {
+        var selector = $("#debug-filter");
+        selector.append("<p>" + JSON.stringify(buildQuery) + "</p>");
+    }
+
     /**
      * This function clears all inputs on modal close or click cancel
      */
@@ -202,10 +200,5 @@ $(function () {
         numStartTimes = 1; //reset counter
         $("#addMovieForm").validator("update"); //tell bootstrap form validator that inputs have changed
     });
-
-    function updateDebugFilter() {
-        var selector = $("#debug-filter");
-        selector.append("<p>" + JSON.stringify(buildQuery) + "</p>");
-    }
     
 });

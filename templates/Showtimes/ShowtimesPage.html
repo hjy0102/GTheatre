@@ -50,13 +50,24 @@
                         <label for="select-movie">Movie</label>
                         <select class="selectpicker form-control" data-live-search="true" data-container="body"
                             data-dropup-auto="false" title="Search Movies"
-							id="select-movie"></select>
+							id="select-movie">
+                            <option></option>
+                            {% for movie in movies %}
+                                <option>{{movie.Title}}</option>
+                            {% endfor %}    
+                        </select>
                     </div>
                     <div class="filter" id="rating">
                         <label for="select-rating">Rating</label>
                         <select class="selectpicker form-control" data-container="body"
                             data-dropup-auto="false" title="All Ratings" multiple
-							id="select-rating"></select>
+							id="select-rating">
+                            {% for rating in ratings %}
+                                {% if rating is not null %}
+                                    <option>{{rating}}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
                     </div>
                     <div class="filter" id="year">
                         <div>
@@ -64,7 +75,8 @@
                         </div>
                         <div class="slider">
                             <input id="select-year" type="text" class="span2" value=""
-                                data-slider-step="1"/>
+                                data-slider-min={{years.Min}} data-slider-max={{years.Max}} 
+                                data-slider-step="1" data-slider-value="[{{years.Min}},{{years.Max}}]"/>
                         </div>
                     </div>
 
@@ -74,7 +86,20 @@
                 </div>
                 <div class="col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3 main">
                     <div class="narrow-list" id="showcards">
-                        <div class="well showcard"></div>
+                        {% for movie in movies %}
+                            <div class="well showcards"> 
+                                <h1>{{movie.Title}}</h1> 
+                                <p>Release year: {{movie.RYear}}</p>
+                                <p>Rated: {{movie.MRating}}</p>
+                                <p>Runtime: {{movie.Length}}</p>
+                                <label>Showtimes</label>
+                                <div>
+                                    {% for st in movie.STime %}
+                                        <a class="btn btn-primary time-buttons" href="#" role="button">{{st}}</a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
@@ -103,9 +128,10 @@
                                 <select class="selectpicker form-control" id="rating" required>
                                     <option>G</option>
                                     <option>PG</option>
-                                    <option>PG-13</option>
+                                    <option>14A</option>
+                                    <option>18A</option>
                                     <option>R</option>
-                                    <option>NC-17</option>
+                                    <option>A</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -114,7 +140,11 @@
                             </div>
                             <div class="form-group">
                                 <label for="hall" class="control-label">Theatre Hall</label>
-                                <select class="selectpicker form-control" id="hall" required></select>
+                                <select class="selectpicker form-control" id="hall" required>
+                                    {% for hall in halls %}
+                                        <option data-subtext="Capacity {{hall.Capacity}} seats">{{hall.HNumber}}</option>
+                                    {% endfor %}
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="datetime" class="control-label">Showtimes</label>
