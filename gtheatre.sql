@@ -1,15 +1,14 @@
 use heroku_d0dc4a6713d6673;
 
-
 DROP TABLE IF EXISTS Tickets;
 DROP TABLE IF EXISTS Customers;
 DROP TABLE IF EXISTS Employees;
 DROP TABLE IF EXISTS Bundle;
 DROP TABLE IF EXISTS Foods;
 DROP TABLE IF EXISTS Associated_Tickets;
-DROP TABLE IF EXISTS Movies;
-DROP TABLE IF EXISTS TheatreHalls;
 DROP TABLE IF EXISTS Plays;
+DROP TABLE IF EXISTS TheatreHalls;
+DROP TABLE IF EXISTS Movies;
 
 -- may be commented out later after testing
 
@@ -96,7 +95,7 @@ CREATE TABLE Bundle
 	 FType char(16) NOT NULL,
 	 Title char(20) NOT NULL,
 	 RYear int(4) NOT NULL,
-	 TicketNo int NOT NULL UNIQUE AUTO_INCREMENT,
+	 TicketNo int NOT NULL,
 	 PRIMARY KEY (FType, Title, RYear, TicketNo),
 	 FOREIGN KEY (FType) REFERENCES Foods (FType),
      FOREIGN KEY (Title, RYear) REFERENCES Movies (Title, RYear),

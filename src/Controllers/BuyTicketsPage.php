@@ -35,10 +35,10 @@ class BuyTicketsPage {
 
    public function show()
    {
-	  $title = $this->request->getParameter('Title');
-	  $hnumber = $this->request->getParameter('HNumber');
-	  $stime = $this->request->getParameter('STime');
-	  $tprice = $this->request->getParameter('TPrice');
+	$title = $this->request->getParameter('Title');
+	$hnumber = $this->request->getParameter('HNumber');
+	$stime = $this->request->getParameter('STime');
+	$tprice = $this->request->getParameter('TPrice');
     $ryear = $this->request->getParameter('RYear');
     $accType = $this->session->getValue('accType');
 
@@ -76,15 +76,13 @@ class BuyTicketsPage {
    }
    
    public function createBundle() {
-
       $title = $this->session->getValue('movie-title');
       $ryear = $this->session->getValue('movie-ryear');
       $ftype = $this->request->getParameter('food');
       $qty = $this->request->getParameter('qty');
       $stime = $this->session->getValue('movie-stime');
       $tprice = $this->session->getValue('movie-tprice');
-      //TODO auto-generate ticketNo ** 
-	    // $ticketno = $this->request->getParameter('ticketno');
+	  $ticketno = $this->request->getParameter('ticketno');
 
       $newTicket = self::createTicket($title, $ryear, $qty, $stime, $tprice);
 
@@ -94,17 +92,10 @@ class BuyTicketsPage {
       if (!$queryResult){
          throw new SQLException("Failed to create bundle with $ftype, $title, $ryear ");
       }
-
    }
    
     public function createTicket($title, $ryear, $qty, $stime, $tprice) {
-    //   $title = $this->request->getParameter('title');
-    //   $ryear = $this->request->getParameter('ryear');
-    //   $qty = $this->request->getParameter('qty');
-	  // $stime = $this->request->getParameter('STime');
 	  $ticketno = $this->request->getParameter('ticketno');
-	  // $tprice = $this->request->getParameter('tprice');
-
 	  $creditCard = $this->session->getValue('creditCard');
 	  $login = $this->session->getValue('userName');
 	  
