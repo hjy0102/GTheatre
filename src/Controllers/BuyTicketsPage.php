@@ -82,11 +82,10 @@ class BuyTicketsPage {
       $qty = $this->request->getParameter('qty');
       $stime = $this->session->getValue('movie-stime');
       $tprice = $this->session->getValue('movie-tprice');
-	  $ticketno = $this->request->getParameter('ticketno');
+	  
+	  $newTicket = $this->createTicket($title, $ryear, $qty, $stime, $tprice);
 
-      $newTicket = self::createTicket($title, $ryear, $qty, $stime, $tprice);
-
-      $queryStr = "INSERT INTO Bundle values('$ftype', '$title', '$ryear')";
+      $queryStr = "INSERT INTO Bundle values('$ftype', '$title', '$ryear', '$newTicket')";
       $queryResult = $this->dbProvider->insertQuery($queryStr);
 
       if (!$queryResult){
