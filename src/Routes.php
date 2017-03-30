@@ -24,7 +24,9 @@ return [
     ['GET', '/showtimes/populate-movies/filter', ['GTheatre\Controllers\ShowtimesPage', 'filter']],
     ['POST', '/showtimes/update-movie', ['GTheatre\Controllers\ShowtimesPage', 'updateMovie']],
     ['POST', '/showtimes/delete-movie', ['GTheatre\Controllers\ShowtimesPage', 'deleteMovie']],
-    ['GET', '/showtimes/add-movie', ['GTheatre\Controllers\ShowtimesPage', 'addMovie']],
+    ['POST', '/showtimes/add-movie', ['GTheatre\Controllers\ShowtimesPage', 'addMovie']],
+    ['POST', '/showtimes/get-sold-count', ['GTheatre\Controllers\ShowtimesPage', 'getSoldCount']],
+
     
 // buy tickets page
 	['GET', '/BuyTickets', ['GTheatre\Controllers\BuyTicketsPage', 'show']],

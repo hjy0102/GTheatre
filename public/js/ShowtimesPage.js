@@ -129,17 +129,32 @@ $(function () {
                                 "<p>Runtime: " + data[i].Length + "</p>" +
                                 "<label>Showtimes</label>" +
                                 "<div>" +
-                                "<button class='btn btn-primary time-buttons' type='submit' id='" + stimeid + "'>" + removeSeconds(data[i].STime) + "</button>" +
+                                "<button class='btn btn-primary time-buttons'" + addSoldAmount(data[i]) + " type='submit' id='" + stimeid + "'>" + removeSeconds(data[i].STime) + "</button>" +
                                 "</div>" +
                                 "</div>");
                 titlesExist.push(id);
                 $("#" + stimeid).data(data[i]);
             } else { //showcard exists
-                $("#" + id + " > div").append("<button class='btn btn-primary time-buttons' type='submit' id='" + stimeid + "'>" + removeSeconds(data[i].STime) + "</button>");
+                $("#" + id + " > div").append("<button class='btn btn-primary time-buttons'" + addSoldAmount(data[i]) + " type='submit' id='" + stimeid + "'>" + removeSeconds(data[i].STime) + "</button>");
                 $("#" + stimeid).data(data[i]);
             }
             $("#" + id).data(data[i]);
         }      
+    }
+
+    function addSoldAmount(data) {
+        $.ajax({
+            url: "/showtimes/get-sold-count",
+            type: "POST",
+            data: data,
+            success: function (d) {
+                console.log(d);
+                return "data-toggle='tooltip' data-placement='bottom' title='" + d.sold + " / " + d.capacity + "'";
+            },
+            error: function(e) {
+                // spawnErrorModal("Could not get sold amount", e);
+            }   
+        });
     }
 
     function editDelete(data, id) {
@@ -324,7 +339,7 @@ $(function () {
 
         $.ajax({
             url: "/showtimes/add-movie",
-            type: "GET",
+            type: "POST",
             data: data,
             success: function (d) {
                 //

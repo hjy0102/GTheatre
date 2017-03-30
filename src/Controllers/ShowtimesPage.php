@@ -65,6 +65,31 @@ class ShowtimesPage
       } 
     }
 
+    public function getSoldCount() {
+      $Title = $this->request->getParameter("Title");
+      $RYear = $this->request->getParameter("RYear");
+      $HNumber = $this->request->getParameter("HNumber");
+      $STime = $this->request->getParameter("STime");
+
+      $qtyQuery = "SELECT sum(Qty) AS Qty
+                FROM associated_tickets
+                WHERE Title = '$Title' AND 'RYear' = '$RYear' AND STime = '$STime';";
+      $qtyResult = $this->dbProvider->selectQuery($qtyQuery);
+      
+      $capacityQuery = "SELECT Capacity FROM thearehalls WHERE HNumber = '$HNumber';";
+      $capacityResult = $this->dbProvider->selectQuery($capacityQuery);
+
+      $sold = $qtyResult->fetch_object();
+      $capacity = $capacityResult->fetch_object();
+
+      $return = [
+        "sold" => $sold->Qty,
+        "capacity" => $capacity->Capacity
+      ];
+      echo(json_encode($return, JSON_NUMERIC_CHECK));
+
+    }
+
     public function addMovie() {
       $Title = $this->request->getParameter("Title");
       $RYear = $this->request->getParameter("RYear");
