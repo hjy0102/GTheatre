@@ -1,13 +1,32 @@
 {% extends "Layout.html" %}
 {% block content %}
 
+<style>
+ul#movie-list li {
+    display: inline-block;
+}
+</style>
+
 <div class="splash-container">
     <div class="splash">
         <h1 class="splash-head">Welcome <br/> to <br/> GTheatre</h1>
     </div>
 
-    <div class="footer l-box is-center" style="height: 30px; margin-bottom: -30px;">
-      Project by: Hyojin Yi, David Jeongwoo Park, Sean Lennearts, Mike Yoon <br/> For UBC CPSC 304 2017
-    </div>
 </div>
+        <h3 class="movie-footer">Top 5 Popular Movies</h3>
+
+        <div class="movie-list" id="top5-movies">
+
+
+        <ul id="movie-list"> 
+            <div id="movie-button">
+                {% for movie in movies %}
+                <li id class="pure-button-movie pure-u-4-24"> {{movie.Title}} - sold {{movie.Total}}</li>
+            {% endfor %}
+            </div>
+        </ul>
+
+        </div>
+
+
 {% endblock %}

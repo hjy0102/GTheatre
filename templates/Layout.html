@@ -1,4 +1,12 @@
 <!doctype html>
+
+<style>
+#panel {
+   height: 100%;
+   background-color: white;
+}
+</style>
+
 <html lang="en">
   <head>
       <meta charset="utf-8">
@@ -18,12 +26,12 @@
       <!-- Custom styles for this template -->
       <link rel="stylesheet" href="/css/layouts/marketing.css">
       <link rel="stylesheet" href="/css/pages/Layout.css">
-      <link rel="stylesheet" href="/css/pages/Menupage.css">
-      <link rel="stylesheet" href="/css/pages/Orderpage.css">
+
   </head>
 
   <body id="layout-body">
     <div class="header" style="height: 59px; margin-top: -59px;">
+      
         <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
           <img id="logo" src="/img/logo.png" width="100px"/>
 
@@ -56,6 +64,8 @@
       {% block content %}
       {% endblock %}
     </div>
+
+
 
     <div class="footer l-box is-center" style="height: 90px; margin-bottom: -40px;">
       UBC CPSC 304 Relational Databases Project 2017</br>
