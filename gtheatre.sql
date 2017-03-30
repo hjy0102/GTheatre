@@ -99,7 +99,7 @@ CREATE TABLE Bundle
 	 TicketNo int NOT NULL UNIQUE AUTO_INCREMENT,
 	 PRIMARY KEY (FType, Title, RYear, TicketNo),
 	 FOREIGN KEY (FType) REFERENCES Foods (FType),
-     FOREIGN KEY (Title, RYear) REFERENCES Movies (Title, RYear),
+  FOREIGN KEY (Title, RYear) REFERENCES Movies (Title, RYear),
 	 FOREIGN KEY (TicketNo) REFERENCES Associated_Tickets (TicketNo) ON DELETE CASCADE ON UPDATE CASCADE
   );
 

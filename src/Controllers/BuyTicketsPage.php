@@ -83,27 +83,25 @@ class BuyTicketsPage {
       $qty = $this->request->getParameter('qty');
       $stime = $this->session->getValue('movie-stime');
       $tprice = $this->session->getValue('movie-tprice');
-      //TODO auto-generate ticketNo ** 
-	    // $ticketno = $this->request->getParameter('ticketno');
 
-      $newTicket = self::createTicket($title, $ryear, $qty, $stime, $tprice);
+      $ticketNumber = self::createTicket($title, $ryear, $qty, $stime, $tprice);
 
-      $queryStr = "INSERT INTO Bundle values('$ftype', '$title', '$ryear')";
+      // $selectStr = "SELECT TicketNo from Associated_Tickets where Title = $title AND RYear = $ryear AND STime = $stime AND Qty = $qty";
+      // $ticketNumber = $this->dbProvider->selectQuery($selectStr);
+
+      $this->session->setValue('ticketNumber', $ticketNumber);
+
+      $queryStr = "INSERT INTO Bundle values ('$ftype', '$title', '$ryear', '$ticketNumber') ";
       $queryResult = $this->dbProvider->insertQuery($queryStr);
 
-      if (!$queryResult){
+      if (empty($queryResult)){
          throw new SQLException("Failed to create bundle with $ftype, $title, $ryear ");
       }
 
    }
    
     public function createTicket($title, $ryear, $qty, $stime, $tprice) {
-    //   $title = $this->request->getParameter('title');
-    //   $ryear = $this->request->getParameter('ryear');
-    //   $qty = $this->request->getParameter('qty');
-	  // $stime = $this->request->getParameter('STime');
 	  $ticketno = $this->request->getParameter('ticketno');
-	  // $tprice = $this->request->getParameter('tprice');
 
 	  $creditCard = $this->session->getValue('creditCard');
 	  $login = $this->session->getValue('userName');
@@ -111,8 +109,9 @@ class BuyTicketsPage {
       $queryStr = "INSERT INTO Associated_Tickets values('$title', '$ryear', '$ticketno', '$qty', '$creditCard', '$login', '$tprice', '$stime')";
       $queryResult = $this->dbProvider->insertQuery($queryStr);
 
-      if (!$queryResult){
+      if (empty($queryResult)){
          throw new SQLException("Failed to create ticket with $title, $ryear, $ticketno");
-      } else return $queryResult;
-   }
+      } 
+    return $ticketno;
+  }
 }
