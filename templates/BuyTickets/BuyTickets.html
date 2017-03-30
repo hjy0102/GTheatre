@@ -30,11 +30,11 @@
 		<p></p>
 		<div class="second-panel">
 			<h2>Movie Details</h2>
-			<p id="movie-title"><label>Title:</label> {{title}}</p>
-			<p id="ryear"><label>Released in: </label> {{ryear}}</p>
-			<p id="movie-hall"><label>Hall Number:</label> Hall {{hnumber}}</p>
-			<p id="movie-stime"><label>Start Time:</label>{{stime}}</p>
-			<p id="movie-price"><label>Ticket Price:</label> ${{tprice}}</p>	
+			<label>Title:</label><p id="movie-title">{{title}}</p>
+			<label>Released in: </label><p id="ryear">{{ryear}}</p>
+			<label>Hall Number:</label><p id="movie-hall">{{hnumber}}</p>
+			<label>Start Time:</label><p id="movie-stime">{{stime}}</p>
+			<label>Ticket Price:</label><p id="movie-price">{{tprice}}</p>	
 		</div>
 		
 		<p></p>
@@ -86,11 +86,30 @@
 			var fType = $("#FoodChoice").val();
 			
 			$.ajax({
+				url: "/BuyTickets/createTicket",
+				type: "POST",
+				data: {
+					"title": $("#movie-title").val(),
+					"ryear" : $("#ryear").val(),
+					"qty" : $("#QtyDropDown").val(),
+					"tprice" : $("#movie-price").val(),
+					"stime" : $("#movie-stime").val(),
+				},
+				
+				success: function () {
+					// now do the next AJAX
+				},
+
+				error: function() {
+					alert("Whoops! Something went wrong, please try again.");
+				}
+			});
+			
+			$.ajax({
 				url: "/BuyTickets/createBundle",
 				type: "POST",
 				data: {
-					"fTyle" : fType,
-					"qty" : dropDown,
+					"fType" : fType,
 					"title": $("#movie-title").val(),
 					"ryear" : $("#ryear").val()
 				},
@@ -110,5 +129,4 @@
 			window.location.replace("/showtimes");
 		})
 	</script>
-
 {% endblock %}

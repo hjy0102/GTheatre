@@ -73,7 +73,20 @@ class BuyTicketsPage {
       $ftype = $this->request->getParameter('fType');
       $qty = $this->request->getParameter('qty');
 
-      $queryStr = "INSERT INTO Bundle values('$ftype', '$title', '$ryear')";
+      $queryStr = "INSERT INTO Bundle values('$ftype', '$title', '$ryear', AUTO_INCREMENT 6)";
+      $this->dbProvider->insertQuery($queryStr);
+   }
+   
+    public function createTicket() {
+      $title = $this->request->getParameter('title');
+      $ryear = $this->request->getParameter('ryear');
+      $qty = $this->request->getParameter('qty');
+	  $stime = $this->request->getParameter('STime');
+	  $tprice = $this->request->getParameter('TPrice');
+	  $creditCard = $this->session->getValue('creditCard');
+	  $login = $this->session->getValue('login-username');
+	  
+      $queryStr = "INSERT INTO Associated_Tickets values('$title', '$ryear', AUTO_INCREMENT 6, '$qty', '$creditCard', '$login', '$tprice', '$stime')";
       $this->dbProvider->insertQuery($queryStr);
    }
 }
