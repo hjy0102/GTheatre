@@ -9,7 +9,7 @@ UBC CPSC 304 - movie ticket reservation web application
 
 ## Requirements
 PHP >=7.0.0 [https://hjy0102.wordpress.com/2017/02/28/updating-to-php7-from-php5/] </br>
-Composer >=1.3.2 [www.getcomposer.org/]</br>
+Composer >=1.3.2 [https://getcomposer.org/]</br>
 (Optional to run locally) XAMPP [https://www.apachefriends.org/index.html]
 PHP console for Chrome (for debugging only)
 ```bash
