@@ -32,11 +32,14 @@
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        {% if accType|lower == "employee" %} 
-                            <li><button type="button" class="btn btn-primary btn-nav" data-toggle="modal" data-target="#addMovie">Add Movie</button></li>
-                        {% endif %}
-                        {% if accType %}
-                            <li><a href="#">Log Out</a></li>
+                        {% if accType == null %}
+                            <li><a href="/login">Login</a></li>
+                        {% else %}
+                            {% if accType|lower == "employee" %} 
+                                <li><button type="button" class="btn btn-primary btn-nav" data-toggle="modal" data-target="#addMovie" id="insert-movie">Add Movie</button></li>
+                            {% endif %}
+                            <li><a href="/account">Hello {{name}}</a></li>
+                            <li><a href="#" id="signout-link">Sign off</a></li>
                         {% endif %}
                     </ul>
                 </div>
@@ -67,18 +70,15 @@
                                 data-slider-step="1"/>
                         </div>
                     </div>
-
-                    <div class = "filter" style="color:black;">
-                        <div class=well id="debug-filter"></div>
-                    </div>
                 </div>
                 <div class="col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3 main">
                     <div class="narrow-list" id="showcards">
-                        <div class="well showcard"></div>
+                        
                     </div>
                 </div>
             </div>
         </div>
+        
 
         <!--Add movie modal-->
         <div class="modal fade" id="addMovie" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -92,15 +92,15 @@
                         <form data-toggle="validator" role="form" id="addMovieForm">
                             <div class="form-group">
                                 <label for="title" class="control-label">Title</label>
-                                <input type="text" class="form-control" placeholder="Beauty and the Beast" id="title" required>
+                                <input type="text" class="form-control" id="title" required>
                             </div>
                             <div class="form-group">
                                 <label for="year" class="control-label">Release Year</label>
-                                <input type="text" pattern="^[0-9]{4}$" maxlength="4" class="form-control" placeholder="2017" id="year" required>
+                                <input type="text" pattern="^[0-9]{4}$" maxlength="4" class="form-control" id="ayear" required>
                             </div>
                             <div class="form-group">
-                                <label for="rating" class="control-label">Rating</label>
-                                <select class="selectpicker form-control" id="rating" required>
+                                <label for="arating" class="control-label">Rating</label>
+                                <select class="selectpicker form-control" id="arating" required>
                                     <option>G</option>
                                     <option>PG</option>
                                     <option>14A</option>
@@ -111,23 +111,84 @@
                             </div>
                             <div class="form-group">
                                 <label for="length" class="control-label">Runtime</label>
-                                <input type="text" pattern="^[0-9]{3}$" maxlength="3" class="form-control" placeholder="120" id="length" required>
+                                <input type="text" pattern="^[0-9]{3}$" maxlength="3" class="form-control" id="length" required>
                             </div>
                             <div class="form-group">
                                 <label for="hall" class="control-label">Theatre Hall</label>
                                 <select class="selectpicker form-control" id="hall" required></select>
                             </div>
                             <div class="form-group">
-                                <label for="datetime" class="control-label">Showtimes</label>
-                                <div><input type="time" class="form-control" id="datetime" required></div>
+                                <label for="datetime0" class="control-label">Showtimes</label>
+                                <div><input type="time" class="form-control" id="datetime0" required></div>
                             </div>
                             <div id="starttimes"></div>
                             <input class="btn btn-default btn-xs btn-modal" id="addstarttime" type="button" value="Add Showtime">
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                <button type="submit" class="btn btn-primary">Insert</button>
+                                <button type="submit" class="btn btn-primary">Add</button>
                             </div>
                         </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--update movie modal-->
+        <div class="modal fade" id="updateMovie" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Update Movie</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form data-toggle="validator" role="form" id="updateMovieForm">
+                            <div class="form-group">
+                                <label for="title" class="control-label">Title</label>
+                                <input type="text" class="form-control" id="utitle" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="year" class="control-label">Release Year</label>
+                                <input type="text" pattern="^[0-9]{4}$" maxlength="4" class="form-control" id="uyear" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="arating" class="control-label">Rating</label>
+                                <select class="selectpicker form-control" id="urating" required>
+                                    <option>G</option>
+                                    <option>PG</option>
+                                    <option>14A</option>
+                                    <option>18A</option>
+                                    <option>R</option>
+                                    <option>A</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="length" class="control-label">Runtime</label>
+                                <input type="text" pattern="^[0-9]{3}$" maxlength="3" class="form-control" id="ulength" required>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Update</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--error modal-->
+        <div class="modal fade" id="errorModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"></h4>
+                    </div>
+                    <div class="modal-body">
+                        <p></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>

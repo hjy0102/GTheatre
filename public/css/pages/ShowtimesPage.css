@@ -139,3 +139,7 @@ body {
 .time-buttons {
   margin-right: 8px;
 }
+.right {
+  margin-left: 8px;
+  float: right;
+}

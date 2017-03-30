@@ -30,8 +30,40 @@ class ShowtimesPage
     }
 
     public function show() {
-      $html = $this->renderer->render($this->templateDir, 'ShowtimesPage');
+      $data = ["name" => $this->session->getValue("name")]; //hack to simulate extending layout
+      $html = $this->renderer->render($this->templateDir, "ShowtimesPage", $data);
       $this->response->setContent($html);
+    }
+
+    public function getAccType() {
+      echo($this->session->getValue("accType"));
+    }
+
+    public function deleteMovie() {
+      $movie = $this->request->getParameter("Title");
+      $year = $this->request->getParameter("RYear");
+      $query = "DELETE FROM Movies WHERE Title = '$movie' AND RYear = '$year'";
+      $this->dbProvider->deleteQuery($query);
+      echo($query);
+    }
+
+    public function updateMovie() {
+      $Title = $this->request->getParameter("Title"); 
+      $RYear = $this->request->getParameter("RYear");
+      $MRating = $this->request->getParameter("MRating");
+      $Length = $this->request->getParameter("Length");
+      $keyTitle = $this->request->getParameter("keyTitle");
+      $keyRYear = $this->request->getParameter("keyRYear");
+
+      $query = "UPDATE Movies
+                SET Title = '$Title', RYear = '$RYear', MRating = '$MRating', Length = '$Length'
+                WHERE Title = '$keyTitle' AND RYear = '$keyRYear';";
+      
+      $updated = $this->dbProvider->updateQuery($query);
+      if (!$updated) {
+        throw new SQLException("Failed to update Employee with $name, $password, $sin");
+      } 
+
     }
 
     public function populateMovies() {

@@ -12,7 +12,21 @@ $(function () {
         "year": false
     };
 
+    var accType = "";
+
     $(document).ready(function() {
+        $.ajax({
+            url: "/showtimes/get-acc",
+            type: "GET",
+
+            success: function (data) {
+                accType = data.toLowerCase();
+            },
+            error: function() {
+                alert("Something failed");
+            }
+        });
+
         $.ajax({
             url: "/showtimes/populate-movies",
             type: "GET",
@@ -63,7 +77,7 @@ $(function () {
             success: function(data) {
                 // console.log(data);
                 populate(JSON.parse(data));
-                updateDebugFilter();
+                // updateDebugFilter();
             },
             error: function() {
                 var selector = $("#showcards");
@@ -104,23 +118,36 @@ $(function () {
         selector.empty();
         for (var i = 0; i < data.length; i++) {
             var temp = data[i].Title + data[i].RYear;
-            var id = temp.replace(/\s/g, '');
+            var id = temp.replace(/\s/g, "");
+            var stimeid = id + data[i].STime.replace(/:/g, "") + data[i].HNumber;
             if (!titlesExist.includes(id)) {
-                selector.append("<div class='well showcards'>" + 
-                                        "<h1>" + data[i].Title + "</h1>" + 
-                                        "<p>Release year: " + data[i].RYear + "</p>" +
-                                        "<p>Rated: " + data[i].MRating + "</p>" +
-                                        "<p>Runtime: " + data[i].Length + "</p>" +
-                                        "<label>Showtimes</label>" +
-                                        "<div id='" + id + "'>" +
-                                        "<a class='btn btn-primary time-buttons' href='" + formatURI(data[i]) +  "' role='button'>" + removeSeconds(data[i].STime) + "</a>" +
-                                        "</div>" +
-                                        "</div>");
+                selector.append("<div class='well showcards' id='" + id + "'>" + 
+                                editDelete(data, id) +
+                                "<h1>" + data[i].Title + "</h1>" +
+                                "<p>Release year: " + data[i].RYear + "</p>" +
+                                "<p>Rated: " + data[i].MRating + "</p>" +
+                                "<p>Runtime: " + data[i].Length + "</p>" +
+                                "<label>Showtimes</label>" +
+                                "<div>" +
+                                "<button class='btn btn-primary time-buttons' type='submit' id='" + stimeid + "'>" + removeSeconds(data[i].STime) + "</button>" +
+                                "</div>" +
+                                "</div>");
                 titlesExist.push(id);
-            } else {
-                $("#" + id).append("<a class='btn btn-primary time-buttons' href='" + formatURI(data[i]) +  "' role='button'>" + removeSeconds(data[i].STime) + "</a>");
+                $("#" + stimeid).data(data[i]);
+            } else { //showcard exists
+                $("#" + id + " > div").append("<button class='btn btn-primary time-buttons' type='submit' id='" + stimeid + "'>" + removeSeconds(data[i].STime) + "</button>");
+                $("#" + stimeid).data(data[i]);
             }
+            $("#" + id).data(data[i]);
         }      
+    }
+
+    function editDelete(data, id) {
+        if (accType == "employee") {
+            return "<button class='btn btn-danger delete right'>Delete</button><button class='btn btn-default edit right' data-toggle='modal' data-target='#updateMovie'>Edit</button>";
+        } else {
+            return "";
+        }
     }
 
     function removeSeconds(time) {
@@ -150,11 +177,14 @@ $(function () {
 
     function populateHalls(data) {
         var selector = $("#hall");
+        var uselector = $("#uhall");
         selector.empty();
         for (var i = 0; i < data.length; i++) {
             selector.append("<option data-subtext='Capacity " + data[i].Capacity + " seats'>" + data[i].HNumber + "</option>");
+            uselector.append("<option data-subtext='Capacity " + data[i].Capacity + " seats'>" + data[i].HNumber + "</option>");
         }
         selector.selectpicker("refresh");
+        uselector.selectpicker("refresh");
     }
 
     /**
@@ -190,6 +220,50 @@ $(function () {
         $("#addMovieForm").validator("update"); //tell bootstrap form validator that inputs have changed
     });
 
+    $(document).on("click", ".time-buttons", function() {
+        var data = $(this).data();
+        if (accType == "customer") {
+            window.location.replace(formatURI(data));
+        } else {
+            spawnErrorModal("Uh oh :(", "Please login as a customer to continue purchasing a ticket");
+
+        }
+    });
+
+    function spawnErrorModal(errorTitle, errorText) {
+        $("#errorModal .modal-title").html(errorTitle);
+        $("#errorModal .modal-body p").html(errorText);
+        if ($('#errorModal').is(':hidden')) {
+            $("#errorModal").modal('show')
+        }
+    }
+
+    $(document).on("click", ".edit", function() {
+        var data = $(this).parent().data();
+        // alert(JSON.stringify(data));
+        $("#utitle").val(data.Title);
+        $("#uyear").val(data.RYear);
+        $("#urating").selectpicker("val", data.MRating);
+        $("#ulength").val(data.Length);
+        $("#updateMovie").data(data);
+    }); 
+    
+    $(document).on("click", ".delete", function() {
+        var data = $(this).parent().data();
+        $.ajax({
+            url: "/showtimes/delete-movie",
+            type: "POST",
+            data: data,
+            success: function (d) {
+                console.log(d);
+                window.location.replace("/showtimes");
+            },
+            error: function() {
+                alert("Something failed");
+            }   
+        });
+    }); 
+
     /**
      * This function clears all inputs on modal close or click cancel
      */
@@ -203,9 +277,73 @@ $(function () {
         $("#addMovieForm").validator("update"); //tell bootstrap form validator that inputs have changed
     });
 
+    $("#updateMovie").on("submit", function() {
+        data = {
+            Title: $("#utitle").val(),
+            RYear: $("#uyear").val(),
+            MRating: $("#urating").val(),
+            Length: $("#ulength").val(),
+            keyTitle: $(this).data().Title,
+            keyRYear: $(this).data().RYear
+        }
+        $.ajax({
+            url: "/showtimes/update-movie",
+            type: "POST",
+            data: data,
+            success: function () {
+                //
+            },
+            error: function() {
+                alert("Something failed");
+            }   
+        });
+    });
+
+    $("#addMovie").on("submit", function() {
+        data = {
+            Title: $("#title").val(),
+            RYear: $("#ayear").val(),
+            MRating: $("#arating").val(),
+            Length: $("#length").val(),
+            HNumber: $("#hall").val(),
+            STimes: []
+        };
+        data.STimes.push($("#dattime0")).val();
+        for (var i = 1; i < $("#starttimes div").length; i++) {
+            data.STimes.push($("#datetime" + i).val());
+        }
+        $.ajax({
+            url: "/showtimes/add-movie",
+            type: "POST",
+            data: data,
+            success: function () {
+                //
+            },
+            error: function() {
+                alert("Something failed");
+            }   
+        });
+        
+    });
+
     function updateDebugFilter() {
         var selector = $("#debug-filter");
         selector.append("<p>" + JSON.stringify(buildQuery) + "</p>");
     }
+
+
+    /**
+     * hack to simulate extending layout
+     */
+    $("#signout-link").click(function () {
+      console.log("sign out now!");
+      $.ajax({
+          url: "/signout",
+          type: "POST",
+          success: function () {
+            window.location.replace("/");
+          }
+      });
+    });
     
 });

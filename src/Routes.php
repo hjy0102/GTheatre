@@ -18,9 +18,14 @@ return [
    
 // browse movies page 
     ['GET', '/showtimes', ['GTheatre\Controllers\ShowtimesPage', 'show']],
+    ['GET', '/showtimes/get-acc', ['GTheatre\Controllers\ShowtimesPage', 'getAccType']],
     ['GET', '/showtimes/populate-movies', ['GTheatre\Controllers\ShowtimesPage', 'populateMovies']],
     ['GET', '/showtimes/populate-halls', ['GTheatre\Controllers\ShowtimesPage', 'populateHalls']],
     ['GET', '/showtimes/populate-movies/filter', ['GTheatre\Controllers\ShowtimesPage', 'filter']],
+    ['POST', '/showtimes/update-movie', ['GTheatre\Controllers\ShowtimesPage', 'updateMovie']],
+    ['POST', '/showtimes/delete-movie', ['GTheatre\Controllers\ShowtimesPage', 'deleteMovie']],
+    ['POST', '/showtimes/add-movie', ['GTheatre\Controllers\ShowtimesPage', 'addMovie']],
+    
 // buy tickets page
 	['GET', '/BuyTickets', ['GTheatre\Controllers\BuyTicketsPage', 'show']],
 	['GET', '/BuyTickets/populate-movies', ['GTheatre\Controllers\BuyTicketsPage', 'populateMovies']],

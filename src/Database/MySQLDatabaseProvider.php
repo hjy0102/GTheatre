@@ -94,6 +94,10 @@ class MySQLDatabaseProvider implements DatabaseProvider
 
     }
 
+    public function deleteQuery($q) {
+        $this->dbProvider->query($q);
+    }
+
     public function applyQueries($qArr) {
 
         $this->dbProvider->autocommit(FALSE);
