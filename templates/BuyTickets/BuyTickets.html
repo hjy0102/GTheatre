@@ -27,19 +27,19 @@
 <html>
 <body>
 	<div class="first-panel">
+		<p></p>
 		<div class="second-panel">
 			<h2>Movie Details</h2>
-			<h4> {{name}} </h4>
-			<label>Title:</label> <p id="movie-title"> {{title}} </p>
-			<label>Released in: </label> <p id="ryear"> {{ryear}} </p>
-			<label>Hall Number:</label> <p id="movie-hall"> Hall {{hnumber}}</p>
-			<label>Start Time:</label> <p id="movie-stime">{{stime}}</p>
-			<label>Ticket Price:</label> <p id="movie-price"> ${{tprice}}	</p>	
+			<p id="movie-title"><label>Title:</label> {{title}}</p>
+			<p id="ryear"><label>Released in: </label> {{ryear}}</p>
+			<p id="movie-hall"><label>Hall Number:</label> Hall {{hnumber}}</p>
+			<p id="movie-stime"><label>Start Time:</label>{{stime}}</p>
+			<p id="movie-price"><label>Ticket Price:</label> ${{tprice}}</p>	
 		</div>
 		
 		<p></p>
 		<div class="second-panel">
-			<h2>Quantity and Food Options</h2>
+			<h3>How many seats do you need?</h3>
 			<select id="QtyDropDown">
 				<option value="1">1 seat</option>
 				<option value="2">2 seats</option>
@@ -48,31 +48,27 @@
 				<option value="5">5 seats</option>
 			</select>
 	
-			<p></p>
-			<h3> Choose a snack to enjoy with your movie </h3>
-
+			<h3>Choose a snack to enjoy with your movie.</h3>
 			<select id="FoodChoice">
-				<fieldset> 
-			<option type="radio" name="food">Popcorn<br>
-			<option type="radio" name="food">Pretzels<br>
-			<option type="radio" name="food">Corndogs<br>
-			<option type="radio" name="food">Poutine<br>
-			<option type="radio" name="food">Nachos<br>
-				</fieldset>
+			<fieldset>
+				<option type="radio" name="food">Popcorn<br>
+				<option type="radio" name="food">Pretzels<br>
+				<option type="radio" name="food">Corndogs<br>
+				<option type="radio" name="food">Poutine<br>
+				<option type="radio" name="food">Nachos<br>
+			</fieldset>
 			</select>
 		</div>
 		
 		<p></p>
-
 		{% if accType|lower == "customer" %}
 		<div>
-			
-			<button id="btnSubmit" class="pure-button pure-button-primary" type="button">Submit</button></div>
+			<button id="btnSubmit" class="pure-button pure-button-primary" type="button">Purchase!</button>
+			<button id="cancelSubmit" class="pure-button pure-button-primary" type="button">Back to Showtimes</button>
 		</div>
 
 		{% else %}
 		<div>
-			
 			<button id="LogIn-Submit" class="pure-button pure-button-primary" type="button">Submit</button></div>
 		</div>
 		{% endif %}
@@ -80,22 +76,18 @@
 	</body>
 </html>
 	<script>
-
-		 $("#LogIn-Submit").click(function () {
-			 alert("Please login as a customer to purchase tickets. Redirecting to login page");
-      window.location.replace("/login");
-    });
-
+		$("#LogIn-Submit").click(function () {
+			alert("Please login as a customer to purchase tickets. Redirecting to login page");
+			window.location.replace("/login");
+		});
 
 		$("#btnSubmit").click(function() {
-
 			var dropDown = $("#QtyDropDown").val();
 			var fType = $("#FoodChoice").val();
-		
+			
 			$.ajax({
 				url: "/BuyTickets/createBundle",
 				type: "POST",
-
 				data: {
 					"fTyle" : fType,
 					"qty" : dropDown,
@@ -105,13 +97,17 @@
 				
 				success: function () {
 					alert("You have successfully purchased " + dropDown + " seat(s) and a " + $("#FoodChoice").val());
-					//window.location.replace("/account");
+					window.location.replace("/account");
 				},
 
 				error: function() {
-					alert("Something went wrong with your purchase.");
+					alert("Whoops! Something went wrong, please try again.");
 				}
 			});
+		})
+		
+		$("#cancelSubmit").click(function() {
+			window.location.replace("/showtimes");
 		})
 	</script>
 
