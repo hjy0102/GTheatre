@@ -42,7 +42,7 @@ class ShowtimesPage
     public function deleteMovie() {
       $movie = $this->request->getParameter("Title");
       $year = $this->request->getParameter("RYear");
-      $query = "DELETE FROM Movies WHERE Title = '$movie' AND RYear = '$year'";
+      $query = "DELETE FROM Movies WHERE Title = '$movie' AND RYear = '$year';";
       $this->dbProvider->deleteQuery($query);
       echo($query);
     }
@@ -73,10 +73,10 @@ class ShowtimesPage
 
       $qtyQuery = "SELECT sum(Qty) AS Qty
                 FROM associated_tickets
-                WHERE Title = '$Title' AND 'RYear' = '$RYear' AND STime = '$STime';";
+                WHERE Title = '$Title' AND RYear = '$RYear' AND STime = '$STime';";
       $qtyResult = $this->dbProvider->selectQuery($qtyQuery);
-      
-      $capacityQuery = "SELECT Capacity FROM thearehalls WHERE HNumber = '$HNumber';";
+
+      $capacityQuery = "SELECT Capacity FROM theatrehalls WHERE HNumber = '$HNumber';";
       $capacityResult = $this->dbProvider->selectQuery($capacityQuery);
 
       $sold = $qtyResult->fetch_object();
@@ -124,7 +124,7 @@ class ShowtimesPage
     }
 
     public function populateHalls() {
-      $query = "SELECT * FROM theatrehalls ORDER BY HNumber";
+      $query = "SELECT * FROM theatrehalls ORDER BY HNumber;";
       $result = $this->dbProvider->selectQuery($query);
       $rows = array(); 
       while ($obj = $result->fetch_object()) {
