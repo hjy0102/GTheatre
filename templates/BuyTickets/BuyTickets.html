@@ -9,7 +9,7 @@
 		.first-panel {
 			border: 4px solid white;
 			background-color: white;
-			height: 800px;
+			height: 850px;
 			width: 1200px;
 			margin: auto;
 			padding: 20px;
@@ -97,7 +97,7 @@
 				},
 				
 				success: function () {
-					// now do the next AJAX
+					// if successful, goes onto the next AJAX
 				},
 
 				error: function() {
@@ -110,7 +110,7 @@
 				type: "POST",
 				data: {
 					"fType" : fType,
-					"title": $("#movie-title").val(),
+					"title" : $("#movie-title").val(),
 					"ryear" : $("#ryear").val()
 				},
 				

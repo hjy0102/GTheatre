@@ -72,8 +72,9 @@ class BuyTicketsPage {
       $ryear = $this->request->getParameter('ryear');
       $ftype = $this->request->getParameter('fType');
       $qty = $this->request->getParameter('qty');
+	  $ticketno = $this->request->getParameter('ticketno');
 
-      $queryStr = "INSERT INTO Bundle values('$ftype', '$title', '$ryear', AUTO_INCREMENT 6)";
+      $queryStr = "INSERT INTO Bundle values('$ftype', '$title', '$ryear', '$ticketno')";
       $this->dbProvider->insertQuery($queryStr);
    }
    
@@ -82,11 +83,12 @@ class BuyTicketsPage {
       $ryear = $this->request->getParameter('ryear');
       $qty = $this->request->getParameter('qty');
 	  $stime = $this->request->getParameter('STime');
-	  $tprice = $this->request->getParameter('TPrice');
+	  $ticketno = $this->request->getParameter('ticketno');
+	  $tprice = $this->request->getParameter('tprice');
 	  $creditCard = $this->session->getValue('creditCard');
 	  $login = $this->session->getValue('login-username');
 	  
-      $queryStr = "INSERT INTO Associated_Tickets values('$title', '$ryear', AUTO_INCREMENT 6, '$qty', '$creditCard', '$login', '$tprice', '$stime')";
+      $queryStr = "INSERT INTO Associated_Tickets values('$title', '$ryear', '$ticketno', '$qty', '$creditCard', '$login', '$tprice', '$stime')";
       $this->dbProvider->insertQuery($queryStr);
    }
 }
