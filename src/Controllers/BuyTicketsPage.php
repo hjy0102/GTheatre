@@ -7,6 +7,8 @@ use Http\Response;
 use GTheatre\Template\FrontendRenderer;
 use GTheatre\Database\DatabaseProvider;
 use GTheatre\Session\SessionWrapper;
+use GTheatre\Exceptions\EntityExistsException;
+use GTheatre\Exceptions\SQLException;
 
 class BuyTicketsPage {
    private $request;
@@ -33,12 +35,18 @@ class BuyTicketsPage {
 
    public function show()
    {
-	  $title = $this->request->getParameter('Title');
-	  $hnumber = $this->request->getParameter('HNumber');
-	  $stime = $this->request->getParameter('STime');
-	  $tprice = $this->request->getParameter('TPrice');
-      $ryear = $this->request->getParameter('RYear');
-      $accType = $this->session->getValue('accType');
+	$title = $this->request->getParameter('Title');
+	$hnumber = $this->request->getParameter('HNumber');
+	$stime = $this->request->getParameter('STime');
+	$tprice = $this->request->getParameter('TPrice');
+    $ryear = $this->request->getParameter('RYear');
+    $accType = $this->session->getValue('accType');
+
+    $this->session->setValue('movie-title', $title);
+    $this->session->setValue('movie-ryear', $ryear);
+    $this->session->setValue('movie-hnumber', $hnumber);
+    $this->session->setValue('movie-stime', $stime);
+    $this->session->setValue('movie-tprice', $tprice);
 
     if ($accType == 'Customer' ) {
       $creditCard = $this->session->getValue('creditCard');
@@ -47,20 +55,20 @@ class BuyTicketsPage {
       $data = [
         'name' => $name,
         'creditCard' =>$creditCard,
-		'title' => $title,
-		'hnumber' => $hnumber,
-		'stime' => $stime,
-		'tprice' => $tprice,
+		    'title' => $title,
+		    'hnumber' => $hnumber,
+		    'stime' => $stime,
+		    'tprice' => $tprice,
         'ryear' =>$ryear
 	   ];
     } else if ($accType == 'Employee') {
       $data = [
-		'title' => $title,
-		'hnumber' => $hnumber,
-		'stime' => $stime,
-		'tprice' => $tprice,
+		    'title' => $title,
+		    'hnumber' => $hnumber,
+		    'stime' => $stime,
+		    'tprice' => $tprice,
         'ryear' => $ryear
-	  ];
+	    ];
     }
    
       $html = $this->renderer->render($this->templateDir, 'BuyTickets', $data);
@@ -68,27 +76,34 @@ class BuyTicketsPage {
    }
    
    public function createBundle() {
-      $title = $this->request->getParameter('title');
-      $ryear = $this->request->getParameter('ryear');
-      $ftype = $this->request->getParameter('fType');
+      $title = $this->session->getValue('movie-title');
+      $ryear = $this->session->getValue('movie-ryear');
+      $ftype = $this->request->getParameter('food');
       $qty = $this->request->getParameter('qty');
+      $stime = $this->session->getValue('movie-stime');
+      $tprice = $this->session->getValue('movie-tprice');
 	  $ticketno = $this->request->getParameter('ticketno');
 
-      $queryStr = "INSERT INTO Bundle values('$ftype', '$title', '$ryear', '$ticketno')";
-      $this->dbProvider->insertQuery($queryStr);
+      $newTicket = self::createTicket($title, $ryear, $qty, $stime, $tprice);
+
+      $queryStr = "INSERT INTO Bundle values('$ftype', '$title', '$ryear')";
+      $queryResult = $this->dbProvider->insertQuery($queryStr);
+
+      if (!$queryResult){
+         throw new SQLException("Failed to create bundle with $ftype, $title, $ryear ");
+      }
    }
    
-    public function createTicket() {
-      $title = $this->request->getParameter('title');
-      $ryear = $this->request->getParameter('ryear');
-      $qty = $this->request->getParameter('qty');
-	  $stime = $this->request->getParameter('STime');
+    public function createTicket($title, $ryear, $qty, $stime, $tprice) {
 	  $ticketno = $this->request->getParameter('ticketno');
-	  $tprice = $this->request->getParameter('tprice');
 	  $creditCard = $this->session->getValue('creditCard');
-	  $login = $this->session->getValue('login-username');
+	  $login = $this->session->getValue('userName');
 	  
       $queryStr = "INSERT INTO Associated_Tickets values('$title', '$ryear', '$ticketno', '$qty', '$creditCard', '$login', '$tprice', '$stime')";
-      $this->dbProvider->insertQuery($queryStr);
+      $queryResult = $this->dbProvider->insertQuery($queryStr);
+
+      if (!$queryResult){
+         throw new SQLException("Failed to create ticket with $title, $ryear, $ticketno");
+      } else return $queryResult;
    }
 }

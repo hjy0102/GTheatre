@@ -50,13 +50,11 @@
 	
 			<h3>Choose a snack to enjoy with your movie.</h3>
 			<select id="FoodChoice">
-			<fieldset>
-				<option type="radio" name="food">Popcorn<br>
-				<option type="radio" name="food">Pretzels<br>
-				<option type="radio" name="food">Corndogs<br>
-				<option type="radio" name="food">Poutine<br>
-				<option type="radio" name="food">Nachos<br>
-			</fieldset>
+				<option type="radio" name="food" value="Popcorn">Popcorn<br>
+				<option type="radio" name="food" value="Pretzels">Pretzels<br>
+				<option type="radio" name="food" value="Corndogs" >Corndogs<br>
+				<option type="radio" name="food" value="Poutine" >Poutine<br>
+				<option type="radio" name="food" value= "Nachos" >Nachos<br>
 			</select>
 		</div>
 		
@@ -86,32 +84,11 @@
 			var fType = $("#FoodChoice").val();
 			
 			$.ajax({
-				url: "/BuyTickets/createTicket",
-				type: "POST",
-				data: {
-					"title": $("#movie-title").val(),
-					"ryear" : $("#ryear").val(),
-					"qty" : $("#QtyDropDown").val(),
-					"tprice" : $("#movie-price").val(),
-					"stime" : $("#movie-stime").val(),
-				},
-				
-				success: function () {
-					// if successful, goes onto the next AJAX
-				},
-
-				error: function() {
-					alert("Whoops! Something went wrong, please try again.");
-				}
-			});
-			
-			$.ajax({
 				url: "/BuyTickets/createBundle",
 				type: "POST",
 				data: {
-					"fType" : fType,
-					"title" : $("#movie-title").val(),
-					"ryear" : $("#ryear").val()
+					"food": fType,
+					"qty" : $("#QtyDropDown").val()
 				},
 				
 				success: function () {
@@ -123,6 +100,7 @@
 					alert("Whoops! Something went wrong, please try again.");
 				}
 			});
+
 		})
 		
 		$("#cancelSubmit").click(function() {
