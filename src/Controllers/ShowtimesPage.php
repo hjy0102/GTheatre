@@ -61,9 +61,28 @@ class ShowtimesPage
       
       $updated = $this->dbProvider->updateQuery($query);
       if (!$updated) {
-        throw new SQLException("Failed to update Employee with $name, $password, $sin");
+        throw new SQLException("Failed to update movie with $Title, $RYear");
       } 
+    }
 
+    public function addMovie() {
+      $Title = $this->request->getParameter("Title");
+      $RYear = $this->request->getParameter("RYear");
+      $MRating = $this->request->getParameter("MRating");
+      $Length = $this->request->getParameter("Length");
+      $HNumber = $this->request->getParameter("HNumber");
+      $STimes = $this->request->getParameter("STimes");
+
+      $movieQuery = "INSERT INTO Movies values('$Title', '$RYear', '$MRating', '$Length', 9);";
+      $this->dbProvider->insertQuery($movieQuery);
+
+      for ($i = 0; $i < count($STimes); $i++) {
+        $start = $STimes[$i]["STime"];
+        $end = $STimes[$i]["ETime"];
+        $playsQuery = "INSERT INTO Plays values('$start', '$end', '$HNumber', '$Title', '$RYear');";
+        $this->dbProvider->insertQuery($playsQuery);
+      }
+      // echo(json_encode($temp, JSON_NUMERIC_CHECK));
     }
 
     public function populateMovies() {

@@ -22,8 +22,8 @@ $(function () {
             success: function (data) {
                 accType = data.toLowerCase();
             },
-            error: function() {
-                alert("Something failed");
+            error: function(e) {
+                spawnErrorModal("Could not get accType", e);
             }
         });
 
@@ -34,8 +34,8 @@ $(function () {
             success: function (data) {
                 populate(JSON.parse(data));
             },
-            error: function() {
-                alert("Something failed");
+            error: function(e) {
+                spawnErrorModal("Could not populate movies", e);
             }
         });
 
@@ -47,8 +47,8 @@ $(function () {
                 console.log(data);
                 populateHalls(JSON.parse(data));
             },
-            error: function() {
-                alert("Something failed");
+            error: function(e) {
+                spawnErrorModal("Could not populate halls", e);
             }
         });
     });
@@ -258,8 +258,8 @@ $(function () {
                 console.log(d);
                 window.location.replace("/showtimes");
             },
-            error: function() {
-                alert("Something failed");
+            error: function(e) {
+                spawnErrorModal("Could not delete movie", e);
             }   
         });
     }); 
@@ -293,8 +293,8 @@ $(function () {
             success: function () {
                 //
             },
-            error: function() {
-                alert("Something failed");
+            error: function(e) {
+                spawnErrorModal("Could not update movie", e);
             }   
         });
     });
@@ -308,23 +308,44 @@ $(function () {
             HNumber: $("#hall").val(),
             STimes: []
         };
-        data.STimes.push($("#dattime0")).val();
-        for (var i = 1; i < $("#starttimes div").length; i++) {
-            data.STimes.push($("#datetime" + i).val());
+        
+        data.STimes.push({STime: $("#datetime0").val(), ETime: ""});
+        for (var i = 1; i < $("#starttimes div").length - 2; i++) {
+            data.STimes.push({STime: $("#datetime" + i).val(), ETime: ""});
         }
+
+        for (var j = 0; j < data.STimes.length; j++) {
+            data.STimes[j].ETime = addMinutes(data.STimes[j].STime, data.Length + 15);
+            data.STimes[j].STime += ":00";
+            data.STimes[j].ETime += ":00";
+        }
+
+        // alert(JSON.stringify(data));
+
         $.ajax({
             url: "/showtimes/add-movie",
-            type: "POST",
+            type: "GET",
             data: data,
-            success: function () {
+            success: function (d) {
                 //
+                console.log(d);
             },
-            error: function() {
-                alert("Something failed");
+            error: function(e) {
+                console.log(e);
+                spawnErrorModal("Could not add movie", e);
             }   
         });
         
     });
+
+    function addMinutes(time, minsToAdd) {
+        function z(n){
+            return (n<10? '0':'') + n;
+        }
+        var bits = time.split(':');
+        var mins = bits[0]*60 + (+bits[1]) + (+minsToAdd);
+        return z(mins%(24*60)/60 | 0) + ':' + z(mins%60);  
+    }  
 
     function updateDebugFilter() {
         var selector = $("#debug-filter");
