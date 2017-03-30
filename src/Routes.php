@@ -5,8 +5,8 @@ return [
     ['GET', '/', ['GTheatre\Controllers\Homepage', 'show']],
     ['POST', '/signout', ['GTheatre\Controllers\Homepage', 'signout']],
 // login page
-    ['GET', '/login', ['GTheatre\Controllers\Loginpage', 'show']],
-    ['POST', '/login', ['GTheatre\Controllers\Loginpage', 'login']],
+    ['GET', '/login', ['GTheatre\Controllers\LoginPage', 'show']],
+    ['POST', '/login', ['GTheatre\Controllers\LoginPage', 'login']],
     ['POST', '/account/customer/createCustomerAccount', ['GTheatre\Controllers\LoginPage', 'createCustomerAccount']],
     ['POST', '/account/employee/createEmployeeAccount', ['GTheatre\Controllers\LoginPage', 'createEmployeeAccount']],
 // account page
