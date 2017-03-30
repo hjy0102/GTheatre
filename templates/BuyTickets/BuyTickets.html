@@ -27,25 +27,25 @@
 <html>
 <body>
 	<div class="first-panel">
-		<p></p>
 		<div class="second-panel">
 			<h2>Movie Details</h2>
 			<h4> {{name}} </h4>
-			<label>Title:</label> {{title}}</br>
-			<label>Hall Number:</label> Hall {{hnumber}}</br>
-			<label>Start Time:</label> {{stime}}</br>
-			<label>Ticket Price:</label> ${{tprice}}		
+			<label>Title:</label> <p id="movie-title"> {{title}} </p>
+			<label>Released in: </label> <p id="ryear"> {{ryear}} </p>
+			<label>Hall Number:</label> <p id="movie-hall"> Hall {{hnumber}}</p>
+			<label>Start Time:</label> <p id="movie-stime">{{stime}}</p>
+			<label>Ticket Price:</label> <p id="movie-price"> ${{tprice}}	</p>	
 		</div>
 		
 		<p></p>
 		<div class="second-panel">
 			<h2>Quantity and Food Options</h2>
 			<select id="QtyDropDown">
-				<option>1 seat</option>
-				<option>2 seats</option>
-				<option>3 seats</option>
-				<option>4 seats</option>
-				<option>5 seats</option>
+				<option value="1">1 seat</option>
+				<option value="2">2 seats</option>
+				<option value="3">3 seats</option>
+				<option value="4">4 seats</option>
+				<option value="5">5 seats</option>
 			</select>
 	
 			<p></p>
@@ -66,13 +66,13 @@
 
 		{% if accType|lower == "customer" %}
 		<div>
-			Hi Customer
+			
 			<button id="btnSubmit" class="pure-button pure-button-primary" type="button">Submit</button></div>
 		</div>
 
 		{% else %}
 		<div>
-			Hi non-customer
+			
 			<button id="LogIn-Submit" class="pure-button pure-button-primary" type="button">Submit</button></div>
 		</div>
 		{% endif %}
@@ -95,10 +95,17 @@
 			$.ajax({
 				url: "/BuyTickets/createBundle",
 				type: "POST",
+
+				data: {
+					"fTyle" : fType,
+					"qty" : dropDown,
+					"title": $("#movie-title").val(),
+					"ryear" : $("#ryear").val()
+				},
 				
 				success: function () {
-					alert("You have successfully purchased " + dropDown + " and a(n) " + $("#FoodChoice").val());
-					window.location.replace("/account");
+					alert("You have successfully purchased " + dropDown + " seat(s) and a " + $("#FoodChoice").val());
+					//window.location.replace("/account");
 				},
 
 				error: function() {
