@@ -33,4 +33,3 @@ return [
 	['POST', '/BuyTickets/createBundle', ['GTheatre\Controllers\BuyTicketsPage', 'createBundle']],
 	['POST', '/BuyTickets/createTicket', ['GTheatre\Controllers\BuyTicketsPage', 'createTicket']],
 ];
-?>
