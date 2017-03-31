@@ -47,12 +47,12 @@ class Accountpage
 
       if ($accType == 'Customer') {
           $cdata = self::customerShow($username);
-          $html = $this->renderer->render($this->templateDir, 'Accountpage', $cdata);
+          $html = $this->renderer->render($this->templateDir, 'AccountPage', $cdata);
           $this->response->setContent($html);
 
       } else if ($accType == 'Employee') {
           $edata = self::employeeShow($username);
-          $html = $this->renderer->render($this->templateDir, 'Accountpage', $edata);
+          $html = $this->renderer->render($this->templateDir, 'AccountPage', $edata);
           $this->response->setContent($html);
       }
    }
