@@ -62,7 +62,9 @@ class MyTickets
     public function getMovieTickets($u, $credit) {
         $queryStr = "SELECT * FROM Plays p JOIN Associated_Tickets t ". 
                         " WHERE t.CreditCard = '$credit'". 
-                        " AND t.Login = '$u' AND t.Title = p.Title";
+                        " AND t.Login = '$u' 
+                        AND t.Title = p.Title
+                        AND t.STime = p.STime";
 
         $ticketArr = $this->dbProvider->selectQuery($queryStr);
 
