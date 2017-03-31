@@ -129,31 +129,38 @@ $(function () {
                                 "<p>Runtime: " + data[i].Length + "</p>" +
                                 "<label>Showtimes</label>" +
                                 "<div>" +
-                                "<button class='btn btn-primary time-buttons'" + addSoldAmount(data[i]) + " type='submit' id='" + stimeid + "'>" + removeSeconds(data[i].STime) + "</button>" +
+                                "<button class='btn btn-primary time-buttons' type='submit' id='" + stimeid + "'>" + removeSeconds(data[i].STime) + "</button>" +
                                 "</div>" +
                                 "</div>");
                 titlesExist.push(id);
                 $("#" + stimeid).data(data[i]);
             } else { //showcard exists
-                $("#" + id + " > div").append("<button class='btn btn-primary time-buttons'" + addSoldAmount(data[i]) + " type='submit' id='" + stimeid + "'>" + removeSeconds(data[i].STime) + "</button>");
+                $("#" + id + " > div").append("<button class='btn btn-primary time-buttons' type='submit' id='" + stimeid + "'>" + removeSeconds(data[i].STime) + "</button>");
                 $("#" + stimeid).data(data[i]);
             }
             $("#" + id).data(data[i]);
-        }      
+        }
+        addSoldAmount();      
     }
 
-    function addSoldAmount(data) {
-        $.ajax({
-            url: "/showtimes/get-sold-count",
-            type: "POST",
-            data: data,
-            success: function (d) {
-                console.log(d);
-                return "data-toggle='tooltip' data-placement='bottom' title='" + d.sold + " / " + d.capacity + "'";
-            },
-            error: function(e) {
-                // spawnErrorModal("Could not get sold amount", e);
-            }   
+    function addSoldAmount() {
+        $(".time-buttons").each(function(i, element) {
+            var data = $(element).data();
+            $.ajax({
+                url: "/showtimes/get-sold-count",
+                type: "POST",
+                data: data,
+                success: function (d) {
+                    console.log(d);
+                    $(element).attr("data-toggle", "tooltip");
+                    // $(element).attr("data-placement", "bottom");
+                    $(element).attr("title", JSON.parse(d).sold + " / " + JSON.parse(d).capacity);
+                    $(element).tooltip();
+                },
+                error: function(e) {
+                    // spawnErrorModal("Could not get sold amount", e);
+                }   
+            });
         });
     }
 

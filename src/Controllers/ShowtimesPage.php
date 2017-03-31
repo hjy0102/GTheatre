@@ -86,6 +86,9 @@ class ShowtimesPage
         "sold" => $sold->Qty,
         "capacity" => $capacity->Capacity
       ];
+      if (is_null($return["sold"])) {
+        $return["sold"] = 0;
+      }
       echo(json_encode($return, JSON_NUMERIC_CHECK));
 
     }
