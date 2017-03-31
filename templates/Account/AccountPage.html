@@ -163,6 +163,12 @@
             {% endif %}
 
             {% if accType|lower == "employee" %}
+            <div class="pure-u-1 pure-u-md-2-24">
+                <button id="movie-stats-btn" class="pure-button pure-button-primary" type="button">Check Movie Stats</button>
+              </div>
+
+              <div class="pure-u-1 pure-u-md-5-24">
+              </div>
               <div class="pure-u-1 pure-u-md-2-24">
                 <button id="e-save-btn" class="pure-button pure-button-primary" type="button">Save</button>
               </div>
@@ -269,6 +275,22 @@ $("#my-tickets-btn").click(function() {
       alert("Something seems to be wrong with your ticket records.");
     }
   })
+})
+
+$("#movie-stats-btn").click(function() {
+  window.location.replace("/moviestats");
+  // $.ajax({
+  //   url: "/moviestats",
+  //   type: "GET",
+  //   data: {
+  //   },
+  //   success: function (data) {
+  //     window.location.replace("/mytickets");
+  //   },
+  //   error: function (data) {
+  //     alert("Something seems to be wrong with your ticket records.");
+  //   }
+  // })
 })
 
 </script>
