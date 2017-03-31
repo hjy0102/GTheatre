@@ -21,34 +21,34 @@ $(function () {
 
             success: function (data) {
                 accType = data.toLowerCase();
+                
+                $.ajax({
+                    url: "/showtimes/populate-movies",
+                    type: "GET",
+
+                    success: function (data) {
+                        populate(JSON.parse(data));
+                    },
+                    error: function(e) {
+                        spawnErrorModal("Could not populate movies", e);
+                    }
+                });
+
+                $.ajax({
+                    url: "/showtimes/populate-halls",
+                    type: "GET",
+
+                    success: function (data) {
+                        console.log(data);
+                        populateHalls(JSON.parse(data));
+                    },
+                    error: function(e) {
+                        spawnErrorModal("Could not populate halls", e);
+                    }
+                });
             },
             error: function(e) {
                 spawnErrorModal("Could not get accType", e);
-            }
-        });
-
-        $.ajax({
-            url: "/showtimes/populate-movies",
-            type: "GET",
-
-            success: function (data) {
-                populate(JSON.parse(data));
-            },
-            error: function(e) {
-                spawnErrorModal("Could not populate movies", e);
-            }
-        });
-
-        $.ajax({
-            url: "/showtimes/populate-halls",
-            type: "GET",
-
-            success: function (data) {
-                console.log(data);
-                populateHalls(JSON.parse(data));
-            },
-            error: function(e) {
-                spawnErrorModal("Could not populate halls", e);
             }
         });
     });
