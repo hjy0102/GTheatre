@@ -78,18 +78,18 @@ class BuyTicketsPage {
    public function createBundle() {
       $title = $this->session->getValue('movie-title');
       $ryear = $this->session->getValue('movie-ryear');
+	  $stime = $this->session->getValue('movie-stime');
+      $tprice = $this->session->getValue('movie-tprice');
       $ftype = $this->request->getParameter('food');
       $qty = $this->request->getParameter('qty');
-      $stime = $this->session->getValue('movie-stime');
-      $tprice = $this->session->getValue('movie-tprice');
 	  
-	  $newTicket = $this->createTicket($title, $ryear, $qty, $stime, $tprice);
+	  self::createTicket($title, $ryear, $qty, $stime, $tprice);
 
-      $queryStr = "INSERT INTO Bundle values('$ftype', '$title', '$ryear', '$newTicket')";
+      $queryStr = "INSERT INTO Bundle values('$ftype', '$title', '$ryear', '$stime')";
       $queryResult = $this->dbProvider->insertQuery($queryStr);
 
       if (!$queryResult){
-         throw new SQLException("Failed to create bundle with $ftype, $title, $ryear ");
+         throw new SQLException("Failed to create bundle with $ftype, $title, $ryear, $stime");
       }
    }
    
