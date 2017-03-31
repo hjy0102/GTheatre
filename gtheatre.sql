@@ -112,6 +112,7 @@ INSERT INTO TheatreHalls values(2, 150);
 INSERT INTO TheatreHalls values(3, 200);
 INSERT INTO TheatreHalls values(4, 220);
 INSERT INTO TheatreHalls values(5, 200);
+INSERT INTO TheatreHalls values(6, 200);
 
 -- INSERT Customer data
 INSERT INTO Customers values(1672789028338884, 'seanlennaerts', 'password123', 'Sean');
@@ -135,19 +136,42 @@ INSERT INTO Foods values('Poutine', 15);
 INSERT INTO Foods values('Nachos', 5);
 
 -- INSERT Movie data
-INSERT INTO Movies values('Star Wars', 2015, 'PG-13', 136, 9);
-INSERT INTO Movies values('Cinderella', 2015, 'G', 106, 9);
+INSERT INTO Movies values('Finding Nemo', 2003, 'G', 100, 9);
+INSERT INTO Movies values('Ratatouille', 2007, 'G', 111, 9);
+INSERT INTO Movies values('WALL-E', 2008, 'G', 98, 9);
+INSERT INTO Movies values('Up', 2009, 'G', 120, 9);
+INSERT INTO Movies values('Tangled', 2010, 'G', 100, 9);
+INSERT INTO Movies values('Brave', 2012, 'G', 110, 9);
+INSERT INTO Movies values('Wreck-It Ralph', 2012, 'G', 101, 9);
+INSERT INTO Movies values('Monsters University', 2013, 'G', 104, 9);
 INSERT INTO Movies values('Frozen', 2013, 'G', 102, 9);
-INSERT INTO Movies values('Zootopia', 2016, 'G', 108, 9);
-INSERT INTO Movies values('LaLaLand', 2016, 'PG', 128, 9);
-
+INSERT INTO Movies values('Star Wars', 2016, '14A', 136, 9);
+INSERT INTO Movies values('Beauty and the Beast', 2017, 'G', 129, 9);
 
 -- INSERT Plays data
-INSERT INTO Plays values("17:00:00", "19:00:00", 1, "Star Wars", 2015);
-INSERT INTO Plays values("11:00:00", "13:00:00", 2, "Star Wars", 2015);
-INSERT INTO Plays values("9:00:00", "10:30:00", 3, "Cinderella", 2015);
-INSERT INTO Plays values("15:00:00", "16:30:00", 4, "Frozen", 2013);
-INSERT INTO Plays values("15:30:00", "17:00:00", 5, "Zootopia", 2016);
+INSERT INTO Plays values('11:00:00', '12:55:00', 1, 'Finding Nemo', 2003);
+INSERT INTO Plays values('13:00:00', '13:55:00', 1, 'Finding Nemo', 2003);
+INSERT INTO Plays values('11:00:00', '13:06:00', 2, 'Ratatouille', 2007);
+INSERT INTO Plays values('14:00:00', '16:06:00', 2, 'Ratatouille', 2007);
+INSERT INTO Plays values('16:30:00', '18:23:00', 2, 'WALL-E', 2008);
+INSERT INTO Plays values('11:50:00', '14:05:00', 2, 'Up', 2009);
+INSERT INTO Plays values('12:15:00', '14:30:00', 3, 'Up', 2009);
+INSERT INTO Plays values('14:30:00', '16:45:00', 2, 'Up', 2009);
+INSERT INTO Plays values('14:00:00', '15:55:00', 1, 'Tangled', 2010);
+INSERT INTO Plays values('16:00:00', '17:55:00', 1, 'Tangled', 2010);
+INSERT INTO Plays values('18:15:00', '20:20:00', 1, 'Brave', 2012);
+INSERT INTO Plays values('17:00:00', '19:05:00', 2, 'Brave', 2012);
+INSERT INTO Plays values('14:50:00', '16:46:00', 3, 'Wreck-It Ralph', 2012);
+INSERT INTO Plays values('17:10:00', '19:09:00', 3, 'Monsters University', 2013);
+INSERT INTO Plays values('11:00:00', '12:57:00', 4, 'Frozen', 2013);
+INSERT INTO Plays values('13:15:00', '15:12:00', 4, 'Frozen', 2013);
+INSERT INTO Plays values('16:15:00', '18:12:00', 4, 'Frozen', 2013);
+INSERT INTO Plays values('19:15:00', '21:12:00', 4, 'Frozen', 2013);
+INSERT INTO Plays values('21:30:00', '23:27:00', 4, 'Frozen', 2013);
+INSERT INTO Plays values('11:30:00', '14:01:00', 5, 'Star Wars', 2016);
+INSERT INTO Plays values('18:00:00', '20:31:00', 5, 'Star Wars', 2016);
+INSERT INTO Plays values('14:30:00', '16:54:00', 5, 'Beauty and the Beast', 2017);
+INSERT INTO Plays values('20:45:00', '23:09:00', 5, 'Beauty and the Beast', 2017);
 
 -- INSERT Tickets data
 -- INSERT INTO Associated_Tickets values('Zootopia', 2016, 1, 1, '1672789028338884', 'seanlennaerts', 9, "15:30:00");
