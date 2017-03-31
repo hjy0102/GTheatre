@@ -39,42 +39,73 @@ class MovieStatsPage
    
    public function show() {
        $username = $this->session->getValue('userName');
-       $creditCard = $this->session->getValue('creditCard');
+       $accType = $this->session->getValue('accType');
        $name = $this->session->getValue('name');
+       
 
-       $movies = self::getMovieTickets($username, $creditCard);
-    //    var_dump($movies);
+       $customers_all_movies = self::getCustomer_AllMovies();
+       $mostPop = self::getLargestGroup();
+       $leastPop = self::getSmallestGroup();
 
         $data = [
-            'username' => $username,
-            'creditCard' => $creditCard,
-            'name' => $name,
-            'movies' => $movies
+            'allMovies' => $customers_all_movies,
+            'mostPop' => $mostPop,
+            'leastPop' => $leastPop,
         ];
 
-       // var_dump($data);
+    //    var_dump($data);
 
        $html = $this->renderer->render($this->templateDir, 'MoviestatsPage', $data);
        
        $this->response->setContent($html);
     }
-    
-    public function getMovieTickets($u, $credit) {
-        $queryStr = "SELECT * FROM Plays p JOIN Associated_Tickets t ". 
-                        " WHERE t.CreditCard = '$credit'". 
-                        " AND t.Login = '$u' AND t.Title = p.Title";
 
-        $ticketArr = $this->dbProvider->selectQuery($queryStr);
+    public function getSmallestGroup(){
 
-        $rows = array(); 
-        
-        while ($obj = $ticketArr->fetch_object()) {
+        $queryStr = "SELECT min(AverageNumTicketsPerMovie.avgQty) AS min, stime, title FROM (SELECT avg(qty) AS avgQty, title ,stime
+                        FROM associated_tickets GROUP BY title)AverageNumTicketsPerMovie";
+
+        $leastPop = $this->dbProvider->selectQuery($queryStr);
+        $rows =array();
+
+        while ($obj = $leastPop->fetch_object()){
+            $rows[] = $obj;
+        }
+
+        return $rows;
+    }
+
+    public function getLargestGroup(){
+
+        $queryStr = "SELECT max(AverageNumTicketsPerMovie.avgQty) AS max, stime, title FROM (SELECT avg(qty) AS avgQty, title, stime  
+                        FROM associated_tickets GROUP BY title)AverageNumTicketsPerMovie";
+
+        $mostPop = $this->dbProvider->selectQuery($queryStr);
+        $rows =array();
+
+        while ($obj = $mostPop->fetch_object()){
+            $rows[] = $obj;
+        }
+
+        return $rows;
+    }
+
+    public function getCustomer_AllMovies(){
+        $queryStr = "SELECT * FROM customers c
+                    WHERE NOT EXISTS (SELECT * FROM movies m
+                                      WHERE NOT EXISTS (SELECT * FROM associated_tickets t
+ 										                WHERE t.title=m.title AND t.login=c.customer_login)
+                                      )";
+
+        $customers = $this->dbProvider->selectQuery($queryStr);
+        $rows =array();
+
+        while ($obj = $customers->fetch_object()){
             $rows[] = $obj;
         }
 
         return $rows;
 
-        //return $ticketArr;
     }
 
 

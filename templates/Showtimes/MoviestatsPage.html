@@ -36,27 +36,45 @@
 <!-- start of grid for statistics -->
         
             <!--row-->
-            <h2 class="content-head">Movie Statistics</h2>
-            <div class= "pure-g">
-            <div id="pure-title" class="pure-u-1-3"> Avg. Tickets Sold/Movie </div>
-            <div id="pure-title" class= "pure-u-1-3"> value </div> 
-            <div id="pure-title" class = "pure-u-1-3"> extra  </div>
-            </div>
-            <!--row-->
-            <h2 class="content-head">Most Avg. Tickets Bought by One Customer</h2>
-            <div class= "pure-g">
-            <div id="pure-title" class="pure-u-1-3"> Customer Name</div> 
-            <div id="pure-title" class= "pure-u-1-3"> Avg. number of tickets boughts</div> 
-            <div id="pure-title" class = "pure-u-1-3">value</div>
-            </div>
-            <!--row-->
-            <h2 class="content-head">Least Avg. Tickets Bought by One Customer</h2>
-            <div class= "pure-g">
-            <div id="pure-title" class="pure-u-1-3"> Customer Name</div> 
-            <div id="pure-title" class= "pure-u-1-3"> Avg. number of tickets boughts</div> 
-            <div id="pure-title" class = "pure-u-1-3">value</div>
-            </div>
+            <h2 class="content-head"> The Real MVPs</h2>
+            <h3 class="content-head">Customers with Tickets to All Movies</h3>
 
+            <div class= "pure-g">
+            <div id="pure-title" class="pure-u-1-2"> Customer Name </div>
+            <div id="pure-title" class= "pure-u-1-2"> Customer Login </div> 
+            <!--<div id="pure-title" class = "pure-u-1-3"> -  </div>-->
+            {% for customer in allMovies %}
+            <div id="pure-title" class="pure-u-1-2"> {{customer.FirstName}} </div>
+            <div id="pure-title" class= "pure-u-1-2"> {{customer.Customer_Login}} </div> 
+            <!--<div id="pure-title" class = "pure-u-1-3"> - </div>-->
+            {% endfor %}
+            </div>
+            <!--row-->
+            <h2 class="content-head">Our Most Popular Movie</h2>
+            <div class= "pure-g">
+            <div id="pure-title" class= "pure-u-1-3"> Movie</div> 
+            <div id="pure-title" class=  "pure-u-1-3"> Avg. number of tickets per customer</div> 
+            <div id="pure-title" class = "pure-u-1-3"> Play time</div>
+            {% for m in mostPop %}
+            <div id="pure-title" class="pure-u-1-3"> {{m.title}} </div>
+            <div id="pure-title" class= "pure-u-1-3"> {{m.max}} </div> 
+            <div id="pure-title" class = "pure-u-1-3">{{m.stime}}</div>
+
+            {% endfor %}
+           
+            </div>
+            <!--row-->
+            <h2 class="content-head">Our Most Least Movie</h2>
+            <div class= "pure-g">
+            <div id="pure-title" class= "pure-u-1-3"> Movie</div> 
+            <div id="pure-title" class=  "pure-u-1-3"> Avg. number of tickets per customer</div> 
+            <div id="pure-title" class = "pure-u-1-3"> Play time</div>
+            {% for l in leastPop %}
+            <div id="pure-title" class="pure-u-1-3"> {{l.title}} </div>
+            <div id="pure-title" class= "pure-u-1-3"> {{l.min}} </div> 
+            <div id="pure-title" class = "pure-u-1-3">{{l.stime}}</div>
+
+            {% endfor %}
 
         <!--end of grid-->
         <div class="pure-g" style="margin-top: 45px;">
