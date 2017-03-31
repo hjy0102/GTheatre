@@ -95,11 +95,11 @@ CREATE TABLE Bundle
 	 FType char(16) NOT NULL,
 	 Title char(20) NOT NULL,
 	 RYear int(4) NOT NULL,
-	 TicketNo int NOT NULL,
-	 PRIMARY KEY (FType, Title, RYear, TicketNo),
+	 STime time NOT NULL,
+	 PRIMARY KEY (FType, Title, RYear, STime),
 	 FOREIGN KEY (FType) REFERENCES Foods (FType),
      FOREIGN KEY (Title, RYear) REFERENCES Movies (Title, RYear),
-	 FOREIGN KEY (TicketNo) REFERENCES Associated_Tickets (TicketNo) ON DELETE CASCADE ON UPDATE CASCADE
+	 FOREIGN KEY (STime) REFERENCES Plays (STime) ON DELETE CASCADE ON UPDATE CASCADE
   );
 
 --
@@ -150,15 +150,15 @@ INSERT INTO Plays values("15:00:00", "16:30:00", 4, "Frozen", 2013);
 INSERT INTO Plays values("15:30:00", "17:00:00", 5, "Zootopia", 2016);
 
 -- INSERT Tickets data
-INSERT INTO Associated_Tickets values('Zootopia', 2016, 1, 1, '1672789028338884', 'seanlennaerts', 9, "15:30:00");
-INSERT INTO Associated_Tickets values('Zootopia', 2016, 2, 1, '1234809109292392', 'ginnieisawesome304', 9, "15:30:00");
-INSERT INTO Associated_Tickets values('Frozen', 2013, 3, 1, '1672789028338884', 'seanlennaerts', 9, "15:00:00");
-INSERT INTO Associated_Tickets values('Frozen', 2013, 4, 1, '8948392921823922', 'jwpark', 9, "15:00:00");
-INSERT INTO Associated_Tickets values('Frozen', 2013, 5, 1, '9000340918239329', 'prettyprincess', 9, "15:00:00");
+-- INSERT INTO Associated_Tickets values('Zootopia', 2016, 1, 1, '1672789028338884', 'seanlennaerts', 9, "15:30:00");
+-- INSERT INTO Associated_Tickets values('Zootopia', 2016, 2, 1, '1234809109292392', 'ginnieisawesome304', 9, "15:30:00");
+-- INSERT INTO Associated_Tickets values('Frozen', 2013, 3, 1, '1672789028338884', 'seanlennaerts', 9, "15:00:00");
+-- INSERT INTO Associated_Tickets values('Frozen', 2013, 4, 1, '8948392921823922', 'jwpark', 9, "15:00:00");
+-- INSERT INTO Associated_Tickets values('Frozen', 2013, 5, 1, '9000340918239329', 'prettyprincess', 9, "15:00:00");
 
 -- INSERT Bundle data
-INSERT INTO Bundle values('Popcorn', 'Star Wars', 2015, 1);
-INSERT INTO Bundle values('Pretzels', 'Cinderella', 2015, 2);
-INSERT INTO Bundle values('Corndogs', 'Frozen', 2013, 3);
-INSERT INTO Bundle values('Poutine', 'Zootopia', 2016, 4);
-INSERT INTO Bundle values('Nachos', 'LaLaLand', 2016, 5);
+-- INSERT INTO Bundle values('Popcorn', 'Star Wars', 2015, "15:00:00");
+-- INSERT INTO Bundle values('Pretzels', 'Cinderella', 2015, "15:00:00");
+-- INSERT INTO Bundle values('Corndogs', 'Frozen', 2013, "15:00:00");
+-- INSERT INTO Bundle values('Poutine', 'Zootopia', 2016, "15:00:00");
+-- INSERT INTO Bundle values('Nachos', 'LaLaLand', 2016, "15:00:00");
