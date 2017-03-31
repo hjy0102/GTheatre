@@ -27,6 +27,8 @@ return [
     ['POST', '/showtimes/add-movie', ['GTheatre\Controllers\ShowtimesPage', 'addMovie']],
     ['POST', '/showtimes/get-sold-count', ['GTheatre\Controllers\ShowtimesPage', 'getSoldCount']],
 
+// movie stats page 
+    ['GET', '/moviestats', ['GTheatre\Controllers\MovieStatsPage', 'show']],
     
 // buy tickets page
 	['GET', '/BuyTickets', ['GTheatre\Controllers\BuyTicketsPage', 'show']],
