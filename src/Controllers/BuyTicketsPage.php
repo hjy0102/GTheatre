@@ -83,7 +83,7 @@ class BuyTicketsPage {
       $ftype = $this->request->getParameter('food');
       $qty = $this->request->getParameter('qty');
 	  
-	  self::createTicket($title, $ryear, $qty, $stime, $tprice);
+	  $newTicket = self::createTicket($title, $ryear, $qty, $stime, $tprice);
 
       $queryStr = "INSERT INTO Bundle values('$ftype', '$title', '$ryear', '$stime')";
       $queryResult = $this->dbProvider->insertQuery($queryStr);

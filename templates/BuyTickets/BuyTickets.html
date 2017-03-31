@@ -6,19 +6,14 @@
 	<title>Purchase Tickets</title>
 	<style type="text/css">
 		div { text-align: center; }
+		h2 { font-size: 30px; }
 		.first-panel {
 			border: 4px solid white;
 			background-color: white;
-			height: 850px;
-			width: 1200px;
+			height: 100%;
+			width: 675px;
 			margin: auto;
-			padding: 20px;
-		}
-		.second-panel {
-			border: 2px solid blue;
-			width: 500px;
-			margin: auto;
-			padding: 10px;
+			padding: 30px;
 			text-align: left;
 		}
 	</style>
@@ -27,43 +22,40 @@
 <html>
 <body>
 	<div class="first-panel">
-		<p></p>
-		<div class="second-panel">
-			<h2>Movie Details</h2>
-			<label>Title:</label><p id="movie-title">{{title}}</p>
-			<label>Released in: </label><p id="ryear">{{ryear}}</p>
-			<label>Hall Number:</label><p id="movie-hall">{{hnumber}}</p>
-			<label>Start Time:</label><p id="movie-stime">{{stime}}</p>
-			<label>Ticket Price:</label><p id="movie-price">{{tprice}}</p>	
-		</div>
+		<h2 class = "content-head is-center">Your Movie Details</h2>
+		<hr>
 		
-		<p></p>
-		<div class="second-panel">
-			<h3>How many seats do you need?</h3>
-			<select id="QtyDropDown">
-				<option value="1">1 seat</option>
-				<option value="2">2 seats</option>
-				<option value="3">3 seats</option>
-				<option value="4">4 seats</option>
-				<option value="5">5 seats</option>
-			</select>
+		<h4>Title:</h4><p id="movie-title">{{title}}</p>
+		<h4>Released in: </h4><p id="ryear">{{ryear}}</p>
+		<h4>Hall Number:</h4><p id="movie-hall">{{hnumber}}</p>
+		<h4>Start Time:</h4><p id="movie-stime">{{stime}}</p>
+		<h4>Ticket Price:</h4><p id="movie-price">{{tprice}}</p>	
+		
+		<h2 class = "content-head is-center">Bundling Options</h2>
+		<hr>
+		<h4>How many seats do you need?</h4>
+		<select id="QtyDropDown">
+			<option type="radio" name="seat" value="1">1 seat</option>
+			<option type="radio" name="seat" value="2">2 seats</option>
+			<option type="radio" name="seat" value="3">3 seats</option>
+			<option type="radio" name="seat" value="4">4 seats</option>
+			<option type="radio" name="seat" value="5">5 seats</option>
+		</select>
 	
-			<h3>Choose a snack to enjoy with your movie.</h3>
-			<select id="FoodChoice">
-				<option type="radio" name="food" value="Popcorn">Popcorn<br>
-				<option type="radio" name="food" value="Pretzels">Pretzels<br>
-				<option type="radio" name="food" value="Corndogs" >Corndogs<br>
-				<option type="radio" name="food" value="Poutine" >Poutine<br>
-				<option type="radio" name="food" value= "Nachos" >Nachos<br>
-			</select>
-		</div>
+		<h4>Choose a snack to enjoy with your movie.</h4>
+		<select id="FoodChoice">
+			<option type="radio" name="food" value="Popcorn">Popcorn</option>
+			<option type="radio" name="food" value="Pretzels">Pretzels</option>
+			<option type="radio" name="food" value="Corndogs">Corndogs</option>
+			<option type="radio" name="food" value="Poutine">Poutine</option>
+			<option type="radio" name="food" value="Nachos">Nachos</option>
+		</select>
 		
-		<p></p>
 		{% if accType|lower == "customer" %}
-		<div>
+		<div><p>
 			<button id="btnSubmit" class="pure-button pure-button-primary" type="button">Purchase!</button>
 			<button id="cancelSubmit" class="pure-button pure-button-primary" type="button">Back to Showtimes</button>
-		</div>
+		</p></div>
 
 		{% else %}
 		<div>
@@ -92,12 +84,12 @@
 				},
 				
 				success: function () {
-					alert("You have successfully purchased " + dropDown + " seat(s) and a " + $("#FoodChoice").val());
+					alert("You have successfully purchased " + dropDown + " seat(s) with " + $("#FoodChoice").val());
 					window.location.replace("/account");
 				},
 
 				error: function() {
-					alert("Whoops! Something went wrong, please try again.");
+					alert("Please try again.");
 				}
 			});
 
